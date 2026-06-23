@@ -20,18 +20,21 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 /* =========================================
    STICKY HEADER
    ========================================= */
-const header = $('#site-header');
+document.addEventListener("DOMContentLoaded", () => {
+  const header = $('#site-header');
+  const navLinks = $$('.nav-link');
 
-function updateHeader() {
-  if (!header) return;
-  if (window.scrollY > 20) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
+  if (!header || navLinks.length === 0) return;
+
+  function updateHeader() {
+    const scrolled = window.scrollY > 20;
+    header.classList.toggle('scrolled', scrolled);
+    navLinks.forEach(link => link.classList.toggle('scrolled', scrolled));
   }
-}
-window.addEventListener('scroll', updateHeader, { passive: true });
-updateHeader();
+
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+});
 
 /* =========================================
    MOBILE NAV TOGGLE

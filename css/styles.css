@@ -6,25 +6,30 @@
 
 /* ---- TOKENS ---- */
 :root {
-  --bg-base:       #0D1A0F;
-  --bg-surface:    #131F15;
-  --bg-card:       #1A2B1C;
-  --bg-elevated:   #223325;
+--bg-base:        #0B160D;   /* deep forest */
+--bg-surface:     #112015;   /* +8 lightness */
+--bg-card:        #18291C;   /* +16 lightness */
+--bg-elevated:    #1F3324;   /* +24 lightness */
 
-  --green-deep:    #275a2f;
-  --green-mid:     #357a3b;
-  --accent:        #39B54A;
-  --accent-dim:    #2ab83d;
-  --accent-glow:   rgba(168, 230, 61, 0.15);
-  --accent-secondary: #499253;
+/* === BRAND GREENS (harmonized hue + saturation) === */
+--green-deep:     #1F4F2A;   /* rich pine */
+--green-mid:      #2F6F39;   /* balanced mid-tone */
+--accent:         #3ECF57;   /* primary brand green */
+--accent-dim:     #34B84C;   /* darker accent */
+--accent-secondary:#4CA463;  /* supporting green */
+--accent-glow:    rgba(62, 207, 87, 0.16);
 
-  --text-bg-deep: #09271c;
-  --text-primary:  #F0EBD8;
-  --text-secondary:#bbcabc;
-  --text-muted:    #4a5a4b;
-  --text-on-accent:#0D1A0F;
+/* === TEXT SYSTEM (WCAG tuned) === */
+--text-bg-deep:   #071F14;
+--text-primary:   #F2FFF7;   /* soft white with green tint */
+--text-secondary: #B9CBBE;
+--text-muted:     #506255;
+--text-on-accent: #0B160D;
 
-  --background-lite: #FAF5D2;
+--hero-text-muted: #a2b6a7;
+
+/* === LIGHT MODE SUPPORT === */
+--background-lite:#f8fffb8f;
 
   --border:        rgba(168, 230, 61, 0.12);
   --border-subtle: rgba(255,255,255,0.06);
@@ -89,7 +94,7 @@ input, select, textarea { font-family: inherit; }
 }
 .btn-primary {
   border-color: var(--accent);
-  color: var(--text-bg-deep);
+  color: var(--accent);
 }
 .btn-primary:hover {
   box-shadow: var(--shadow-glow);
@@ -98,12 +103,12 @@ input, select, textarea { font-family: inherit; }
 }
 .btn-ghost {
   background: transparent;
-  color: var(--text-bg-deep);
+  color: var(--accent);
   border: 1px solid var(--border);
 }
 .btn-ghost:hover {
   border-color: var(--accent);
-  color: var(--text-bg-deep);
+  color: var(--accent);
 }
 .btn-full { width: 100%; }
 
@@ -164,7 +169,7 @@ input, select, textarea { font-family: inherit; }
 }
 .site-header.scrolled {
   background: var(--background-lite);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border-subtle);
 }
 .nav-container {
@@ -197,9 +202,12 @@ input, select, textarea { font-family: inherit; }
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.04em;
-  color: var(--text-bg-deep);
+  color: var(--accent);
   border-radius: var(--radius-sm);
   transition: var(--transition);
+}
+.nav-link.scrolled {
+  color: var(--text-bg-deep);
 }
 .nav-link:hover { color: var(--accent); background: var(--border-subtle); }
 .nav-cta {
@@ -245,7 +253,11 @@ input, select, textarea { font-family: inherit; }
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-color: var(--background-lite);
+  background-image: url("../images/rainforest-dark.jpeg");
+  background-size: cover;
+  background-position-x: center;
+  background-blend-mode: overlay;
+  background-color: rgba(34, 36, 35, 0.89);
 }
 
 /* Scale grid — the signature element */
@@ -317,7 +329,7 @@ input, select, textarea { font-family: inherit; }
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.05em;
-  color: var(--text-muted);
+  color: var(--hero-text-muted);
   text-transform: uppercase;
 }
 .hero-species .dot { color: var(--accent); }
