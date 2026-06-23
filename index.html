@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calvary Exotics — Rare Reptiles & Exotic Creatures</title>
+  <meta name="description" content="Calvary Exotics specializes in crested geckos, viper geckos, ball pythons, isopods, and more. Premium exotic animals raised with care." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ========== NAVIGATION ========== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <img id="logo-header" src="logo.svg" alt="CALVARY EXOTICS">
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#gallery" class="nav-link">Animals</a></li>
+        <li><a href="#reviews" class="nav-link">Reviews</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="#contact" class="nav-cta">Inquire Now</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+      <div class="hero-bg">
+      </div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">Premium Exotic Animals</p>
+        <img id="logo-hero" src="hero.svg" alt="CALVARY EXOTICS">
+        <p class="hero-tagline">Rare reptiles. Remarkable creatures. Raised with intention.</p>
+        <div class="hero-species">
+          <span>Crested Geckos</span>
+          <span class="dot">·</span>
+          <span>Viper Geckos</span>
+          <span class="dot">·</span>
+          <span>Ball Pythons</span>
+          <span class="dot">·</span>
+          <span>Isopods</span>
+          <span class="dot">·</span>
+          <span>& More</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#gallery" class="btn btn-primary">View Animals</a>
+          <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+        </div>
+      </div>
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-label">Scroll</span>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="section-label">
+          <span class="label-line"></span>
+          <span class="label-text">Who We Are</span>
+        </div>
+        <div class="about-grid">
+          <div class="about-text">
+            <h2 class="section-title">Passionate about exotics. Committed to quality.</h2>
+            <p class="about-body">Calvary Exotics was founded by hobbyists who grew into dedicated breeders with one goal: produce healthy, well-socialized exotic animals that thrive in their new homes. Every animal in our collection is raised with meticulous care, proper husbandry, and genuine love for the craft.</p>
+            <p class="about-body">We specialize in crested geckos, viper geckos, ball pythons, bioactive isopods, and a rotating selection of rare species. Whether you're a first-time keeper or a seasoned collector, we take the time to match you with the right animal and give you the knowledge to succeed.</p>
+            <div class="about-stats">
+              <div class="stat">
+                <span class="stat-number">100<span class="stat-plus">+</span></span>
+                <span class="stat-label">Animals Rehomed</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">5<span class="stat-plus">+</span></span>
+                <span class="stat-label">Years Breeding</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">10<span class="stat-plus">+</span></span>
+                <span class="stat-label">Species Available</span>
+              </div>
+            </div>
+          </div>
+          <div class="about-visual">
+            <div class="about-img-placeholder">
+              <!-- Replace with: <img src="images/about.jpg" alt="Calvary Exotics breeder with a crested gecko" /> -->
+              <div class="img-placeholder-inner">
+                <span class="placeholder-icon">🦎</span>
+                <span class="placeholder-text">Your photo here</span>
+              </div>
+            </div>
+            <div class="about-badge">
+              <span class="badge-icon">✦</span>
+              <span class="badge-text">Ethically Bred</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== GALLERY / ANIMAL SLIDESHOW ========== -->
+    <section class="gallery" id="gallery">
+      <div class="container">
+        <div class="section-label">
+          <span class="label-line"></span>
+          <span class="label-text">Available Animals</span>
+        </div>
+        <h2 class="section-title">Find your perfect exotic.</h2>
+        <p class="section-sub">Browse our current collection. Pricing listed per animal. Contact us for availability and to reserve.</p>
+      </div>
+
+      <div class="slideshow-wrapper">
+        <!-- Prev / Next Controls -->
+        <button class="slide-arrow slide-arrow--prev" id="slide-prev" aria-label="Previous animal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="slide-arrow slide-arrow--next" id="slide-next" aria-label="Next animal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+
+        <!-- Slides -->
+        <div class="slides-track" id="slides-track">
+
+          <article class="slide active" data-index="0">
+            <div class="slide-img-wrap">
+              <!-- Replace src with your actual image -->
+              <div class="slide-img-placeholder">
+                <span class="slide-placeholder-emoji">🦎</span>
+              </div>
+              <!-- <img src="images/crested-gecko.jpg" alt="Crested Gecko" class="slide-img" /> -->
+            </div>
+            <div class="slide-info">
+              <span class="slide-category">Gecko</span>
+              <h3 class="slide-name">Crested Gecko</h3>
+              <p class="slide-scientific">Correlophus ciliatus</p>
+              <p class="slide-desc">One of the most popular and beginner-friendly lizards. Our crested geckos are captive bred, handleable, and come in a range of stunning morphs including harlequin, flame, pinstripe, and dalmatian.</p>
+              <div class="slide-meta">
+                <div class="slide-price">
+                  <span class="price-label">Starting at</span>
+                  <span class="price-value">$75</span>
+                </div>
+                <div class="slide-tags">
+                  <span class="tag">Beginner Friendly</span>
+                  <span class="tag">Captive Bred</span>
+                </div>
+              </div>
+              <a href="#contact" class="btn btn-primary slide-btn">Inquire About This Animal</a>
+            </div>
+          </article>
+
+          <article class="slide" data-index="1">
+            <div class="slide-img-wrap">
+              <div class="slide-img-placeholder">
+                <span class="slide-placeholder-emoji">🦎</span>
+              </div>
+            </div>
+            <div class="slide-info">
+              <span class="slide-category">Gecko</span>
+              <h3 class="slide-name">Viper Gecko</h3>
+              <p class="slide-scientific">Teratolepis fasciata</p>
+              <p class="slide-desc">Tiny, prehistoric-looking, and absolutely captivating. Viper geckos are a rare find that make stunning display animals. Their textured skin and alert eyes make them unlike anything else in the hobby.</p>
+              <div class="slide-meta">
+                <div class="slide-price">
+                  <span class="price-label">Starting at</span>
+                  <span class="price-value">$60</span>
+                </div>
+                <div class="slide-tags">
+                  <span class="tag">Rare Find</span>
+                  <span class="tag">Captive Bred</span>
+                </div>
+              </div>
+              <a href="#contact" class="btn btn-primary slide-btn">Inquire About This Animal</a>
+            </div>
+          </article>
+
+          <article class="slide" data-index="2">
+            <div class="slide-img-wrap">
+              <div class="slide-img-placeholder">
+                <span class="slide-placeholder-emoji">🐍</span>
+              </div>
+            </div>
+            <div class="slide-info">
+              <span class="slide-category">Python</span>
+              <h3 class="slide-name">Ball Python</h3>
+              <p class="slide-scientific">Python regius</p>
+              <p class="slide-desc">The king of the morph world. Our ball pythons are produced from quality genetics with an emphasis on health and temperament. We carry normals, pastels, pieds, clowns, and other stunning combinations.</p>
+              <div class="slide-meta">
+                <div class="slide-price">
+                  <span class="price-label">Starting at</span>
+                  <span class="price-value">$100</span>
+                </div>
+                <div class="slide-tags">
+                  <span class="tag">Multiple Morphs</span>
+                  <span class="tag">Captive Bred</span>
+                </div>
+              </div>
+              <a href="#contact" class="btn btn-primary slide-btn">Inquire About This Animal</a>
+            </div>
+          </article>
+
+          <article class="slide" data-index="3">
+            <div class="slide-img-wrap">
+              <div class="slide-img-placeholder">
+                <span class="slide-placeholder-emoji">🪲</span>
+              </div>
+            </div>
+            <div class="slide-info">
+              <span class="slide-category">Clean-Up Crew</span>
+              <h3 class="slide-name">Isopods</h3>
+              <p class="slide-scientific">Various species</p>
+              <p class="slide-desc">The backbone of any bioactive setup. We carry several isopod species including Powder Blue, Powder Orange, Dairy Cow, and Rubber Ducky isopods — perfect for terrariums and vivaria of all sizes.</p>
+              <div class="slide-meta">
+                <div class="slide-price">
+                  <span class="price-label">Starting at</span>
+                  <span class="price-value">$20</span>
+                </div>
+                <div class="slide-tags">
+                  <span class="tag">Bioactive</span>
+                  <span class="tag">Multiple Species</span>
+                </div>
+              </div>
+              <a href="#contact" class="btn btn-primary slide-btn">Inquire About This Animal</a>
+            </div>
+          </article>
+
+          <article class="slide" data-index="4">
+            <div class="slide-img-wrap">
+              <div class="slide-img-placeholder">
+                <span class="slide-placeholder-emoji">✨</span>
+              </div>
+            </div>
+            <div class="slide-info">
+              <span class="slide-category">Rotating Stock</span>
+              <h3 class="slide-name">Seasonal & Rare Species</h3>
+              <p class="slide-scientific">Various species</p>
+              <p class="slide-desc">We frequently acquire and breed additional exotic species throughout the year. Past offerings have included various dart frogs, day geckos, tarantulas, and more. Follow us or reach out to see what's currently available.</p>
+              <div class="slide-meta">
+                <div class="slide-price">
+                  <span class="price-label">Pricing</span>
+                  <span class="price-value">Varies</span>
+                </div>
+                <div class="slide-tags">
+                  <span class="tag">Limited Availability</span>
+                  <span class="tag">Ask Us</span>
+                </div>
+              </div>
+              <a href="#contact" class="btn btn-primary slide-btn">Ask About Current Stock</a>
+            </div>
+          </article>
+
+        </div><!-- /.slides-track -->
+
+        <!-- Dot Indicators -->
+        <div class="slide-dots" id="slide-dots" role="tablist" aria-label="Animal slides">
+          <button class="dot-btn active" role="tab" aria-selected="true" data-slide="0" aria-label="Slide 1"></button>
+          <button class="dot-btn" role="tab" aria-selected="false" data-slide="1" aria-label="Slide 2"></button>
+          <button class="dot-btn" role="tab" aria-selected="false" data-slide="2" aria-label="Slide 3"></button>
+          <button class="dot-btn" role="tab" aria-selected="false" data-slide="3" aria-label="Slide 4"></button>
+          <button class="dot-btn" role="tab" aria-selected="false" data-slide="4" aria-label="Slide 5"></button>
+        </div>
+
+      </div><!-- /.slideshow-wrapper -->
+    </section>
+
+    <!-- ========== REVIEWS ========== -->
+    <section class="reviews" id="reviews">
+      <div class="container">
+        <div class="section-label">
+          <span class="label-line"></span>
+          <span class="label-text">Customer Reviews</span>
+        </div>
+        <h2 class="section-title">What our community says.</h2>
+
+        <div class="reviews-grid">
+
+          <article class="review-card">
+            <div class="review-stars" aria-label="5 out of 5 stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <blockquote class="review-text">
+              "My crested gecko from Calvary Exotics arrived healthy, alert, and already eating within 24 hours. The care sheet they included was the most thorough I've ever received. These folks really know their animals."
+            </blockquote>
+            <div class="review-author">
+              <span class="author-name">Sarah M.</span>
+              <span class="author-detail">Crested Gecko Owner</span>
+            </div>
+          </article>
+
+          <article class="review-card review-card--featured">
+            <div class="review-stars" aria-label="5 out of 5 stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <blockquote class="review-text">
+              "I've bought from several breeders over the years and Calvary Exotics is at the top of my list. My ball python is absolutely stunning — perfect scales, great feeding response, and the genetics are exactly what was advertised."
+            </blockquote>
+            <div class="review-author">
+              <span class="author-name">Jake T.</span>
+              <span class="author-detail">Ball Python Collector</span>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-label="5 out of 5 stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <blockquote class="review-text">
+              "Got a colony of powder blue isopods and they've thrived in my bioactive setup. Calvary was super helpful in answering my setup questions even after purchase. Highly recommend for anyone going bioactive!"
+            </blockquote>
+            <div class="review-author">
+              <span class="author-name">Priya K.</span>
+              <span class="author-detail">Bioactive Enthusiast</span>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-label="5 out of 5 stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <blockquote class="review-text">
+              "As a first-time reptile owner I was nervous, but Calvary Exotics made the process so easy. They answered every question patiently and helped me pick the right animal. My viper gecko is incredible."
+            </blockquote>
+            <div class="review-author">
+              <span class="author-name">Marcus D.</span>
+              <span class="author-detail">First-Time Keeper</span>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-label="5 out of 5 stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <blockquote class="review-text">
+              "The quality difference is immediately obvious. Every animal I've gotten from Calvary has been well-fed, parasite-free, and clearly handled from a young age. Worth every penny."
+            </blockquote>
+            <div class="review-author">
+              <span class="author-name">Danielle R.</span>
+              <span class="author-detail">Reptile Hobbyist</span>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-label="5 out of 5 stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <blockquote class="review-text">
+              "Fast response times, honest communication, and an absolute passion for exotics that shines through every interaction. Calvary Exotics is the real deal — a breeder you can actually trust."
+            </blockquote>
+            <div class="review-author">
+              <span class="author-name">Tom W.</span>
+              <span class="author-detail">Long-Time Customer</span>
+            </div>
+          </article>
+
+        </div><!-- /.reviews-grid -->
+
+        <div class="reviews-cta">
+          <p>Have an animal from us? We'd love to hear about it.</p>
+          <a href="#contact" class="btn btn-ghost">Leave a Review</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="section-label">
+          <span class="label-line"></span>
+          <span class="label-text">Get In Touch</span>
+        </div>
+        <div class="contact-grid">
+
+          <div class="contact-info">
+            <h2 class="section-title">Ready to find your new exotic?</h2>
+            <p class="contact-desc">Reach out with questions about availability, pricing, care, or anything else. We respond to all inquiries within 24 hours.</p>
+
+            <div class="contact-channels">
+              <div class="channel">
+                <span class="channel-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </span>
+                <div>
+                  <span class="channel-label">Email</span>
+                  <!-- Replace with your real email -->
+                  <a href="mailto:hello@calvaryexotics.com" class="channel-value">hello@calvaryexotics.com</a>
+                </div>
+              </div>
+              <div class="channel">
+                <span class="channel-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                </span>
+                <div>
+                  <span class="channel-label">Instagram</span>
+                  <!-- Replace with your handle -->
+                  <a href="https://instagram.com/calvaryexotics" target="_blank" rel="noopener" class="channel-value">@calvaryexotics</a>
+                </div>
+              </div>
+              <div class="channel">
+                <span class="channel-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </span>
+                <div>
+                  <span class="channel-label">Phone / Text</span>
+                  <!-- Replace with your real number -->
+                  <a href="tel:+15550000000" class="channel-value">(555) 000-0000</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="response-badge">
+              <span class="response-dot"></span>
+              <span>Typically responds within 24 hours</span>
+            </div>
+          </div>
+
+          <div class="contact-form-wrap">
+            <form class="contact-form" id="contact-form" novalidate>
+              <div class="form-group">
+                <label for="contact-name" class="form-label">Your Name</label>
+                <input type="text" id="contact-name" name="name" class="form-input" placeholder="Jane Smith" required />
+              </div>
+              <div class="form-group">
+                <label for="contact-email" class="form-label">Email Address</label>
+                <input type="email" id="contact-email" name="email" class="form-input" placeholder="jane@example.com" required />
+              </div>
+              <div class="form-group">
+                <label for="contact-animal" class="form-label">Interested In</label>
+                <select id="contact-animal" name="animal" class="form-input form-select">
+                  <option value="">Select an animal...</option>
+                  <option value="crested-gecko">Crested Gecko</option>
+                  <option value="viper-gecko">Viper Gecko</option>
+                  <option value="ball-python">Ball Python</option>
+                  <option value="isopods">Isopods</option>
+                  <option value="other">Other / Not Sure</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="contact-message" class="form-label">Message</label>
+                <textarea id="contact-message" name="message" class="form-input form-textarea" placeholder="Tell us what you're looking for, any specific morphs, budget, experience level..." rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full" id="form-submit">
+                <span id="submit-text">Send Message</span>
+                <span id="submit-loading" hidden>Sending...</span>
+              </button>
+              <p class="form-note">We respect your privacy and never share your information.</p>
+              <div class="form-feedback" id="form-feedback" hidden></div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-mark">✦</span>
+        <span class="logo-text">Calvary Exotics</span>
+      </div>
+      <p class="footer-tagline">Premium exotic animals. Raised with care.</p>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#about">About</a>
+        <a href="#gallery">Animals</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <p class="footer-copy">&copy; <span id="footer-year"></span> Calvary Exotics. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+</body>
+</html>
