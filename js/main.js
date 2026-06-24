@@ -20,8 +20,10 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 /* =========================================
    STICKY HEADER
    ========================================= */
-document.addEventListener("DOMContentLoaded", () => {
+   
   const header = $('#site-header');
+  
+document.addEventListener("DOMContentLoaded", () => {
   const navLinks = $$('.nav-link');
 
   if (!header || navLinks.length === 0) return;
