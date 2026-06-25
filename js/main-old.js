@@ -22,7 +22,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
    ========================================= */
    
   const header = $('#site-header');
-
+  
 document.addEventListener("DOMContentLoaded", () => {
   const navLinks = $$('.nav-link');
 
@@ -207,22 +207,38 @@ if (navToggle && navLinks) {
     if (feedback) feedback.setAttribute('hidden', '');
 
     try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' },
-      });
+      /**
+       * TODO: Replace this block with your actual form submission.
+       *
+       * Option A — Formspree (free tier):
+       *   1. Sign up at https://formspree.io
+       *   2. Create a new form and copy your endpoint
+       *   3. Replace the fetch URL below with your endpoint
+       *
+       * Option B — EmailJS:
+       *   Use emailjs.send() with your service/template IDs.
+       *
+       * Option C — Your own backend:
+       *   POST to your API route.
+       */
 
-      if (response.ok) {
-        form.reset();
-        showFeedback('✓ Message sent! We\'ll be in touch soon.', 'success');
-      } else {
-        throw new Error('Server error');
-      }
+      // ---- SIMULATED SUBMISSION (remove when wiring up real endpoint) ----
+      await new Promise(resolve => setTimeout(resolve, 1200));
+      // ---- END SIMULATION ----
+
+      // Example real submission with Formspree:
+      // const res = await fetch('https://formspree.io/f/YOUR_ID', {
+      //   method: 'POST',
+      //   body: data,
+      //   headers: { 'Accept': 'application/json' }
+      // });
+      // if (!res.ok) throw new Error('Server error');
+
+      form.reset();
+      showFeedback('✓ Message sent! We\'ll be in touch within 24 hours.', 'success');
     } catch (err) {
       console.error('Form submission error:', err);
       showFeedback('Something went wrong. Please try emailing us directly.', 'error');
-      setLoading(false);
     } finally {
       setLoading(false);
     }

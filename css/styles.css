@@ -197,6 +197,18 @@ input, select, textarea { font-family: inherit; }
   align-items: center;
   gap: 4px;
 }
+.nav-links.open{
+  height: 350px;
+  justify-content: flex-start;
+  padding-top: 24px;
+  background-color: var(--bg-base);
+}
+.nav-links.open li{
+  height: 60px;
+}
+.nav-links.open .nav-link{
+  color: var(--accent);
+}
 .nav-link {
   padding: 8px 14px;
   font-size: 0.85rem;
