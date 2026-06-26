@@ -86,7 +86,7 @@ if (navToggle && navLinks) {
   const dots      = $$('.dot-btn', dotsWrap);
   let current     = 0;
   let autoTimer   = null;
-  const AUTO_MS   = 5000;
+  const AUTO_MS   = 15000;
 
   function goTo(index) {
     // Wrap index
