@@ -211,17 +211,24 @@ input, select, textarea { font-family: inherit; }
 }
 .nav-link {
   padding: 8px 14px;
+  font-family: var(--font-mono);
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight:lighter;
   letter-spacing: 0.04em;
   color: var(--accent);
   border-radius: var(--radius-sm);
   transition: var(--transition);
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
 }
 .nav-link.scrolled {
   color: var(--text-bg-deep);
 }
-.nav-link:hover { color: var(--accent); background: var(--border-subtle); }
+.nav-link:hover { 
+  color: var(--accent); 
+  background: var(--border-subtle); 
+  border-bottom-color: var(--accent); 
+}
 .nav-cta {
   margin-left: 12px;
   padding: 10px 22px;
@@ -939,7 +946,7 @@ input, select, textarea { font-family: inherit; }
     gap: 8px;
     z-index: 99;
   }
-  .nav-links.open { display: flex; }
+  .nav-links.open { display: inline;}
   .nav-link { font-size: 1.1rem; padding: 14px 24px; }
   .nav-cta { font-size: 1rem; padding: 14px 32px; margin: 8px 0; }
 

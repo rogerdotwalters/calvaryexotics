@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Viper Gecko Care Sheet — Calvary Exotics</title>
+  <meta name="description" content="Complete Viper Gecko care guide from Calvary Exotics. Tank setup, lighting, diet, temperature, humidity, and common issues." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    :root {
+      --bg-base:        #0B160D;
+      --bg-surface:     #112015;
+      --bg-card:        #18291C;
+      --bg-elevated:    #1F3324;
+      --green-deep:     #1F4F2A;
+      --green-mid:      #2F6F39;
+      --accent:         #3ECF57;
+      --accent-dim:     #34B84C;
+      --accent-glow:    rgba(62, 207, 87, 0.16);
+      --gold:           #c9a84c;
+      --gold-dim:       #a07c2e;
+      --text-primary:   #F2FFF7;
+      --text-secondary: #B9CBBE;
+      --text-muted:     #506255;
+      --text-on-accent: #0B160D;
+      --border:         rgba(168, 230, 61, 0.12);
+      --border-subtle:  rgba(255,255,255,0.06);
+      --font-display:   'Cinzel', Georgia, serif;
+      --font-body:      'Inter', system-ui, sans-serif;
+      --font-mono:      'JetBrains Mono', monospace;
+      --radius-sm:  4px;
+      --radius-md:  10px;
+      --radius-lg:  18px;
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.3);
+      --shadow-glow: 0 0 40px rgba(127, 179, 38, 0.18);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      position: relative;
+      min-height: 72vh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+      padding-bottom: 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-color: #112015;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: url("images/viper_main.JPG");
+      background-size: cover;
+      background-position: center 70%;
+      background-repeat: no-repeat;
+      opacity: 0.50;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding-top: 140px;
+      padding-left: 24px;
+      padding-right: 24px;
+      max-width: 780px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.6;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 9vw, 6.5rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+      font-weight: 300;
+      margin-bottom: 36px;
+    }
+    .hero-scroll {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 10px 20px;
+      border: 1px solid var(--accent);
+      border-radius: 100px;
+      transition: var(--transition);
+    }
+    .hero-scroll:hover { border-color: var(--border); color: var(--accent); }
+    .hero-scroll svg { width: 14px; height: 14px; animation: bounce 2s ease-in-out infinite; }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(3px); }
+    }
+
+    /* ---- ANCHOR NAV ---- */
+    .anchor-nav {
+      position: sticky;
+      top: 68px;
+      z-index: 90;
+      background: rgba(17,32,21,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .anchor-nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .anchor-nav-inner::-webkit-scrollbar { display: none; }
+    .anchor-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 16px;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .anchor-link:hover, .anchor-link.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .anchor-link .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.5;
+    }
+
+    /* ---- SECTION ANATOMY ---- */
+    .section {
+      padding: 96px 0;
+    }
+    .section + .section {
+      border-top: 1px solid var(--border-subtle);
+    }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .label-line {
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+    }
+    .label-text {
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.12;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 620px;
+      line-height: 1.75;
+      margin-bottom: 48px;
+    }
+
+    /* ---- CHECKLIST SECTION ---- */
+    #checklist {
+      background: linear-gradient(135deg, rgba(31,51,36,0.6) 0%, rgba(11,22,13,0.4) 100%);
+      border-top: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .check-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      cursor: pointer;
+      transition: var(--transition);
+      user-select: none;
+    }
+    .check-card:hover {
+      border-color: var(--border);
+      background: var(--bg-elevated);
+      transform: translateY(-1px);
+    }
+    .check-card.checked {
+      border-color: rgba(62,207,87,0.35);
+      background: rgba(62,207,87,0.06);
+    }
+    .check-box {
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      border-radius: 6px;
+      border: 1.5px solid var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      background: transparent;
+    }
+    .check-card.checked .check-box {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+    .check-box svg {
+      width: 13px;
+      height: 13px;
+      color: var(--text-on-accent);
+      opacity: 0;
+      transform: scale(0.6);
+      transition: var(--transition);
+    }
+    .check-card.checked .check-box svg {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .check-label {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color var(--transition);
+      line-height: 1.3;
+    }
+    .check-card.checked .check-label {
+      color: var(--text-primary);
+    }
+    .check-sub {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+    }
+    .checklist-note {
+      margin-top: 24px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .checklist-note::before {
+      content: '';
+      display: block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent);
+      flex-shrink: 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ---- PHOTO CARD ---- */
+    .photo-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow-card);
+    }
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .photo-card:hover img { transform: scale(1.03); }
+    .photo-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px 22px 16px;
+      background: linear-gradient(transparent, rgba(11,22,13,0.85));
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    /* ---- CONTENT GRID ---- */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .content-grid.reversed .text-col { order: 2; }
+    .content-grid.reversed .media-col { order: 1; }
+
+    .media-col { position: relative; }
+    .text-col { padding-top: 4px; }
+
+    /* ---- INFO BLOCKS ---- */
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .info-item {
+      display: flex;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+    .info-item:hover {
+      border-color: var(--border);
+      transform: translateX(2px);
+    }
+    .info-icon {
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      border-radius: 8px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+    .info-icon svg { width: 18px; height: 18px; }
+    .info-body { display: flex; flex-direction: column; gap: 2px; }
+    .info-label {
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .info-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    /* ---- SPECIES TRAITS (pill tags) ---- */
+    .trait-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .trait-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.08em;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      background: var(--bg-card);
+    }
+    .trait-tag .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .trait-tag.accent-tag {
+      border-color: rgba(62,207,87,0.3);
+      color: var(--accent);
+      background: rgba(62,207,87,0.06);
+    }
+
+    /* ---- STAT CARDS ---- */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px 16px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .stat-card:hover {
+      border-color: var(--border);
+      transform: translateY(-2px);
+    }
+    .stat-val {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ---- TEMP GRADIENT VIZ ---- */
+    .temp-bar {
+      width: 100%;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(
+        90deg,
+        #6fc3f7 0%,
+        #a5d6a7 28%,
+        #ffe082 55%,
+        #ff8a65 78%,
+        #d32f2f 100%
+      );
+      position: relative;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.3);
+    }
+    .temp-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .temp-label-cool { color: #6fc3f7; }
+    .temp-label-hot  { color: #ff8a65; }
+
+    /* ---- DIET GRID ---- */
+    .diet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .diet-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .diet-item:hover {
+      border-color: var(--border);
+      transform: translateY(-2px);
+      background: var(--bg-elevated);
+    }
+    .diet-item.preferred { border-color: rgba(62,207,87,0.25); }
+    .diet-item.limited  { border-color: rgba(255,152,0,0.2); }
+    .diet-badge {
+      font-size: 0.58rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 100px;
+      width: fit-content;
+    }
+    .diet-badge.preferred { background: rgba(62,207,87,0.12); color: var(--accent); }
+    .diet-badge.limited   { background: rgba(255,152,0,0.12); color: #ffa726; }
+    .diet-badge.avoid     { background: rgba(220,50,50,0.1); color: #f87171; }
+    .diet-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .diet-note {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ---- ISSUE CARDS ---- */
+    .issues-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .issue-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: var(--transition);
+    }
+    .issue-card:hover {
+      border-color: var(--border);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+    .issue-severity {
+      font-size: 0.58rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 100px;
+      width: fit-content;
+    }
+    .issue-severity.monitor { background: rgba(62,207,87,0.1); color: var(--accent); }
+    .issue-severity.caution { background: rgba(255,152,0,0.1); color: #ffa726; }
+    .issue-severity.urgent  { background: rgba(220,50,50,0.1); color: #f87171; }
+    .issue-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-family: var(--font-display);
+      letter-spacing: 0.02em;
+    }
+    .issue-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .issue-fix {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .issue-fix::before { content: '→  Fix: '; color: var(--text-muted); }
+
+    /* ---- HUMIDITY ZONES ---- */
+    .humidity-zones {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .hz-row {
+      display: grid;
+      grid-template-columns: 140px 1fr auto;
+      align-items: center;
+      gap: 14px;
+    }
+    .hz-label {
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+    }
+    .hz-bar-track {
+      height: 8px;
+      border-radius: 100px;
+      background: var(--bg-elevated);
+      overflow: hidden;
+    }
+    .hz-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+      transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .hz-pct {
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    /* ---- TANK SPEC CHIPS ---- */
+    .tank-spec {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .spec-chip {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 12px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      min-width: 100px;
+    }
+    .spec-chip-label {
+      font-size: 0.6rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .spec-chip-val {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ---- LIGHTING ROW ---- */
+    .light-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .light-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: var(--transition);
+    }
+    .light-card:hover {
+      border-color: var(--border);
+      transform: translateY(-2px);
+    }
+    .light-card-label {
+      font-size: 0.62rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .light-card-product {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .light-card-note {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .light-card-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 4px;
+    }
+    .light-card-icon svg { width: 18px; height: 18px; }
+    .uvb-card .light-card-icon { background: rgba(180,130,255,0.12); color: #c084fc; }
+    .heat-card .light-card-icon { background: rgba(255,152,0,0.12); color: #ffa726; }
+
+    /* ---- RICH TEXT ---- */
+    .rich p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .rich p:last-child { margin-bottom: 0; }
+    .rich strong { color: var(--text-primary); font-weight: 600; }
+
+    /* ---- FOOTER ---- */
+    .site-footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      padding: 44px 0;
+      text-align: center;
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.08em;
+    }
+    .footer-copy a { color: var(--accent); }
+    .footer-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+      padding: 9px 18px;
+      border-radius: 100px;
+      transition: var(--transition);
+    }
+    .footer-back:hover { color: var(--accent); border-color: var(--border); }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: fixed;
+        inset: 68px 0 0 0;
+        background: rgba(11,22,13,0.97);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        z-index: 99;
+      }
+      .nav-links.open { display: flex; }
+      .nav-link { font-size: 1rem; padding: 12px 24px; }
+      .anchor-nav {
+        position:static;
+      }
+      .anchor-nav-inner {
+        display: inline;
+      }
+      .anchor-link {
+        display:block;
+      }
+      .section { padding: 64px 0; }
+      .content-grid { grid-template-columns: 1fr; gap: 36px; }
+      .content-grid.reversed .text-col { order: 0; }
+      .content-grid.reversed .media-col { order: 0; }
+      .stat-row { grid-template-columns: repeat(3, 1fr); }
+      .light-cards { grid-template-columns: 1fr; }
+      .hz-row { grid-template-columns: 110px 1fr auto; }
+    }
+    @media (max-width: 480px) {
+      .stat-row { grid-template-columns: 1fr 1fr; }
+      .checklist-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+
+<header class="site-header" id="site-header">
+    <nav class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <img id="logo-header" src="logo.svg" alt="CALVARY EXOTICS">
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="#checklist" class="nav-link">Checklist</a></li>
+        <li><a href="#species" class="nav-link">Species</a></li>
+        <li><a href="#tank" class="nav-link">Tank</a></li>
+        <li><a href="#diet" class="nav-link">Diet</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Inquire Now</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-scales"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Calvary Exotics &mdash; Care Sheet</p>
+    <h1 class="hero-title">
+      Viper<br><em>Gecko</em>
+    </h1>
+    <p class="hero-subtitle"><em>Hemidactylus imbricatus</em> &mdash; Husbandry Guide</p>
+    <a href="#checklist" class="hero-scroll">
+      Begin setup
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- ============ ANCHOR NAV ============ -->
+<nav class="anchor-nav" aria-label="Page sections">
+  <div class="anchor-nav-inner">
+    <a href="#checklist" class="anchor-link"><span class="dot"></span>Checklist</a>
+    <a href="#species"   class="anchor-link"><span class="dot"></span>Species</a>
+    <a href="#tank"      class="anchor-link"><span class="dot"></span>Tank</a>
+    <a href="#lighting"  class="anchor-link"><span class="dot"></span>Lighting</a>
+    <a href="#temp"      class="anchor-link"><span class="dot"></span>Temperature</a>
+    <a href="#humidity"  class="anchor-link"><span class="dot"></span>Humidity</a>
+    <a href="#diet"      class="anchor-link"><span class="dot"></span>Diet</a>
+    <a href="#issues"    class="anchor-link"><span class="dot"></span>Issues</a>
+  </div>
+</nav>
+
+
+<!-- ============================================================
+     CHECKLIST
+     ============================================================ -->
+<section id="checklist" class="section" style="background:linear-gradient(135deg,rgba(31,51,36,0.55) 0%,rgba(11,22,13,0.35) 100%);">
+  <div class="container">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text">Before You Begin</span>
+    </div>
+    <h2 class="section-title">Needed Items Checklist</h2>
+    <p class="section-desc">Gather everything below before your gecko arrives. Tap each card to check it off as you go.</p>
+
+    <div class="checklist-grid" id="checklist-grid">
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="link-body">
+          <span class="check-label">Tank</span>
+          <span class="check-sub">20"L x 10"W</span>
+          <span class="check-sub" style="text-align: center;">--or--</span>
+          <span class="check-sub">30"L x 12"W</span>
+        </span>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="link-body">
+          <span class="check-label">Substrate</span>
+          <span class="check-sub">Sand, soil, moss &amp; leaf litter</span>
+        </span>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="link-body">
+          <span class="check-label">Background</span>
+          <span class="check-sub">Cork bark panel</span>
+          <span class="check-sub" style="text-align: center;">--or--</span>
+          <span class="check-sub">DIY background</span>
+        </span>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="link-body">
+          <span class="check-label">Feeder Dish</span>
+          <span class="check-sub">Escape-proof design</span>
+        </span>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="link-body">
+          <span class="check-label">Water Dish</span>
+          <span class="check-sub">Shallow, easy to exit</span>
+        </span>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="link-body">
+          <span class="check-label">Feeder Tongs</span>
+          <span class="check-sub">Feeding utensil</span>
+        </span>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="link-body">
+          <span class="check-label">Bark / Hides</span>
+          <span class="check-sub">Cork bark/bark pieces &amp; slabs</span>
+        </span>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="link-body">
+          <span class="check-label">UVB Lamp</span>
+          <span class="check-sub" style="text-align: center; font-weight: bold;">Arcadia</span>
+          <span class="check-sub">Shade Dweller</span>
+          <span class="check-sub" style="text-align: center;">--or--</span>
+          <span class="check-sub">Jungle Dawn</span>
+        </span>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="link-body">
+          <span class="check-label">Heat Lamp</span>
+          <span class="check-sub">Zoo Med 35W Nano Halogen</span>
+        </span>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="link-body">
+          <span class="check-label">Thermostat</span>
+          <span class="check-sub">For heat lamp control</span>
+        </span>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="link-body">
+          <span class="check-label">Spray Bottle</span>
+          <span class="check-sub">Fine-mist, for background</span>
+        </span>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="link-body">
+          <span class="check-label">Calcium Supplement</span>
+          <span class="check-sub">With or without D3</span>
+        </span>
+      </div>
+
+    </div>
+
+    <p class="checklist-note" id="checklist-progress">Tap a card to mark it as gathered</p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SPECIES SUMMARY
+     ============================================================ -->
+<section id="species" class="section">
+  <div class="container">
+    <div class="content-grid">
+      <div class="text-col">
+        <div class="section-label">
+          <span class="label-line"></span>
+          <span class="label-text">Species Summary</span>
+        </div>
+        <h2 class="section-title">Hemidactylus imbricatus</h2>
+
+        <div class="trait-tags">
+          <span class="trait-tag accent-tag"><span class="dot"></span>Pakistan / India</span>
+          <span class="trait-tag"><span class="dot"></span>Nocturnal</span>
+          <span class="trait-tag"><span class="dot"></span>Communal</span>
+          <span class="trait-tag"><span class="dot"></span>Arid / Semi-Arid</span>
+          <span class="trait-tag"><span class="dot"></span>Insectivore</span>
+        </div>
+
+        <div class="rich">
+          <p>The <strong>Viper Gecko</strong> (<em>Hemidactylus imbricatus</em>) is a compact, strikingly patterned gecko native to the <strong>arid and semi-arid scrublands of Pakistan and northwestern India</strong>. In the wild they occupy rocky outcrops, dry riverbeds, and loose-stone hillsides — squeezing into tight crevices beneath boulders and bark during the day.</p>
+          <p>They are <strong>strictly nocturnal</strong>, emerging after dark to hunt small insects across the rock face. During daylight hours they rest deep in <strong>rocky fissures and bark hides</strong>, where residual ground humidity keeps humidity just above ambient levels. This behavior is the blueprint for their captive enclosure.</p>
+          <p>Viper Geckos are <strong>highly communal</strong> and do well in small same-sex or mixed groups when space and hides are sufficient. Males can be territorial with one another, so groups of one male with multiple females — or all-female groups — work best. Their bold banded patterning and curious, animated foraging make them one of the most engaging micro-geckos in the hobby.</p>
+        </div>
+      </div>
+      <div class="media-col">
+        <div class="photo-card" style="height: 460px;">
+          <img src="images/viper_perched-post.JPG" alt="Viper Gecko on rock" loading="lazy" />
+          <span class="photo-caption" style="background-color: #0b160da4;">Hemidactylus imbricatus &mdash; typical resting posture.</span>
+        </div>
+
+        <div class="info-row" style="margin-top: 16px;">
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="info-body">
+              <span class="info-label">Native Range</span>
+              <span class="info-value">Pakistan &amp; NW India — rocky semi-arid scrubland</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+            </div>
+            <div class="info-body">
+              <span class="info-label">Activity Window</span>
+              <span class="info-value">Nocturnal &mdash; active after dark</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="info-body">
+              <span class="info-label">Social Behavior</span>
+              <span class="info-value">Communal &mdash; Thrives in groups</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TANK REQUIREMENTS
+     ============================================================ -->
+<section id="tank" class="section" style="background: var(--bg-surface);">
+  <div class="container">
+    <div class="content-grid reversed">
+      <div class="text-col">
+        <div class="section-label">
+          <span class="label-line"></span>
+          <span class="label-text">Tank Requirements</span>
+        </div>
+        <h2 class="section-title">The Enclosure</h2>
+        <p class="section-desc">Viper Geckos are rock-crevice specialists. Dense, tight hides along a vertical cork background are essential — open space makes them feel exposed and stressed.</p>
+
+        <div style="margin-bottom: 24px;">
+          <p style="font-size:0.72rem;font-family:var(--font-mono);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Juvenile Group (2–3)</p>
+          <div class="tank-spec">
+            <div class="spec-chip"><span class="spec-chip-label">Length</span><span class="spec-chip-val">20"</span></div>
+            <div class="spec-chip"><span class="spec-chip-label">Width</span><span class="spec-chip-val">10"</span></div>
+            <div class="spec-chip"><span class="spec-chip-label">Height</span><span class="spec-chip-val">12"</span></div>
+            <div class="spec-chip"><span class="spec-chip-label">Brand</span><span class="spec-chip-val">Thrive</span></div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 32px;">
+          <p style="font-size:0.72rem;font-family:var(--font-mono);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Adult Group (2–4)</p>
+          <div class="tank-spec">
+            <div class="spec-chip"><span class="spec-chip-label">Length</span><span class="spec-chip-val">30"</span></div>
+            <div class="spec-chip"><span class="spec-chip-label">Width</span><span class="spec-chip-val">12"</span></div>
+            <div class="spec-chip"><span class="spec-chip-label">Height</span><span class="spec-chip-val">12"</span></div>
+            <div class="spec-chip"><span class="spec-chip-label">Brand</span><span class="spec-chip-val">Thrive</span></div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-item">
+            <div class="info-icon" style="color:#a07c2e;background:rgba(201,168,76,0.1);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+            </div>
+            <div class="info-body">
+              <span class="info-label">Vertical Background</span>
+              <span class="info-value">Cork bark wall, full height, packed with cavities and nooks. Moss added to nooks.</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22V12M12 12C12 6.477 7.523 2 2 2"/><path d="M12 12c0-5.523 4.477-10 10-10"/></svg>
+            </div>
+            <div class="info-body">
+              <span class="info-label">Substrate Layering</span>
+              <span class="info-value">Recommended to have bio-active mixed substrate with a drainage layer. Add a layer of sand to the top keeping the portions along the back wall exposed for localized humidity.</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon" style="color:#f87171;background:rgba(220,50,50,0.08);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            </div>
+            <div class="info-body">
+              <span class="info-label">Avoid</span>
+              <span class="info-value">Coconut hides. Coconut fiber substrate. Enclosed plastic decor/hides.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-col">
+        <div class="photo-card" style="height: 400px; margin-bottom: 16px;">
+          <img src="images/tank-a-wideshot.jpg" alt="Naturalistic terrarium setup with cork bark" loading="lazy" />
+          <span class="photo-caption">Cork bark vertical background with nook hides &amp; moss</span>
+        </div>
+        <div class="photo-card" style="height: 400px;">
+          <img src="images/tank-layers.jpg" alt="Bioactive substrate layers" loading="lazy" />
+          <span class="photo-caption" style="background-color: #0b160da4;">Exposed mixed substrate with moss along the back panel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     LIGHTING
+     ============================================================ -->
+<section id="lighting" class="section">
+  <div class="container">
+    <div class="content-grid">
+      <div class="text-col">
+        <div class="section-label">
+          <span class="label-line"></span>
+          <span class="label-text">Lighting</span>
+        </div>
+        <h2 class="section-title">Light Like the Canopy Edge</h2>
+        <p class="section-desc">Though nocturnal, Viper Geckos benefit from low-level UVB exposure. They absorb incidental UV through crevice openings in the wild — provide it without intensity.</p>
+
+        <div class="light-cards">
+          <div class="light-card uvb-card">
+            <div class="light-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </div>
+            <span class="light-card-label">UVB / Full Spectrum</span>
+            <span class="light-card-product">Arcadia Shade Dweller</span>
+            <span class="light-card-note">Low-output UVB is ideal to simulate indirect light and reduce the risk of metabolic bone disease.</span>
+          </div>
+          <div class="light-card heat-card">
+            <div class="light-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a9 9 0 0 0 0 18 9 9 0 0 0 0-18z"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <span class="light-card-label">Basking / Heat</span>
+            <span class="light-card-product">Zoo Med 35W Nano Halogen w/ Thermostat</span>
+            <span class="light-card-note">35w Nano Halogen is recommend for smaller enclosures. Make sure a thermostat and probe are used to maintain temperatures within range.</span>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 6l4-4 4 4"/><path d="M12 2v10.3a4 4 0 1 1-4 0V14"/></svg>
+            </div>
+            <div class="info-body">
+              <span class="info-label">Lamp Placement</span>
+              <span class="info-value">Place the lighting element along the top of the back panel. Provide a wide heat gradient for thermoregulation.</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="info-body">
+              <span class="info-label">Day-Night Cycle</span>
+              <span class="info-value">During the day Vipers will lounge along the background panel surfaces in nooks soaking up UV as they rest. At dusk, they will begin to hunt and remain active throughout the night. Make sure they get complete lights out during their night cycle for optimal health.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-col">
+        <div class="photo-card" style="height: 500px;">
+          <img src="images/tank-lighting.jpg" alt="Dappled forest canopy light" loading="lazy" />
+          <span class="photo-caption" style="background-color: #0b160da4;">5-7% UVB replicates the natural indirect light Vipers experience while day-lounging in nature.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TEMPERATURE
+     ============================================================ -->
+<section id="temp" class="section" style="background:var(--bg-surface);">
+  <div class="container">
+    <div class="content-grid reversed">
+      <div class="text-col">
+        <div class="section-label">
+          <span class="label-line"></span>
+          <span class="label-text">Temperature</span>
+        </div>
+        <h2 class="section-title">Vertical Thermal Gradient</h2>
+        <p class="section-desc">Viper Geckos rely on thermoregulation. Maintain a clear hot-to-cool gradient along the the background.</p>
+
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-val">95°F</div>
+            <div class="stat-label">Hot Spot Peak</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val">75°F</div>
+            <div class="stat-label">Cool Side</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val">68°F</div>
+            <div class="stat-label">Nighttime Low</div>
+          </div>
+        </div>
+
+        <div class="temp-bar"></div>
+        <div class="temp-labels">
+          <span class="temp-label-cool">Cool zone — 75°F</span>
+          <span>Mid background — 80°F</span>
+          <span class="temp-label-hot">Hot spot — 90–95°F</span>
+        </div>
+
+        <div class="rich">
+          <p>The hot spot (90–95°F) sits at the <strong>top of the cork background</strong>, directly under the heat lamp. Geckos will climb up to digest and thermoregulate, then descend to cooler zones to rest. The cool side of the tank floor should not exceed <strong>75°F</strong>.</p>
+          <p>At night, allow temperatures to fall to <strong>room temperature</strong> — 68–72°F is ideal. Viper Geckos are naturally adapted to significant day/night temperature swings in their native Pakistan. This drop triggers natural activity, feeding, and breeding behavior. Never heat overnight.</p>
+        </div>
+      </div>
+
+      <div class="media-col">
+        <div class="photo-card" style="height: 460px;">
+          <img src="images/tank-b-wideshot.jpg" alt="Close-up of gecko on warm rock" loading="lazy" />
+          <span class="photo-caption">Wide gradient against the vertical background provides plenty of options for thermoregulation.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     HUMIDITY
+     ============================================================ -->
+<section id="humidity" class="section">
+  <div class="container">
+    <div class="content-grid">
+      <div class="text-col">
+        <div class="section-label">
+          <span class="label-line"></span>
+          <span class="label-text">Humidity</span>
+        </div>
+        <h2 class="section-title">Dry Tank, Wet Micro-Zones</h2>
+        <p class="section-desc">Maintain a dry, well-ventilated main chamber with localized humidity inside hides, mimicking the damp pockets of deep rocky crevices.</p>
+
+        <div class="humidity-zones" style="margin-bottom:32px;">
+          <div class="hz-row">
+            <span class="hz-label">Tank Ambient</span>
+            <div class="hz-bar-track"><div class="hz-bar-fill" style="width:35%; background: linear-gradient(90deg, #506255, #3ECF57);"></div></div>
+            <span class="hz-pct">30–40%</span>
+          </div>
+          <div class="hz-row">
+            <span class="hz-label">Cork Background</span>
+            <div class="hz-bar-track"><div class="hz-bar-fill" style="width:70%;"></div></div>
+            <span class="hz-pct">40–65%</span>
+          </div>
+          <div class="hz-row">
+            <span class="hz-label">Nook Interiors</span>
+            <div class="hz-bar-track"><div class="hz-bar-fill" style="width:85%;"></div></div>
+            <span class="hz-pct">75–90%</span>
+          </div>
+          <div class="hz-row">
+            <span class="hz-label">Nighttime Spike</span>
+            <div class="hz-bar-track"><div class="hz-bar-fill" style="width:75%;"></div></div>
+            <span class="hz-pct">60–80%</span>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </div>
+            <div class="info-body">
+              <span class="info-label">Misting Technique</span>
+              <span class="info-value">Mist the vertical back wall and hide entrances lightly each evening or morning. Let the water wick into the soil/moss layer and raising humidity inside hides simulating the cool, damp pockets of rock crevices.</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="info-body">
+              <span class="info-label">Why This Matters</span>
+              <span class="info-value">Viper Geckos sip droplets surfaces and rely on humid hides for clean sheds. Maintain low ambient humidity as sustained high humidity leads to respiratory infections and bacterial substrate breakdown.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-col">
+        <div class="photo-card" style="height: 500px;">
+          <img src="images/tank-zones.jpg" alt="Moss and water droplets on bark" loading="lazy" />
+          <span class="photo-caption" style="background-color: #0b160da4;">Moss-backed hides retain localized moisture — dry sandy substrate with pockets of humidity.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     DIET
+     ============================================================ -->
+<section id="diet" class="section" style="background:var(--bg-surface);">
+  <div class="container">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text">Feeders &amp; Diet</span>
+    </div>
+    <h2 class="section-title">What They Eat</h2>
+    <p class="section-desc">Viper Geckos are enthusiastic, active hunters. Feed after lights out when they are naturally alert and ready to chase prey.</p>
+
+    <div class="diet-grid" style="margin-bottom:40px;">
+
+      <div class="diet-item preferred">
+        <span class="diet-badge preferred">Preferred</span>
+        <span class="diet-name">Crickets</span>
+        <span class="diet-note">Excellent trigger for hunting instinct. Gut-load before feeding. Limit as a primary staple.</span>
+      </div>
+
+      <div class="diet-item preferred">
+        <span class="diet-badge preferred">Preferred</span>
+        <span class="diet-name">Isopods</span>
+        <span class="diet-note">Great supplemental feeder. Can free-roam as a cleanup crew in bioactive setups.</span>
+      </div>
+
+      <div class="diet-item preferred">
+        <span class="diet-badge preferred">Preferred</span>
+        <span class="diet-name">Dubia Nymphs</span>
+        <span class="diet-note">Excellent protein-to-fat ratio. Easy to culture. A true staple feeder.</span>
+      </div>
+
+      <div class="diet-item preferred">
+        <span class="diet-badge preferred">Preferred</span>
+        <span class="diet-name">Discoid Nymphs</span>
+        <span class="diet-note">Similar to dubias but legal in more states. Ideal roach option where dubias are restricted.</span>
+      </div>
+
+      <div class="diet-item preferred">
+        <span class="diet-badge preferred">Preferred</span>
+        <span class="diet-name">Silkworms</span>
+        <span class="diet-note">High in protein and moisture. Excellent for hydration and variety.</span>
+      </div>
+
+      <div class="diet-item preferred">
+        <span class="diet-badge preferred">Preferred</span>
+        <span class="diet-name">Hornworms</span>
+        <span class="diet-note">High moisture, soft body. Great treat for picky eaters or sick geckos needing hydration.</span>
+      </div>
+
+      <div class="diet-item preferred">
+        <span class="diet-badge preferred">Preferred</span>
+        <span class="diet-name">Buffalo Beetles / Larvae</span>
+        <span class="diet-note">Excellent soft-bodied feeder. No chitin shell — easy to digest. Highly nutritious.</span>
+      </div>
+
+      <div class="diet-item limited">
+        <span class="diet-badge limited">Occasional</span>
+        <span class="diet-name">Small Mealworms</span>
+        <span class="diet-note">High fat, hard chitin. Treat only — never as a staple. Can cause impaction if overfed.</span>
+      </div>
+
+      <div class="diet-item limited">
+        <span class="diet-badge limited">Occasional</span>
+        <span class="diet-name">Small Superworms</span>
+        <span class="diet-note">Richer than mealworms. Use sparingly as an enrichment feeder only.</span>
+      </div>
+
+    </div>
+
+    <div class="info-row" style="max-width: 680px;">
+      <div class="info-item">
+        <div class="info-icon" style="color:#ffa726;background:rgba(255,152,0,0.1);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="info-body">
+          <span class="info-label">Supplementation</span>
+          <span class="info-value">Dust feeders with <strong>calcium (with D3)</strong> 2× per week and a <strong>multivitamin</strong> once per week. Rotate between calcium with and without D3 if using proper UVB lighting.</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22V12M12 12C12 6.48 7.52 2 2 2"/><path d="M12 12c0-5.52 4.48-10 10-10"/></svg>
+        </div>
+        <div class="info-body">
+          <span class="info-label">Feeding Schedule</span>
+          <span class="info-value">Feed 3–4 appropriately-sized prey items per gecko, every 2–3 days. Feed in the evening when geckos are naturally active.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     COMMON ISSUES
+     ============================================================ -->
+<section id="issues" class="section">
+  <div class="container">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text">Common Issues</span>
+    </div>
+    <h2 class="section-title">Troubleshooting Guide</h2>
+    <p class="section-desc">Viper Geckos are hardy when husbandry is dialled in. Most issues trace back to humidity imbalance, inadequate hides, or incorrect temps — fix the environment before assuming illness.</p>
+
+    <div class="issues-grid">
+
+      <div class="issue-card">
+        <span class="issue-severity monitor">Monitor</span>
+        <span class="issue-title">Retained Shed (Dysecdysis)</span>
+        <p class="issue-desc">Stuck shed around toes or tail tip is the most common issue. Chronic low humidity during shed cycle is the culprit. Toes with stuck shed can lose circulation quickly.</p>
+        <span class="issue-fix">Increase background misting frequency; add a humid moss hide.</span>
+      </div>
+
+      <div class="issue-card">
+        <span class="issue-severity monitor">Monitor</span>
+        <span class="issue-title">Refusal to Eat</span>
+        <p class="issue-desc">Newly acquired geckos may not eat for 1–2 weeks. Stress from transport, an exposed tank, or incorrect temperatures are the most common causes. Breeding season can also suppress appetite.</p>
+        <span class="issue-fix">Reduce disturbance, confirm hot-spot temp, offer different feeder variety.</span>
+      </div>
+
+      <div class="issue-card">
+        <span class="issue-severity caution">Caution</span>
+        <span class="issue-title">Tail Autotomy (Dropped Tail)</span>
+        <p class="issue-desc">Viper Geckos will drop their tail when stressed or handled roughly. The tail regrows but with a different texture and pattern. Keep the wound site clean and dry to prevent infection.</p>
+        <span class="issue-fix">Keep substrate dry and clean; isolate briefly if tankmates are curious.</span>
+      </div>
+
+      <div class="issue-card">
+        <span class="issue-severity caution">Caution</span>
+        <span class="issue-title">Aggression Within Group</span>
+        <p class="issue-desc">Males can fight when housed together. Females may squabble over hide spots. Colonies will fight if food is scarce.</p>
+        <span class="issue-fix">Add more nooks, increase the size of the tank, add more basking areas, increase food supply.</span>
+      </div>
+
+      <div class="issue-card">
+        <span class="issue-severity caution">Caution</span>
+        <span class="issue-title">Metabolic Bone Disease (MBD)</span>
+        <p class="issue-desc">Soft limbs, bowed legs, tremors, or difficulty climbing are red flags. Caused by chronic calcium deficiency or inadequate UVB exposure. Progresses quickly in small species.</p>
+        <span class="issue-fix">Verify UVB output (replace bulbs every 6–12 months); dust feeders consistently.</span>
+      </div>
+
+      <div class="issue-card">
+        <span class="issue-severity urgent">Urgent</span>
+        <span class="issue-title">Respiratory Infection</span>
+        <p class="issue-desc">Wheezing, open-mouth breathing, or mucus around the nostrils indicates a respiratory infection. Usually caused by ambient humidity staying too high for too long without proper drying periods.</p>
+        <span class="issue-fix">Veterinary care required. In the meantime improve ventilation and reduce ambient RH.</span>
+      </div>
+
+      <div class="issue-card">
+        <span class="issue-severity urgent">Urgent</span>
+        <span class="issue-title">Egg Binding (Dystocia)</span>
+        <p class="issue-desc">Gravid females need a deep, slightly moist laying site (soil/moss mix). A female that appears bloated, is straining without producing eggs, or becomes lethargic near her expected laying date may be egg-bound — a genuine emergency in small species.</p>
+        <span class="issue-fix">Provide a deep moist egg-laying area and consult a reptile vet immediately.</span>
+      </div>
+
+      <div class="issue-card">
+        <span class="issue-severity monitor">Monitor</span>
+        <span class="issue-title">Weight Loss / Lethargy</span>
+        <p class="issue-desc">Viper Geckos carry slight body bulk through the trunk when well-fed. Sunken flanks, visible hip bones, or a thinning tail base paired with lethargy may indicate parasites, inadequate temps, or internal illness.</p>
+        <span class="issue-fix">Fecal float test with a reptile vet; review feeding frequency and feeder nutrition.</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+      <div class="footer-brand">
+        <img style="height: 1rem;" src="logo_green.svg"/>
+      </div>
+    <p class="footer-copy" style="margin-bottom:8px;">Passion. Care. Commitment.</p>
+    <p class="footer-copy">Questions? Reach us at <a href="mailto:calvaryexotics@gmail.com">calvaryexotics@gmail.com</a> &nbsp;|&nbsp; <a href="tel:+19033601494">(903) 360-1494</a></p>
+    <a href="index.html" class="footer-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to main site
+    </a>
+    <p class="footer-copy" style="margin-top:24px;">&copy; <span id="yr"></span> Calvary Exotics. All rights reserved.</p>
+  </div>
+</footer>
+
+
+<script>
+  // Year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // // Scrolled header
+  // const header = document.getElementById('site-header');
+  // window.addEventListener('scroll', () => {
+  //   header.classList.toggle('scrolled', window.scrollY > 20);
+  // });
+
+  // // Mobile nav toggle
+  // const toggle = document.getElementById('nav-toggle');
+  // const navLinks = document.getElementById('nav-links');
+  // toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  // navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Checklist interactivity
+  function toggleCheck(card) {
+    card.classList.toggle('checked');
+    updateChecklistNote();
+  }
+  function updateChecklistNote() {
+    const total = document.querySelectorAll('.check-card').length;
+    const done  = document.querySelectorAll('.check-card.checked').length;
+    const note  = document.getElementById('checklist-progress');
+    if (done === 0) {
+      note.textContent = 'Tap a card to mark it as gathered';
+    } else if (done === total) {
+      note.textContent = "All items gathered — you're ready for your gecko!";
+    } else {
+      note.textContent = `${done} of ${total} items gathered`;
+    }
+  }
+
+  // Active anchor nav highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const anchorLinks = document.querySelectorAll('.anchor-link');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        anchorLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.anchor-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.35 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
