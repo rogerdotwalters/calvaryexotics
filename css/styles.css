@@ -472,6 +472,13 @@ input, select, textarea { font-family: inherit; }
   box-shadow: var(--shadow-glow);
 }
 
+
+/* =========================================
+   LISTINGS
+   ========================================= */
+.card-img {
+  width: 100px;
+}
 /* =========================================
    GALLERY / SLIDESHOW
    ========================================= */
@@ -922,7 +929,173 @@ input, select, textarea { font-family: inherit; }
   font-size: 0.75rem;
   color: var(--text-muted);
 }
-
+.listings {
+  background-color: white;
+}
+.listing-spacer {
+  padding-top: 50px;
+}
+.listings-container {
+  padding: 50px;
+  font-family: var(--font-display);
+}
+.listing-header {
+  padding-top: 50px;
+  font-size: large;
+  color: var(--green-deep);
+}
+.listings-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  align-content: center;
+  margin: auto;
+  padding: 10px 0;
+  border-top: 2px solid var(--green-deep);
+  border-bottom: 2px solid var(--green-deep);
+}
+.card-listing {
+  background-color: rgb(15, 15, 13); /* fallback */
+  height: 400px;
+  width: 250px;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: var(--font-body);
+  border: 1px solid rgba(34, 36, 35, 0.89);
+  
+  /* Optional: subtle stone texture feel */
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6),
+              0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.card-container {
+  margin: 5px;
+  position: relative;
+}
+.card-accent {
+  position: absolute;
+  top: 40px;      /* move down */
+  left: -3px;     /* extend left */
+  right: -3px;    /* extend right */
+  bottom: 30px;   /* extend bottom */              /* Controls border thickness */
+  background-image: linear-gradient(
+    180deg,
+    #0f1f12 0%,
+    #2d9c29 35%,
+    #04d820 60%,
+    #8ee00b 65%,
+    #3ba04f 80%,
+    #15351b 100%
+  );
+  border-radius: 16px;          /* Slightly larger radius */
+  z-index: 1;
+}
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;     
+  background-image:
+  linear-gradient(
+  145deg,
+  #0B160D 0%,
+  #13241A 20%,
+  #1C3226 45%,
+  #234D3A 65%,
+  #1A2F24 80%,
+  #0F1F17 95%,
+  #0B160D 100%
+);
+  border: 1px solid rgba(160, 148, 45, 0.89);
+  border-radius: 12px;
+}
+.card-id {
+  margin-left: 5px;
+}
+.card-bubble {
+  color: black;
+  background-image: 
+  radial-gradient(
+      #0eaa09 70%,
+      #384739 100%
+  )
+  ;
+  height: 20px;
+  width: fit-content;
+  border: 1px solid rgb(10, 105, 5);
+  border-radius: 20px;
+  padding: 0;
+  margin: 3px;
+  font-size: 12px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.card-main {
+  position: relative;
+  z-index: 2;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-image: 
+    linear-gradient(
+      135deg,
+      #0B160D 0%,
+      #13241A 35%,
+      #1A2F24 50%,
+      #13241A 65%,
+      #0B160D 100%
+    );
+}
+.card-img {
+  height: 200px;
+  width: 100%;
+  object-fit:scale-down cover;          /* Magic: crops while keeping aspect ratio */
+  object-position: center;
+  border: 2px solid black;
+}
+.card-line {
+  border-top: 1px solid rgba(160, 148, 45, 0.89);
+  border-bottom: 1px solid rgba(160, 148, 45, 0.89);
+  text-align: left;
+  padding: 0 3px;
+  height: 50px;
+}
+.card-line h3 {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: smaller;
+}
+.card-body {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-image: linear-gradient(
+  120deg,
+  #2A2D2C 0%,
+  #525856 25%,
+  #6c7571 40%,
+  #6c7571 60%,
+  #4a504e 900%,
+  #2A2D2C 100%
+);
+  padding: 10px;
+  color: var(--accent);
+  background-color: rgb(77, 77, 77);
+  border: 2px solid rgb(49, 49, 49);
+}
+.card-parents {
+  text-align: left;
+  color: black;
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+}
+.card-info {
+  color:rgba(155, 146, 22, 0.89);
+  font-size: 12px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: left;
+}
+.card-weight{
+  font-size: 12px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
 /* =========================================
    RESPONSIVE
    ========================================= */
