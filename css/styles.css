@@ -945,6 +945,7 @@ input, select, textarea { font-family: inherit; }
   color: var(--green-deep);
 }
 .listings-body {
+  color: black;
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
@@ -970,6 +971,7 @@ input, select, textarea { font-family: inherit; }
               0 4px 15px rgba(0, 0, 0, 0.3);
 }
 .card-container {
+  color: white;
   margin: 5px;
   position: relative;
 }
