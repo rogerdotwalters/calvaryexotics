@@ -11,842 +11,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
-
-    :root {
-      --bg-base:        #0B160D;
-      --bg-surface:     #112015;
-      --bg-card:        #18291C;
-      --bg-elevated:    #1F3324;
-      --green-deep:     #1F4F2A;
-      --green-mid:      #2F6F39;
-      --accent:         #3ECF57;
-      --accent-dim:     #34B84C;
-      --accent-glow:    rgba(62, 207, 87, 0.16);
-      --gold:           #c9a84c;
-      --gold-dim:       #a07c2e;
-      --text-primary:   #F2FFF7;
-      --text-secondary: #B9CBBE;
-      --text-muted:     #506255;
-      --text-on-accent: #0B160D;
-      --border:         rgba(168, 230, 61, 0.12);
-      --border-subtle:  rgba(255,255,255,0.06);
-      --font-display:   'Cinzel', Georgia, serif;
-      --font-body:      'Inter', system-ui, sans-serif;
-      --font-mono:      'JetBrains Mono', monospace;
-      --radius-sm:  4px;
-      --radius-md:  10px;
-      --radius-lg:  18px;
-      --shadow-card: 0 4px 24px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.3);
-      --shadow-glow: 0 0 40px rgba(127, 179, 38, 0.18);
-      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    body {
-      background-color: var(--bg-base);
-      color: var(--text-primary);
-      font-family: var(--font-body);
-      font-weight: 400;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    img { display: block; max-width: 100%; }
-    a { color: inherit; text-decoration: none; }
-    ul { list-style: none; }
-
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* ---- HERO ---- */
-    .hero {
-      position: relative;
-      min-height: 72vh;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      overflow: hidden;
-      padding-bottom: 80px;
-    }
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background-color: #112015;
-    }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background-image: url("images/viper_main.JPG");
-      background-size: cover;
-      background-position: center 70%;
-      background-repeat: no-repeat;
-      opacity: 0.50;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding-top: 140px;
-      padding-left: 24px;
-      padding-right: 24px;
-      max-width: 780px;
-    }
-    .hero-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-    .hero-eyebrow::before, .hero-eyebrow::after {
-      content: '';
-      display: block;
-      width: 28px;
-      height: 1px;
-      background: var(--accent);
-      opacity: 0.6;
-    }
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.8rem, 9vw, 6.5rem);
-      font-weight: 900;
-      line-height: 0.95;
-      letter-spacing: -0.01em;
-      color: var(--text-primary);
-      margin-bottom: 24px;
-    }
-    .hero-title em {
-      font-style: normal;
-      color: var(--accent);
-    }
-    .hero-subtitle {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      letter-spacing: 0.04em;
-      font-weight: 300;
-      margin-bottom: 36px;
-    }
-    .hero-scroll {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      padding: 10px 20px;
-      border: 1px solid var(--accent);
-      border-radius: 100px;
-      transition: var(--transition);
-    }
-    .hero-scroll:hover { border-color: var(--border); color: var(--accent); }
-    .hero-scroll svg { width: 14px; height: 14px; animation: bounce 2s ease-in-out infinite; }
-    @keyframes bounce {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(3px); }
-    }
-
-    /* ---- ANCHOR NAV ---- */
-    .anchor-nav {
-      position: sticky;
-      top: 68px;
-      z-index: 90;
-      background: rgba(17,32,21,0.96);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-subtle);
-    }
-    .anchor-nav-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      gap: 0;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .anchor-nav-inner::-webkit-scrollbar { display: none; }
-    .anchor-link {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 14px 16px;
-      font-family: var(--font-mono);
-      font-size: 0.64rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      border-bottom: 2px solid transparent;
-      white-space: nowrap;
-      transition: var(--transition);
-    }
-    .anchor-link:hover, .anchor-link.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
-    .anchor-link .dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: currentColor;
-      opacity: 0.5;
-    }
-
-    /* ---- SECTION ANATOMY ---- */
-    .section {
-      padding: 96px 0;
-    }
-    .section + .section {
-      border-top: 1px solid var(--border-subtle);
-    }
-    .section-label {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 12px;
-    }
-    .label-line {
-      display: block;
-      width: 28px;
-      height: 1px;
-      background: var(--accent);
-    }
-    .label-text {
-      font-family: var(--font-mono);
-      font-size: 0.64rem;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.6rem, 4vw, 2.6rem);
-      font-weight: 700;
-      line-height: 1.12;
-      color: var(--text-primary);
-      margin-bottom: 16px;
-    }
-    .section-desc {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      max-width: 620px;
-      line-height: 1.75;
-      margin-bottom: 48px;
-    }
-
-    /* ---- CHECKLIST SECTION ---- */
-    #checklist {
-      background: linear-gradient(135deg, rgba(31,51,36,0.6) 0%, rgba(11,22,13,0.4) 100%);
-      border-top: 1px solid rgba(201,168,76,0.15);
-      border-bottom: 1px solid rgba(201,168,76,0.1);
-    }
-    .checklist-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 14px;
-    }
-    .check-card {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 16px 18px;
-      cursor: pointer;
-      transition: var(--transition);
-      user-select: none;
-    }
-    .check-card:hover {
-      border-color: var(--border);
-      background: var(--bg-elevated);
-      transform: translateY(-1px);
-    }
-    .check-card.checked {
-      border-color: rgba(62,207,87,0.35);
-      background: rgba(62,207,87,0.06);
-    }
-    .check-box {
-      width: 22px;
-      height: 22px;
-      min-width: 22px;
-      border-radius: 6px;
-      border: 1.5px solid var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-      background: transparent;
-    }
-    .check-card.checked .check-box {
-      border-color: var(--accent);
-      background: var(--accent);
-    }
-    .check-box svg {
-      width: 13px;
-      height: 13px;
-      color: var(--text-on-accent);
-      opacity: 0;
-      transform: scale(0.6);
-      transition: var(--transition);
-    }
-    .check-card.checked .check-box svg {
-      opacity: 1;
-      transform: scale(1);
-    }
-    .check-label {
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      transition: color var(--transition);
-      line-height: 1.3;
-    }
-    .check-card.checked .check-label {
-      color: var(--text-primary);
-    }
-    .check-sub {
-      display: block;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      letter-spacing: 0.05em;
-      margin-top: 2px;
-    }
-    .checklist-note {
-      margin-top: 24px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      letter-spacing: 0.05em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .checklist-note::before {
-      content: '';
-      display: block;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 6px var(--accent);
-      flex-shrink: 0;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    /* ---- PHOTO CARD ---- */
-    .photo-card {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      position: relative;
-      box-shadow: var(--shadow-card);
-    }
-    .photo-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .photo-card:hover img { transform: scale(1.03); }
-    .photo-caption {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 20px 22px 16px;
-      background: linear-gradient(transparent, rgba(11,22,13,0.85));
-      font-size: 0.72rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.1em;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-    }
-
-    /* ---- CONTENT GRID ---- */
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 56px;
-      align-items: start;
-    }
-    .content-grid.reversed .text-col { order: 2; }
-    .content-grid.reversed .media-col { order: 1; }
-
-    .media-col { position: relative; }
-    .text-col { padding-top: 4px; }
-
-    /* ---- INFO BLOCKS ---- */
-    .info-row {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 32px;
-    }
-    .info-item {
-      display: flex;
-      gap: 16px;
-      padding: 18px 20px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      transition: var(--transition);
-    }
-    .info-item:hover {
-      border-color: var(--border);
-      transform: translateX(2px);
-    }
-    .info-icon {
-      width: 38px;
-      height: 38px;
-      min-width: 38px;
-      border-radius: 8px;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-subtle);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-    }
-    .info-icon svg { width: 18px; height: 18px; }
-    .info-body { display: flex; flex-direction: column; gap: 2px; }
-    .info-label {
-      font-size: 0.65rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .info-value {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      line-height: 1.4;
-    }
-
-    /* ---- SPECIES TRAITS (pill tags) ---- */
-    .trait-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 28px;
-    }
-    .trait-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 12px;
-      border-radius: 100px;
-      font-size: 0.72rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.08em;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-secondary);
-      background: var(--bg-card);
-    }
-    .trait-tag .dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-    .trait-tag.accent-tag {
-      border-color: rgba(62,207,87,0.3);
-      color: var(--accent);
-      background: rgba(62,207,87,0.06);
-    }
-
-    /* ---- STAT CARDS ---- */
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-    .stat-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 20px 16px;
-      text-align: center;
-      transition: var(--transition);
-    }
-    .stat-card:hover {
-      border-color: var(--border);
-      transform: translateY(-2px);
-    }
-    .stat-val {
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .stat-label {
-      font-size: 0.65rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    /* ---- TEMP GRADIENT VIZ ---- */
-    .temp-bar {
-      width: 100%;
-      height: 48px;
-      border-radius: var(--radius-md);
-      background: linear-gradient(
-        90deg,
-        #6fc3f7 0%,
-        #a5d6a7 28%,
-        #ffe082 55%,
-        #ff8a65 78%,
-        #d32f2f 100%
-      );
-      position: relative;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.3);
-    }
-    .temp-labels {
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin-bottom: 28px;
-    }
-    .temp-label-cool { color: #6fc3f7; }
-    .temp-label-hot  { color: #ff8a65; }
-
-    /* ---- DIET GRID ---- */
-    .diet-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 10px;
-    }
-    .diet-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 16px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      transition: var(--transition);
-    }
-    .diet-item:hover {
-      border-color: var(--border);
-      transform: translateY(-2px);
-      background: var(--bg-elevated);
-    }
-    .diet-item.preferred { border-color: rgba(62,207,87,0.25); }
-    .diet-item.limited  { border-color: rgba(255,152,0,0.2); }
-    .diet-badge {
-      font-size: 0.58rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 3px 7px;
-      border-radius: 100px;
-      width: fit-content;
-    }
-    .diet-badge.preferred { background: rgba(62,207,87,0.12); color: var(--accent); }
-    .diet-badge.limited   { background: rgba(255,152,0,0.12); color: #ffa726; }
-    .diet-badge.avoid     { background: rgba(220,50,50,0.1); color: #f87171; }
-    .diet-name {
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-    .diet-note {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    /* ---- ISSUE CARDS ---- */
-    .issues-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-    .issue-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: var(--transition);
-    }
-    .issue-card:hover {
-      border-color: var(--border);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-card);
-    }
-    .issue-severity {
-      font-size: 0.58rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 100px;
-      width: fit-content;
-    }
-    .issue-severity.monitor { background: rgba(62,207,87,0.1); color: var(--accent); }
-    .issue-severity.caution { background: rgba(255,152,0,0.1); color: #ffa726; }
-    .issue-severity.urgent  { background: rgba(220,50,50,0.1); color: #f87171; }
-    .issue-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      font-family: var(--font-display);
-      letter-spacing: 0.02em;
-    }
-    .issue-desc {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-    .issue-fix {
-      font-size: 0.78rem;
-      color: var(--accent);
-      font-family: var(--font-mono);
-      letter-spacing: 0.04em;
-      padding-top: 10px;
-      border-top: 1px solid var(--border-subtle);
-    }
-    .issue-fix::before { content: '→  Fix: '; color: var(--text-muted); }
-
-    /* ---- HUMIDITY ZONES ---- */
-    .humidity-zones {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .hz-row {
-      display: grid;
-      grid-template-columns: 140px 1fr auto;
-      align-items: center;
-      gap: 14px;
-    }
-    .hz-label {
-      font-size: 0.78rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.08em;
-      color: var(--text-secondary);
-    }
-    .hz-bar-track {
-      height: 8px;
-      border-radius: 100px;
-      background: var(--bg-elevated);
-      overflow: hidden;
-    }
-    .hz-bar-fill {
-      height: 100%;
-      border-radius: 100px;
-      background: linear-gradient(90deg, var(--accent-dim), var(--accent));
-      transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
-    }
-    .hz-pct {
-      font-size: 0.78rem;
-      font-family: var(--font-mono);
-      color: var(--accent);
-      white-space: nowrap;
-    }
-
-    /* ---- TANK SPEC CHIPS ---- */
-    .tank-spec {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-    .spec-chip {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      padding: 12px 16px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      min-width: 100px;
-    }
-    .spec-chip-label {
-      font-size: 0.6rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .spec-chip-val {
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    /* ---- LIGHTING ROW ---- */
-    .light-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 28px;
-    }
-    .light-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 22px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      transition: var(--transition);
-    }
-    .light-card:hover {
-      border-color: var(--border);
-      transform: translateY(-2px);
-    }
-    .light-card-label {
-      font-size: 0.62rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .light-card-product {
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    .light-card-note {
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-    .light-card-icon {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 4px;
-    }
-    .light-card-icon svg { width: 18px; height: 18px; }
-    .uvb-card .light-card-icon { background: rgba(180,130,255,0.12); color: #c084fc; }
-    .heat-card .light-card-icon { background: rgba(255,152,0,0.12); color: #ffa726; }
-
-    /* ---- RICH TEXT ---- */
-    .rich p {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      line-height: 1.8;
-      margin-bottom: 14px;
-    }
-    .rich p:last-child { margin-bottom: 0; }
-    .rich strong { color: var(--text-primary); font-weight: 600; }
-
-    /* ---- FOOTER ---- */
-    .site-footer {
-      background: var(--bg-surface);
-      border-top: 1px solid var(--border-subtle);
-      padding: 44px 0;
-      text-align: center;
-    }
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-    .footer-copy {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      letter-spacing: 0.08em;
-    }
-    .footer-copy a { color: var(--accent); }
-    .footer-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 20px;
-      font-size: 0.72rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      border: 1px solid var(--border-subtle);
-      padding: 9px 18px;
-      border-radius: 100px;
-      transition: var(--transition);
-    }
-    .footer-back:hover { color: var(--accent); border-color: var(--border); }
-
-    /* ---- RESPONSIVE ---- */
-    @media (max-width: 768px) {
-      .nav-toggle { display: flex; }
-      .nav-links {
-        display: none;
-        position: fixed;
-        inset: 68px 0 0 0;
-        background: rgba(11,22,13,0.97);
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        z-index: 99;
-      }
-      .nav-links.open { display: flex; }
-      .nav-link { font-size: 1rem; padding: 12px 24px; }
-      .anchor-nav {
-        position:static;
-      }
-      .anchor-nav-inner {
-        display: inline;
-      }
-      .anchor-link {
-        display:block;
-      }
-      .section { padding: 64px 0; }
-      .content-grid { grid-template-columns: 1fr; gap: 36px; }
-      .content-grid.reversed .text-col { order: 0; }
-      .content-grid.reversed .media-col { order: 0; }
-      .stat-row { grid-template-columns: repeat(3, 1fr); }
-      .light-cards { grid-template-columns: 1fr; }
-      .hz-row { grid-template-columns: 110px 1fr auto; }
-    }
-    @media (max-width: 480px) {
-      .stat-row { grid-template-columns: 1fr 1fr; }
-      .checklist-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-    }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-  </style>
 </head>
 <body>
 
 <!-- ============ HEADER ============ -->
-
 <header class="site-header" id="site-header">
     <nav class="nav-container">
       <a href="#hero" class="nav-logo">
@@ -867,17 +35,16 @@
   </header>
 
 <!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-scales"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Calvary Exotics &mdash; Care Sheet</p>
-    <h1 class="hero-title">
+<section class="cg-hero">
+  <div class="cg-hero-bg"></div>
+  <div class="cg-hero-overlay"></div>
+  <div class="cg-hero-content">
+    <p class="cg-hero-eyebrow">Calvary Exotics &mdash; Care Sheet</p>
+    <h1 class="cg-hero-title">
       Viper<br><em>Gecko</em>
     </h1>
-    <p class="hero-subtitle"><em>Hemidactylus imbricatus</em> &mdash; Husbandry Guide</p>
-    <a href="#checklist" class="hero-scroll">
+    <p class="cg-hero-subtitle"><em>Hemidactylus imbricatus</em> &mdash; Husbandry Guide</p>
+    <a href="#checklist" class="cg-hero-scroll pill-btn">
       Begin setup
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="6 9 12 15 18 9"/>
@@ -904,14 +71,14 @@
 <!-- ============================================================
      CHECKLIST
      ============================================================ -->
-<section id="checklist" class="section" style="background:linear-gradient(135deg,rgba(31,51,36,0.55) 0%,rgba(11,22,13,0.35) 100%);">
+<section id="checklist" class="section section--checklist">
   <div class="container">
     <div class="section-label">
       <span class="label-line"></span>
       <span class="label-text">Before You Begin</span>
     </div>
     <h2 class="section-title">Needed Items Checklist</h2>
-    <p class="section-desc">Gather everything below before your gecko arrives. Tap each card to check it off as you go.</p>
+    <p class="section-sub">Gather everything below before your gecko arrives. Tap each card to check it off as you go.</p>
 
     <div class="checklist-grid" id="checklist-grid">
 
@@ -919,10 +86,10 @@
         <div class="check-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span class="link-body">
+        <span class="check-body">
           <span class="check-label">Tank</span>
           <span class="check-sub">20"L x 10"W</span>
-          <span class="check-sub" style="text-align: center;">--or--</span>
+          <span class="check-sub check-sub--center">--or--</span>
           <span class="check-sub">30"L x 12"W</span>
         </span>
       </div>
@@ -931,7 +98,7 @@
         <div class="check-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span class="link-body">
+        <span class="check-body">
           <span class="check-label">Substrate</span>
           <span class="check-sub">Sand, soil, moss &amp; leaf litter</span>
         </span>
@@ -941,10 +108,10 @@
         <div class="check-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span class="link-body">
+        <span class="check-body">
           <span class="check-label">Background</span>
           <span class="check-sub">Cork bark panel</span>
-          <span class="check-sub" style="text-align: center;">--or--</span>
+          <span class="check-sub check-sub--center">--or--</span>
           <span class="check-sub">DIY background</span>
         </span>
       </div>
@@ -953,7 +120,7 @@
         <div class="check-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span class="link-body">
+        <span class="check-body">
           <span class="check-label">Feeder Dish</span>
           <span class="check-sub">Escape-proof design</span>
         </span>
@@ -963,7 +130,7 @@
         <div class="check-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span class="link-body">
+        <span class="check-body">
           <span class="check-label">Water Dish</span>
           <span class="check-sub">Shallow, easy to exit</span>
         </span>
@@ -973,7 +140,7 @@
         <div class="check-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span class="link-body">
+        <span class="check-body">
           <span class="check-label">Feeder Tongs</span>
           <span class="check-sub">Feeding utensil</span>
         </span>
@@ -983,7 +150,7 @@
         <div class="check-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span class="link-body">
+        <span class="check-body">
           <span class="check-label">Bark / Hides</span>
           <span class="check-sub">Cork bark/bark pieces &amp; slabs</span>
         </span>
@@ -993,11 +160,11 @@
         <div class="check-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span class="link-body">
+        <span class="check-body">
           <span class="check-label">UVB Lamp</span>
-          <span class="check-sub" style="text-align: center; font-weight: bold;">Arcadia</span>
+          <span class="check-sub check-sub--strong">Arcadia</span>
           <span class="check-sub">Shade Dweller</span>
-          <span class="check-sub" style="text-align: center;">--or--</span>
+          <span class="check-sub check-sub--center">--or--</span>
           <span class="check-sub">Jungle Dawn</span>
         </span>
       </div>
@@ -1006,7 +173,7 @@
         <div class="check-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span class="link-body">
+        <span class="check-body">
           <span class="check-label">Heat Lamp</span>
           <span class="check-sub">Zoo Med 35W Nano Halogen</span>
         </span>
@@ -1016,7 +183,7 @@
         <div class="check-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span class="link-body">
+        <span class="check-body">
           <span class="check-label">Thermostat</span>
           <span class="check-sub">For heat lamp control</span>
         </span>
@@ -1026,7 +193,7 @@
         <div class="check-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span class="link-body">
+        <span class="check-body">
           <span class="check-label">Spray Bottle</span>
           <span class="check-sub">Fine-mist, for background</span>
         </span>
@@ -1036,7 +203,7 @@
         <div class="check-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span class="link-body">
+        <span class="check-body">
           <span class="check-label">Calcium Supplement</span>
           <span class="check-sub">With or without D3</span>
         </span>
@@ -1077,12 +244,12 @@
         </div>
       </div>
       <div class="media-col">
-        <div class="photo-card" style="height: 460px;">
+        <div class="photo-card photo-card--h460">
           <img src="images/viper_perched-post.JPG" alt="Viper Gecko on rock" loading="lazy" />
-          <span class="photo-caption" style="background-color: #0b160da4;">Hemidactylus imbricatus &mdash; typical resting posture.</span>
+          <span class="photo-caption">Hemidactylus imbricatus &mdash; typical resting posture.</span>
         </div>
 
-        <div class="info-row" style="margin-top: 16px;">
+        <div class="info-row mt-16">
           <div class="info-item">
             <div class="info-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -1120,7 +287,7 @@
 <!-- ============================================================
      TANK REQUIREMENTS
      ============================================================ -->
-<section id="tank" class="section" style="background: var(--bg-surface);">
+<section id="tank" class="section section--surface">
   <div class="container">
     <div class="content-grid reversed">
       <div class="text-col">
@@ -1129,10 +296,10 @@
           <span class="label-text">Tank Requirements</span>
         </div>
         <h2 class="section-title">The Enclosure</h2>
-        <p class="section-desc">Viper Geckos are rock-crevice specialists. Dense, tight hides along a vertical cork background are essential — open space makes them feel exposed and stressed.</p>
+        <p class="section-sub">Viper Geckos are rock-crevice specialists. Dense, tight hides along a vertical cork background are essential — open space makes them feel exposed and stressed.</p>
 
-        <div style="margin-bottom: 24px;">
-          <p style="font-size:0.72rem;font-family:var(--font-mono);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Juvenile Group (2–3)</p>
+        <div class="mb-24">
+          <p class="tank-spec-label">Juvenile Group (2–3)</p>
           <div class="tank-spec">
             <div class="spec-chip"><span class="spec-chip-label">Length</span><span class="spec-chip-val">20"</span></div>
             <div class="spec-chip"><span class="spec-chip-label">Width</span><span class="spec-chip-val">10"</span></div>
@@ -1141,8 +308,8 @@
           </div>
         </div>
 
-        <div style="margin-bottom: 32px;">
-          <p style="font-size:0.72rem;font-family:var(--font-mono);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Adult Group (2–4)</p>
+        <div class="mb-32">
+          <p class="tank-spec-label">Adult Group (2–4)</p>
           <div class="tank-spec">
             <div class="spec-chip"><span class="spec-chip-label">Length</span><span class="spec-chip-val">30"</span></div>
             <div class="spec-chip"><span class="spec-chip-label">Width</span><span class="spec-chip-val">12"</span></div>
@@ -1153,7 +320,7 @@
 
         <div class="info-row">
           <div class="info-item">
-            <div class="info-icon" style="color:#a07c2e;background:rgba(201,168,76,0.1);">
+            <div class="info-icon info-icon--gold">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
             </div>
             <div class="info-body">
@@ -1171,7 +338,7 @@
             </div>
           </div>
           <div class="info-item">
-            <div class="info-icon" style="color:#f87171;background:rgba(220,50,50,0.08);">
+            <div class="info-icon info-icon--alert">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
             </div>
             <div class="info-body">
@@ -1183,13 +350,13 @@
       </div>
 
       <div class="media-col">
-        <div class="photo-card" style="height: 400px; margin-bottom: 16px;">
+        <div class="photo-card photo-card--h400">
           <img src="images/tank-a-wideshot.jpg" alt="Naturalistic terrarium setup with cork bark" loading="lazy" />
           <span class="photo-caption">Cork bark vertical background with nook hides &amp; moss</span>
         </div>
-        <div class="photo-card" style="height: 400px;">
+        <div class="photo-card photo-card--h400">
           <img src="images/tank-layers.jpg" alt="Bioactive substrate layers" loading="lazy" />
-          <span class="photo-caption" style="background-color: #0b160da4;">Exposed mixed substrate with moss along the back panel</span>
+          <span class="photo-caption">Exposed mixed substrate with moss along the back panel</span>
         </div>
       </div>
     </div>
@@ -1209,7 +376,7 @@
           <span class="label-text">Lighting</span>
         </div>
         <h2 class="section-title">Light Like the Canopy Edge</h2>
-        <p class="section-desc">Though nocturnal, Viper Geckos benefit from low-level UVB exposure. They absorb incidental UV through crevice openings in the wild — provide it without intensity.</p>
+        <p class="section-sub">Though nocturnal, Viper Geckos benefit from low-level UVB exposure. They absorb incidental UV through crevice openings in the wild — provide it without intensity.</p>
 
         <div class="light-cards">
           <div class="light-card uvb-card">
@@ -1253,9 +420,9 @@
       </div>
 
       <div class="media-col">
-        <div class="photo-card" style="height: 500px;">
+        <div class="photo-card photo-card--h500">
           <img src="images/tank-lighting.jpg" alt="Dappled forest canopy light" loading="lazy" />
-          <span class="photo-caption" style="background-color: #0b160da4;">5-7% UVB replicates the natural indirect light Vipers experience while day-lounging in nature.</span>
+          <span class="photo-caption">5-7% UVB replicates the natural indirect light Vipers experience while day-lounging in nature.</span>
         </div>
       </div>
     </div>
@@ -1266,7 +433,7 @@
 <!-- ============================================================
      TEMPERATURE
      ============================================================ -->
-<section id="temp" class="section" style="background:var(--bg-surface);">
+<section id="temp" class="section section--surface">
   <div class="container">
     <div class="content-grid reversed">
       <div class="text-col">
@@ -1275,7 +442,7 @@
           <span class="label-text">Temperature</span>
         </div>
         <h2 class="section-title">Vertical Thermal Gradient</h2>
-        <p class="section-desc">Viper Geckos rely on thermoregulation. Maintain a clear hot-to-cool gradient along the the background.</p>
+        <p class="section-sub">Viper Geckos rely on thermoregulation. Maintain a clear hot-to-cool gradient along the the background.</p>
 
         <div class="stat-row">
           <div class="stat-card">
@@ -1306,7 +473,7 @@
       </div>
 
       <div class="media-col">
-        <div class="photo-card" style="height: 460px;">
+        <div class="photo-card photo-card--h460">
           <img src="images/tank-b-wideshot.jpg" alt="Close-up of gecko on warm rock" loading="lazy" />
           <span class="photo-caption">Wide gradient against the vertical background provides plenty of options for thermoregulation.</span>
         </div>
@@ -1328,12 +495,12 @@
           <span class="label-text">Humidity</span>
         </div>
         <h2 class="section-title">Dry Tank, Wet Micro-Zones</h2>
-        <p class="section-desc">Maintain a dry, well-ventilated main chamber with localized humidity inside hides, mimicking the damp pockets of deep rocky crevices.</p>
+        <p class="section-sub">Maintain a dry, well-ventilated main chamber with localized humidity inside hides, mimicking the damp pockets of deep rocky crevices.</p>
 
-        <div class="humidity-zones" style="margin-bottom:32px;">
+        <div class="humidity-zones mb-32">
           <div class="hz-row">
             <span class="hz-label">Tank Ambient</span>
-            <div class="hz-bar-track"><div class="hz-bar-fill" style="width:35%; background: linear-gradient(90deg, #506255, #3ECF57);"></div></div>
+            <div class="hz-bar-track"><div class="hz-bar-fill" style="width:35%;"></div></div>
             <span class="hz-pct">30–40%</span>
           </div>
           <div class="hz-row">
@@ -1376,9 +543,9 @@
       </div>
 
       <div class="media-col">
-        <div class="photo-card" style="height: 500px;">
+        <div class="photo-card photo-card--h500">
           <img src="images/tank-zones.jpg" alt="Moss and water droplets on bark" loading="lazy" />
-          <span class="photo-caption" style="background-color: #0b160da4;">Moss-backed hides retain localized moisture — dry sandy substrate with pockets of humidity.</span>
+          <span class="photo-caption">Moss-backed hides retain localized moisture — dry sandy substrate with pockets of humidity.</span>
         </div>
       </div>
     </div>
@@ -1389,16 +556,16 @@
 <!-- ============================================================
      DIET
      ============================================================ -->
-<section id="diet" class="section" style="background:var(--bg-surface);">
+<section id="diet" class="section section--surface">
   <div class="container">
     <div class="section-label">
       <span class="label-line"></span>
       <span class="label-text">Feeders &amp; Diet</span>
     </div>
     <h2 class="section-title">What They Eat</h2>
-    <p class="section-desc">Viper Geckos are enthusiastic, active hunters. Feed after lights out when they are naturally alert and ready to chase prey.</p>
+    <p class="section-sub">Viper Geckos are enthusiastic, active hunters. Feed after lights out when they are naturally alert and ready to chase prey.</p>
 
-    <div class="diet-grid" style="margin-bottom:40px;">
+    <div class="diet-grid mb-40">
 
       <div class="diet-item preferred">
         <span class="diet-badge preferred">Preferred</span>
@@ -1456,9 +623,9 @@
 
     </div>
 
-    <div class="info-row" style="max-width: 680px;">
+    <div class="info-row max-w-680">
       <div class="info-item">
-        <div class="info-icon" style="color:#ffa726;background:rgba(255,152,0,0.1);">
+        <div class="info-icon info-icon--warn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         </div>
         <div class="info-body">
@@ -1490,7 +657,7 @@
       <span class="label-text">Common Issues</span>
     </div>
     <h2 class="section-title">Troubleshooting Guide</h2>
-    <p class="section-desc">Viper Geckos are hardy when husbandry is dialled in. Most issues trace back to humidity imbalance, inadequate hides, or incorrect temps — fix the environment before assuming illness.</p>
+    <p class="section-sub">Viper Geckos are hardy when husbandry is dialled in. Most issues trace back to humidity imbalance, inadequate hides, or incorrect temps — fix the environment before assuming illness.</p>
 
     <div class="issues-grid">
 
@@ -1561,15 +728,15 @@
 <footer class="site-footer">
   <div class="container footer-inner">
       <div class="footer-brand">
-        <img style="height: 1rem;" src="logo_green.svg"/>
+        <img class="footer-logo" src="logo_green.svg"/>
       </div>
-    <p class="footer-copy" style="margin-bottom:8px;">Passion. Care. Commitment.</p>
+    <p class="footer-copy mb-8">Passion. Care. Commitment.</p>
     <p class="footer-copy">Questions? Reach us at <a href="mailto:calvaryexotics@gmail.com">calvaryexotics@gmail.com</a> &nbsp;|&nbsp; <a href="tel:+19033601494">(903) 360-1494</a></p>
-    <a href="index.html" class="footer-back">
+    <a href="index.html" class="footer-back pill-btn">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
       Back to main site
     </a>
-    <p class="footer-copy" style="margin-top:24px;">&copy; <span id="yr"></span> Calvary Exotics. All rights reserved.</p>
+    <p class="footer-copy mt-24">&copy; <span id="yr"></span> Calvary Exotics. All rights reserved.</p>
   </div>
 </footer>
 

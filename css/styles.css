@@ -1,58 +1,122 @@
-/* ==============================================
+/* ================================================================
    CALVARY EXOTICS — styles.css
-   Dark naturalist aesthetic: jungle black, mossy
-   green, venomous lime accent, warm cream body text
-   ============================================== */
+   Dark naturalist aesthetic: jungle black, mossy green, venomous
+   lime accent, warm gold/cream secondary accent, cream body text.
 
-/* ---- TOKENS ---- */
+   This single stylesheet powers every page in the site:
+     index.html · listings.html · contact-card.html ·
+     viper-gecko-care-guide.html
+
+   TABLE OF CONTENTS
+   -----------------
+   1.  Design Tokens
+   2.  Global Reset & Base
+   3.  Layout & Utilities
+   4.  Buttons & Pills
+   5.  Shared Section Headers (label / title / sub)
+   6.  Header / Navigation            (all pages)
+   7.  Home — Hero                    (index.html)
+   8.  Home — About                   (index.html)
+   9.  Home — Gallery / Slideshow     (index.html)
+   10. Home — Care Guides Teaser      (index.html)
+   11. Home — Reviews                 (index.html)
+   12. Shared — Contact Section       (index.html, listings.html)
+   13. Shared — Contact Form (reserved, currently unused)
+   14. Shared — Footer                (all pages)
+   15. Listings — Page Layout         (listings.html)
+   16. Listings — Trading Card        (listings.html, JS-rendered)
+   17. Contact Card Page              (contact-card.html)
+   18. Care Guide — Hero              (viper-gecko-care-guide.html)
+   19. Care Guide — Anchor Nav
+   20. Care Guide — Section Shell & Content Grid
+   21. Care Guide — Checklist
+   22. Care Guide — Info Rows / Icons
+   23. Care Guide — Trait Tags
+   24. Care Guide — Stat Cards
+   25. Care Guide — Temperature Gradient
+   26. Care Guide — Tank Spec Chips
+   27. Care Guide — Lighting Cards
+   28. Care Guide — Humidity Zones
+   29. Care Guide — Diet Grid
+   30. Care Guide — Issue Cards
+   31. Care Guide — Photo Cards & Rich Text
+   32. Care Guide — Footer Back Link
+   33. Responsive — Global Breakpoints
+   34. Accessibility & Reduced Motion
+   ================================================================ */
+
+
+/* ================================================================
+   1. DESIGN TOKENS
+   ================================================================ */
 :root {
---bg-base:        #0B160D;   /* deep forest */
---bg-surface:     #112015;   /* +8 lightness */
---bg-card:        #18291C;   /* +16 lightness */
---bg-elevated:    #1F3324;   /* +24 lightness */
+  /* --- Surfaces --- */
+  --bg-base:        #0B160D;   /* deep forest — page background */
+  --bg-surface:     #112015;   /* +8 lightness — alternating section stripe */
+  --bg-card:        #18291C;   /* +16 lightness — card background */
+  --bg-elevated:    #1F3324;   /* +24 lightness — hover / raised card */
+  --bg-blur-light:  #f8fffb38;
+  --bg-blur-heavy:  #f8fffb7a;
 
-/* === BRAND GREENS (harmonized hue + saturation) === */
---green-deep:     #1F4F2A;   /* rich pine */
---green-mid:      #2F6F39;   /* balanced mid-tone */
---accent:         #3ECF57;   /* primary brand green */
---accent-dim:     #34B84C;   /* darker accent */
---accent-secondary:#4CA463;  /* supporting green */
---accent-glow:    rgba(62, 207, 87, 0.16);
+  /* --- Brand greens --- */
+  --green-deep:      #1F4F2A;  /* rich pine */
+  --green-mid:       #2F6F39;  /* balanced mid-tone */
+  --accent:          #3ECF57; /* primary brand green (lime) */
+  --accent-dim:      #34B84C; /* darker accent */
+  --accent-secondary:#4CA463; /* supporting green */
+  --accent-glow:     rgba(62, 207, 87, 0.16);
 
-/* === TEXT SYSTEM (WCAG tuned) === */
---text-bg-deep:   #071F14;
---text-primary:   #F2FFF7;   /* soft white with green tint */
---text-secondary: #B9CBBE;
---text-muted:     #506255;
---text-on-accent: #0B160D;
+  /* --- Gold / cream secondary accent (contact card, trading cards) --- */
+  --gold:      #C9A84C;
+  --gold-dim:  #A07C2E;
+  --cream:     #F5F0E8;
+  --parchment: #F3E1CA; /* trading-card body background */
 
---hero-text-muted: #a2b6a7;
+  /* --- Text system --- */
+  --text-bg-deep:   #071F14;
+  --text-primary:   #F2FFF7;  /* soft white with green tint */
+  --text-secondary: #B9CBBE;
+  --text-muted:     #506255;
+  --text-on-accent: #0B160D;
+  --hero-text-muted:#A2B6A7;
 
-/* === LIGHT MODE SUPPORT === */
---background-lite:#f8fffb8f;
+  /* --- Borders / shadows --- */
+  --border:         rgba(168, 230, 61, 0.12);
+  --border-subtle:  rgba(255, 255, 255, 0.06);
+  --border-gold:    rgba(160, 148, 45, 0.89);
+  --shadow-card:    0 4px 24px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.3);
+  --shadow-elevated:0 8px 32px rgba(0, 0, 0, 0.45);
+  --shadow-glow:    0 0 40px rgba(127, 179, 38, 0.18);
 
-  --border:        rgba(168, 230, 61, 0.12);
-  --border-subtle: rgba(255,255,255,0.06);
+  /* --- Type --- */
+  --font-display: 'Cinzel', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-card:    'Cinzel Decorative', serif;
 
-  --font-display:  'Cinzel', Georgia, serif;
-  --font-body:     'Inter', system-ui, sans-serif;
-  --font-mono:     'JetBrains Mono', monospace;
+  /* --- Radius --- */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+  --radius-pill: 100px;
 
-  --radius-sm:  4px;
-  --radius-md:  10px;
-  --radius-lg:  18px;
-  --radius-xl:  28px;
-
-  --shadow-card: 0 4px 24px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.3);
-  --shadow-glow: 0 0 40px rgba(127, 179, 38, 0.18);
-
-  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  /* --- Motion --- */
+  --transition:      0.25s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Shared layout --- */
+  --container-max: 1180px;
 }
 
-/* ---- RESET ---- */
+
+/* ================================================================
+   2. GLOBAL RESET & BASE
+   ================================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 html { scroll-behavior: smooth; font-size: 16px; }
+
 body {
   background-color: var(--bg-base);
   color: var(--text-primary);
@@ -62,21 +126,43 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
+
 img, video { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
 ul { list-style: none; }
 input, select, textarea { font-family: inherit; }
 
-/* ---- LAYOUT ---- */
+
+/* ================================================================
+   3. LAYOUT & UTILITIES
+   ================================================================ */
 .container {
   width: 100%;
-  max-width: 1180px;
+  max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 24px;
 }
 
-/* ---- BUTTONS ---- */
+/* Small reusable spacing/utility helpers — used to replace one-off
+   inline style="" attributes so all sizing lives in this stylesheet. */
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mb-8  { margin-bottom: 8px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-32 { margin-bottom: 32px; }
+.mb-40 { margin-bottom: 40px; }
+.max-w-680 { max-width: 680px; }
+.text-accent { color: var(--accent); }
+.text-center { text-align: center; }
+
+/* Standard footer wordmark logo image (all footers use a 1rem-tall logo) */
+.footer-logo { height: 1rem; width: auto; }
+
+
+/* ================================================================
+   4. BUTTONS & PILLS
+   ================================================================ */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -91,6 +177,7 @@ input, select, textarea { font-family: inherit; }
   text-transform: uppercase;
   transition: var(--transition);
   white-space: nowrap;
+  border: 1px solid transparent;
 }
 .btn-primary {
   border-color: var(--accent);
@@ -112,7 +199,30 @@ input, select, textarea { font-family: inherit; }
 }
 .btn-full { width: 100%; }
 
-/* ---- SECTION LABELS ---- */
+/* Pill-shaped outline link — shared by the care guide's "Begin setup"
+   hero button and the "Back to main site" footer link. */
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+.pill-btn:hover { color: var(--accent); border-color: var(--border); }
+.pill-btn svg { width: 14px; height: 14px; }
+
+
+/* ================================================================
+   5. SHARED SECTION HEADERS (label / title / sub)
+   Used on index.html and viper-gecko-care-guide.html
+   ================================================================ */
 .section-label {
   display: flex;
   align-items: center;
@@ -144,23 +254,21 @@ input, select, textarea { font-family: inherit; }
 .section-sub {
   color: var(--text-secondary);
   font-size: 1rem;
-  max-width: 600px;
+  max-width: 620px;
+  line-height: 1.75;
   margin-bottom: 48px;
 }
 
-/* =========================================
-   HEADER / NAV
-   ========================================= */
 
-#logo-header{
-  height: 30px;
-}
-
-#logo-hero{
-  height: 70px;
-}
+/* ================================================================
+   6. HEADER / NAVIGATION  (all pages)
+   ================================================================ */
+#logo-header { height: 30px; }
+#logo-hero   { height: 70px; }
 
 .site-header {
+  background: var(--bg-blur-light);
+  backdrop-filter: blur(8px);
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
@@ -168,12 +276,12 @@ input, select, textarea { font-family: inherit; }
   transition: var(--transition);
 }
 .site-header.scrolled {
-  background: var(--background-lite);
+  background: var(--bg-blur-heavy);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border-subtle);
 }
 .nav-container {
-  max-width: 1180px;
+  max-width: var(--container-max);
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -196,24 +304,25 @@ input, select, textarea { font-family: inherit; }
   display: flex;
   align-items: center;
   gap: 4px;
+  position: relative;
 }
-.nav-links.open{
-  height: 350px;
-  justify-content: flex-start;
+.nav-links.open {
+  display: flex;
+  height: fit-content;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
   padding-top: 24px;
   background-color: var(--bg-base);
 }
-.nav-links.open li{
-  height: 60px;
-}
-.nav-links.open .nav-link{
-  color: var(--accent);
-}
+.nav-links.open li { height: 60px; }
+.nav-links.open li a { height: 60px; }
+.nav-links.open .nav-link { color: var(--accent); }
 .nav-link {
   padding: 8px 14px;
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  font-weight:lighter;
+  font-weight: 300;
   letter-spacing: 0.04em;
   color: var(--accent);
   border-radius: var(--radius-sm);
@@ -221,13 +330,11 @@ input, select, textarea { font-family: inherit; }
   text-transform: uppercase;
   border-bottom: 2px solid transparent;
 }
-.nav-link.scrolled {
-  color: var(--text-bg-deep);
-}
-.nav-link:hover { 
-  color: var(--accent); 
-  background: var(--border-subtle); 
-  border-bottom-color: var(--accent); 
+.nav-link.scrolled { color: var(--text-bg-deep); }
+.nav-link:hover {
+  color: var(--accent);
+  background: var(--border-subtle);
+  border-bottom-color: var(--accent);
 }
 .nav-cta {
   margin-left: 12px;
@@ -243,6 +350,8 @@ input, select, textarea { font-family: inherit; }
 }
 .nav-cta:hover { background: #C2FF4A; box-shadow: var(--shadow-glow); }
 .nav-toggle {
+  overflow: hidden;
+  border-radius: 3px;
   display: none;
   flex-direction: column;
   gap: 5px;
@@ -252,14 +361,15 @@ input, select, textarea { font-family: inherit; }
   display: block;
   width: 22px;
   height: 2px;
-  background: var(--text-primary);
+  background: black;
   border-radius: 2px;
   transition: var(--transition);
 }
 
-/* =========================================
-   HERO
-   ========================================= */
+
+/* ================================================================
+   7. HOME — HERO  (index.html)
+   ================================================================ */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -278,36 +388,13 @@ input, select, textarea { font-family: inherit; }
   background-blend-mode: overlay;
   background-color: rgba(34, 36, 35, 0.89);
 }
-
-/* Scale grid — the signature element */
-.scale-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(ellipse 60px 40px at 0% 0%, rgb(255, 241, 180) 60%, transparent 100%),
-    radial-gradient(ellipse 60px 40px at 50% 0%, rgba(223, 213, 159, 0.938) 60%, transparent 100%);
-  background-size: 60px 40px;
-  background-repeat: repeat;
-  opacity: 0.6;
-  animation: shimmer 12s ease-in-out infinite alternate;
-}
-@keyframes shimmer {
-  0%   { background-position: 0 0; }
-  100% { background-position: 30px 20px; }
-}
-.hero-gradient {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 70% 60% at 50% 110%, rgba(45,90,39,0.5) 0%, transparent 70%),
-    linear-gradient(180deg, rgba(13,26,15,0.3) 0%, rgba(13,26,15,0.7) 60%, var(--bg-base) 100%);
-}
 .hero-content {
   position: relative;
   z-index: 1;
   text-align: center;
   padding: 120px 24px 80px;
   max-width: 800px;
+  margin: 0 auto;
 }
 .hero-eyebrow {
   font-family: var(--font-mono);
@@ -318,19 +405,6 @@ input, select, textarea { font-family: inherit; }
   color: var(--accent);
   margin-bottom: 24px;
 }
-.hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(3.5rem, 12vw, 8rem);
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 28px;
-}
-.hero-title-line { display: block; }
-.hero-title-line.accent { color: var(--accent); }
 .hero-tagline {
   font-size: 1.1rem;
   color: var(--accent-secondary);
@@ -378,7 +452,7 @@ input, select, textarea { font-family: inherit; }
 }
 @keyframes scrollPulse {
   0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
-  50%       { opacity: 1;   transform: scaleY(1); }
+  50%      { opacity: 1;   transform: scaleY(1); }
 }
 .scroll-label {
   font-family: var(--font-mono);
@@ -388,9 +462,10 @@ input, select, textarea { font-family: inherit; }
   text-transform: uppercase;
 }
 
-/* =========================================
-   ABOUT
-   ========================================= */
+
+/* ================================================================
+   8. HOME — ABOUT  (index.html)
+   ================================================================ */
 .about {
   padding: 120px 0;
   background: var(--bg-surface);
@@ -414,82 +489,52 @@ input, select, textarea { font-family: inherit; }
   padding-top: 40px;
   border-top: 1px solid var(--border-subtle);
 }
-.stat { display: flex; flex-direction: column; gap: 4px; }
-.stat-number {
+.about-stats .stat { display: flex; flex-direction: column; gap: 4px; }
+.about-stats .stat-number {
   font-family: var(--font-display);
   font-size: 2.4rem;
   font-weight: 700;
   color: var(--accent);
   line-height: 1;
 }
-.stat-plus { font-size: 1.4rem; }
-.stat-label {
+.about-stats .stat-plus { font-size: 1.4rem; }
+.about-stats .stat-label {
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
-.about-visual { position: relative; }
+.about-visual { position: relative; display: flex; justify-content: center; }
 .about-img-placeholder {
-  
-  width: 350px;
+  width: 100%;
+  max-width: 400px;
   border-radius: var(--radius-md);
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: var(--shadow-card);
 }
-.img-placeholder-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  color: var(--text-muted);
-}
-.placeholder-icon { font-size: 3rem; }
-.placeholder-text {
-  font-size: 0.8rem;
-  font-family: var(--font-mono);
-  letter-spacing: 0.1em;
-}
-.about-badge {
-  position: absolute;
-  bottom: -20px;
-  left: -20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--accent);
-  color: var(--text-on-accent);
-  padding: 12px 20px;
-  border-radius: var(--radius-md);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  box-shadow: var(--shadow-glow);
+.about-img-placeholder img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 
-/* =========================================
-   LISTINGS
-   ========================================= */
-.card-img {
-  width: 100px;
-}
-/* =========================================
-   GALLERY / SLIDESHOW
-   ========================================= */
+/* ================================================================
+   9. HOME — GALLERY / SLIDESHOW  (index.html)
+   ================================================================ */
 .gallery {
   padding: 120px 0;
   background: var(--bg-base);
 }
 .gallery .container { margin-bottom: 56px; }
+/* Inline accent links inside the gallery intro copy */
+.text-accent-strong { color: var(--accent); font-weight: bold; text-transform: capitalize; }
 .slideshow-wrapper {
   position: relative;
-  max-width: 1180px;
+  max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -533,10 +578,7 @@ input, select, textarea { font-family: inherit; }
   from { opacity: 0; transform: translateX(24px); }
   to   { opacity: 1; transform: translateX(0); }
 }
-.slide-img-wrap {
-  height: 520px;
-  overflow: hidden;
-}
+.slide-img-wrap { height: 520px; overflow: hidden; }
 .slide-img-placeholder {
   width: 100%;
   height: 100%;
@@ -545,14 +587,17 @@ input, select, textarea { font-family: inherit; }
   align-items: center;
   justify-content: center;
 }
-.slide-placeholder-emoji { font-size: 6rem; filter: grayscale(0.3); }
-.slide-img {
+/* Real photos are dropped in as plain <img> tags inside the wrap —
+   this makes sure they fill the frame and crop nicely regardless of
+   their native aspect ratio. */
+.slide-img-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 0.6s ease;
 }
-.slide:hover .slide-img { transform: scale(1.04); }
+.slide:hover .slide-img-wrap img { transform: scale(1.04); }
 .slide-info {
   padding: 48px 48px 48px 0;
   display: flex;
@@ -596,7 +641,7 @@ input, select, textarea { font-family: inherit; }
   padding-bottom: 28px;
   border-bottom: 1px solid var(--border-subtle);
 }
-.slide-price { display: flex; flex-direction: column; gap: 2px; width: 100px;}
+.slide-price { display: flex; flex-direction: column; gap: 2px; width: 100px; }
 .price-label {
   font-size: 0.7rem;
   letter-spacing: 0.1em;
@@ -620,7 +665,7 @@ input, select, textarea { font-family: inherit; }
 .tag {
   padding: 4px 10px;
   background: var(--accent-glow);
-  border: 1px solid rgba(168,230,61,0.25);
+  border: 1px solid rgba(168, 230, 61, 0.25);
   border-radius: var(--radius-sm);
   font-size: 0.6rem;
   font-weight: 500;
@@ -628,6 +673,7 @@ input, select, textarea { font-family: inherit; }
   color: var(--accent);
 }
 .slide-btn { align-self: flex-start; }
+.slide-info .slide-btn + .slide-btn { margin-top: 10px; }
 .slide-dots {
   display: flex;
   justify-content: center;
@@ -652,12 +698,56 @@ input, select, textarea { font-family: inherit; }
   background: var(--accent);
   width: 28px;
   border-radius: 4px;
-  box-shadow: 0 0 8px rgba(168,230,61,0.5);
+  box-shadow: 0 0 8px rgba(168, 230, 61, 0.5);
 }
 
-/* =========================================
-   REVIEWS
-   ========================================= */
+
+/* ================================================================
+   10. HOME — CARE GUIDES TEASER  (index.html)
+   ================================================================ */
+.careguides {
+  padding: 120px 0;
+  background: var(--bg-base);
+}
+.careguides-title {
+  font-family: var(--font-display);
+  font-size: 3.2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.guides {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+.guide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  height: 200px;
+}
+.guide-link {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--accent);
+  transition: color var(--transition);
+}
+.guide-link:hover { color: var(--accent-dim); }
+
+
+/* ================================================================
+   11. HOME — REVIEWS  (index.html)
+   ================================================================ */
 .reviews {
   padding: 120px 0;
   background: var(--bg-surface);
@@ -684,9 +774,8 @@ input, select, textarea { font-family: inherit; }
   box-shadow: var(--shadow-card);
 }
 .review-card--featured {
-  border-color: rgba(168,230,61,0.3);
+  border-color: rgba(168, 230, 61, 0.3);
   background: var(--bg-elevated);
-  grid-row: span 1;
   position: relative;
 }
 .review-card--featured::before {
@@ -720,11 +809,7 @@ input, select, textarea { font-family: inherit; }
   padding-top: 16px;
   border-top: 1px solid var(--border-subtle);
 }
-.author-name {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--text-primary);
-}
+.author-name { font-weight: 600; font-size: 0.9rem; color: var(--text-primary); }
 .author-detail {
   font-size: 0.75rem;
   color: var(--text-muted);
@@ -740,9 +825,10 @@ input, select, textarea { font-family: inherit; }
 }
 .reviews-cta p { color: var(--text-secondary); }
 
-/* =========================================
-   CONTACT
-   ========================================= */
+
+/* ================================================================
+   12. SHARED — CONTACT SECTION  (index.html, listings.html)
+   ================================================================ */
 .contact {
   padding: 120px 0;
   background: var(--bg-base);
@@ -765,11 +851,7 @@ input, select, textarea { font-family: inherit; }
   gap: 24px;
   margin-bottom: 40px;
 }
-.channel {
-  display: flex;
-  align-items: flex-start;
-  gap: 18px;
-}
+.channel { display: flex; align-items: flex-start; gap: 18px; }
 .channel-icon {
   width: 44px;
   height: 44px;
@@ -814,11 +896,17 @@ input, select, textarea { font-family: inherit; }
   flex-shrink: 0;
 }
 @keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.6; transform: scale(0.85); }
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(0.85); }
 }
 
-/* Form */
+
+/* ================================================================
+   13. SHARED — CONTACT FORM  (reserved, currently unused)
+   The <form> markup is HTML-commented-out on index.html and
+   listings.html, so none of this renders today. Styles are kept
+   here, clearly labeled, in case the form is switched back on.
+   ================================================================ */
 .contact-form-wrap {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -854,11 +942,7 @@ input, select, textarea { font-family: inherit; }
 .form-textarea { resize: vertical; min-height: 130px; }
 .form-select { cursor: pointer; }
 .form-select option { background: var(--bg-card); }
-.form-note {
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
+.form-note { text-align: center; font-size: 0.75rem; color: var(--text-muted); }
 .form-feedback {
   padding: 14px 18px;
   border-radius: var(--radius-sm);
@@ -868,18 +952,19 @@ input, select, textarea { font-family: inherit; }
 }
 .form-feedback.success {
   background: var(--accent-glow);
-  border: 1px solid rgba(168,230,61,0.3);
+  border: 1px solid rgba(168, 230, 61, 0.3);
   color: var(--accent);
 }
 .form-feedback.error {
-  background: rgba(220,50,50,0.1);
-  border: 1px solid rgba(220,50,50,0.3);
+  background: rgba(220, 50, 50, 0.1);
+  border: 1px solid rgba(220, 50, 50, 0.3);
   color: #f87171;
 }
 
-/* =========================================
-   FOOTER
-   ========================================= */
+
+/* ================================================================
+   14. SHARED — FOOTER  (all pages)
+   ================================================================ */
 .site-footer {
   background: var(--bg-surface);
   border-top: 1px solid var(--border-subtle);
@@ -895,6 +980,7 @@ input, select, textarea { font-family: inherit; }
 .footer-brand {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   font-family: var(--font-display);
   font-size: 1.1rem;
@@ -903,7 +989,7 @@ input, select, textarea { font-family: inherit; }
 .footer-policy {
   font-size: 0.95rem;
   font-family: var(--font-body);
-  color: var(--hero-text-muted)
+  color: var(--hero-text-muted);
 }
 .footer-tagline {
   font-size: 0.85rem;
@@ -928,33 +1014,49 @@ input, select, textarea { font-family: inherit; }
 .footer-copy {
   font-size: 0.75rem;
   color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
 }
+.footer-copy a { color: var(--accent); }
+
+
+/* ================================================================
+   15. LISTINGS — PAGE LAYOUT  (listings.html)
+   ================================================================ */
 .listings {
-  background-color: white;
+  background-color: var(--bg-base);
 }
-.listing-spacer {
-  padding-top: 50px;
-}
+.listing-spacer { padding-top: 50px; }
 .listings-container {
   padding: 50px;
   font-family: var(--font-display);
 }
 .listing-header {
   padding-top: 50px;
-  font-size: large;
-  color: var(--green-deep);
+  font-size: 1.4rem;
+  color: var(--accent);
 }
 .listings-body {
-  color: black;
+  color: var(--text-secondary);
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
   align-content: center;
+  justify-content: center;
   margin: auto;
-  padding: 10px 0;
-  border-top: 2px solid var(--green-deep);
-  border-bottom: 2px solid var(--green-deep);
+  padding: 24px 0;
+  border-top: 2px solid var(--border-subtle);
+  border-bottom: 2px solid var(--border-subtle);
 }
+
+
+/* ================================================================
+   16. LISTINGS — TRADING CARD COMPONENT  (JS-rendered)
+   Populated at runtime by js/listing.js + data/data.js into the
+   #crested_listings / #viper_listings / #ball_listings /
+   #isopod_listings containers. Class names below are the contract
+   the JS relies on — do not rename.
+   ================================================================ */
 .card-listing {
   background-color: rgb(15, 15, 13); /* fallback */
   height: 400px;
@@ -964,11 +1066,8 @@ input, select, textarea { font-family: inherit; }
   border-radius: 10px;
   overflow: hidden;
   font-family: var(--font-body);
-  border: 1px solid rgba(34, 36, 35, 0.89);
-  
-  /* Optional: subtle stone texture feel */
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6),
-              0 4px 15px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(83, 100, 89, 0.89);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6), 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 .card-container {
   color: white;
@@ -977,10 +1076,10 @@ input, select, textarea { font-family: inherit; }
 }
 .card-accent {
   position: absolute;
-  top: 40px;      /* move down */
-  left: -3px;     /* extend left */
-  right: -3px;    /* extend right */
-  bottom: 30px;   /* extend bottom */              /* Controls border thickness */
+  top: 40px;
+  left: -3px;
+  right: -3px;
+  bottom: 30px;
   background-image: linear-gradient(
     180deg,
     #0f1f12 0%,
@@ -990,36 +1089,33 @@ input, select, textarea { font-family: inherit; }
     #3ba04f 80%,
     #15351b 100%
   );
-  border-radius: 16px;          /* Slightly larger radius */
+  border-radius: 16px;
   z-index: 1;
 }
 .card-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: transparent;     
-  background-image:
-  linear-gradient(
-  145deg,
-  #0B160D 0%,
-  #13241A 20%,
-  #1C3226 45%,
-  #234D3A 65%,
-  #1A2F24 80%,
-  #0F1F17 95%,
-  #0B160D 100%
-);
-  border: 1px solid rgba(160, 148, 45, 0.89);
+  background-color: transparent;
+  background-image: linear-gradient(
+    145deg,
+    #0B160D 0%,
+    #13241A 20%,
+    #1C3226 45%,
+    #234D3A 65%,
+    #1A2F24 80%,
+    #0F1F17 95%,
+    #0B160D 100%
+  );
+  border: 1px solid var(--border-gold);
   border-radius: 12px;
 }
 .card-id {
   margin-left: 5px;
-  font-family: 'Cinzel Decorative', serif;
+  font-family: var(--font-card);
   font-size: 14px;
 }
-.card-bubble-container {
-  display: flex;
-}
+.card-bubble-container { display: flex; }
 .card-bubble-price {
   display: flex;
   color: rgb(231, 231, 24);
@@ -1030,7 +1126,7 @@ input, select, textarea { font-family: inherit; }
   padding: 0;
   margin: 3px;
   font-size: 11px;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -1046,7 +1142,7 @@ input, select, textarea { font-family: inherit; }
   padding: 0;
   margin: 3px;
   font-size: 11px;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -1062,7 +1158,7 @@ input, select, textarea { font-family: inherit; }
   padding: 0;
   margin: 3px;
   font-size: 11px;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -1072,34 +1168,33 @@ input, select, textarea { font-family: inherit; }
   z-index: 2;
   border: 2px solid black;
   border-radius: 5px;
-  background-image: 
-    linear-gradient(
-      135deg,
-      #0B160D 0%,
-      #13241A 35%,
-      #1A2F24 50%,
-      #13241A 65%,
-      #0B160D 100%
-    );
+  background-image: linear-gradient(
+    135deg,
+    #0B160D 0%,
+    #13241A 35%,
+    #1A2F24 50%,
+    #13241A 65%,
+    #0B160D 100%
+  );
 }
 .card-img {
   height: 200px;
   width: 100%;
-  object-fit:cover;
+  object-fit: cover;
   object-position: center;
   border: 2px solid black;
 }
 .card-badge {
   display: flex;
   align-items: center;
-  border-top: 1px solid rgba(160, 148, 45, 0.89);
-  border-bottom: 1px solid rgba(160, 148, 45, 0.89);
+  border-top: 1px solid var(--border-gold);
+  border-bottom: 1px solid var(--border-gold);
   text-align: left;
   padding: 0 3px;
   height: 25px;
 }
 .card-badge-title {
-  font-family: 'Cinzel Decorative', serif;
+  font-family: var(--font-card);
   font-size: 12px;
   text-transform: uppercase;
   color: var(--accent-dim);
@@ -1111,36 +1206,22 @@ input, select, textarea { font-family: inherit; }
   text-transform: capitalize;
 }
 .card-badge h3 {
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-weight: normal;
   font-size: small;
 }
 .card-body {
   position: relative;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  background-color: rgb(243, 225, 202);
+  background-color: var(--parchment);
   padding: 10px 20px;
   color: var(--accent);
   border: 2px solid rgb(49, 49, 49);
   height: 115px;
 }
-.card-description-title {
-  font-size: 14px;
-  text-align: left;
-  color: black;
-}
-.card-description-skill {
-  font-size: 12px;
-  text-align: left;
-  text-indent: 10px;
-  color: black;
-}
-.card-parents {
-  font-size: 12px;
-  text-align: left;
-  text-indent: 10px;
-  color: black;
-}
+.card-description-title { font-size: 14px; text-align: left; color: black; }
+.card-description-skill { font-size: 12px; text-align: left; text-indent: 10px; color: black; }
+.card-parents { font-size: 12px; text-align: left; text-indent: 10px; color: black; }
 .card-stamp-sold {
   position: absolute;
   inset: 0;
@@ -1161,32 +1242,22 @@ input, select, textarea { font-family: inherit; }
   width: 140px;
   height: 100px;
 }
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-}
+.card-footer { display: flex; justify-content: space-between; position: relative; }
 .card-info {
-  color:rgba(212, 200, 31, 0.89);
+  color: rgba(212, 200, 31, 0.89);
   font-size: 12px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   text-align: left;
 }
-.card-weight{
-  font-size: 12px;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-.card-quantity{
-  font-size: 12px;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
+.card-weight { font-size: 12px; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; }
+.card-quantity { font-size: 12px; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; }
 .card-gem {
   position: absolute;
   inset: 0;
-  top: 20%; 
+  top: 20%;
   left: 50%;
-  margin: auto; 
-  transform: translate(-50%, -50%); 
+  margin: auto;
+  transform: translate(-50%, -50%);
   display: flex;
   color: rgb(22, 22, 16);
   background-image: url('../assets/gem.png');
@@ -1199,15 +1270,691 @@ input, select, textarea { font-family: inherit; }
   padding: 0;
   margin: 3px;
   font-size: 11px;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   text-align: center;
   align-items: center;
   justify-content: center;
   z-index: 2;
 }
-/* =========================================
-   RESPONSIVE
-   ========================================= */
+
+
+/* ================================================================
+   17. CONTACT CARD PAGE  (contact-card.html)
+   A standalone "digital business card" page — gold/cream palette
+   on the same dark-green base as the rest of the site. All classes
+   are prefixed "cc-" (contact card) so they never collide with
+   styles used elsewhere.
+   ================================================================ */
+.cc-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px 16px;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(46, 94, 53, 0.35) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(201, 168, 76, 0.08) 0%, transparent 55%),
+    var(--bg-base);
+}
+.cc-card {
+  width: 100%;
+  max-width: 420px;
+  background: linear-gradient(160deg, rgba(26, 51, 32, 0.95) 0%, rgba(11, 22, 13, 0.98) 100%);
+  border: 1px solid rgba(201, 168, 76, 0.18);
+  border-radius: var(--radius-xl);
+  padding: 44px 36px 36px;
+  box-shadow: var(--shadow-elevated), inset 0 1px 0 rgba(201, 168, 76, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cc-logo {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin-bottom: 20px;
+}
+.cc-wordmark {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 6px;
+}
+.cc-tagline {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+.cc-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.3), transparent);
+  margin-bottom: 32px;
+}
+.cc-links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cc-links a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--cream);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.18s, border-color 0.18s, transform 0.14s;
+}
+.cc-links a:hover,
+.cc-links a:focus-visible {
+  background: rgba(201, 168, 76, 0.08);
+  border-color: rgba(201, 168, 76, 0.35);
+  transform: translateY(-1px);
+  outline: none;
+}
+.cc-links a:active { transform: translateY(0); }
+.cc-link-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cc-link-icon svg { width: 20px; height: 20px; }
+.cc-link-icon--cashapp svg { width: 28px; height: 28px; }
+.cc-link-icon--phone   { background: rgba(46, 94, 53, 0.55);  color: #6ecf77; }
+.cc-link-icon--email   { background: rgba(201, 168, 76, 0.18); color: var(--gold); }
+.cc-link-icon--web     { background: rgba(255, 255, 255, 0.08); color: #a8c5ff; }
+.cc-link-icon--ig      { background: rgba(193, 53, 132, 0.2);  color: #e1699a; }
+.cc-link-icon--fb      { background: rgba(24, 119, 242, 0.2);  color: #6fa8e8; }
+.cc-link-icon--cashapp { background: rgba(0, 212, 109, 0.15);  color: #00d46d; }
+.cc-link-icon--venmo   { background: rgba(0, 136, 204, 0.18);  color: #52b8e8; }
+.cc-link-body { display: flex; flex-direction: column; gap: 1px; }
+.cc-link-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.cc-link-value { font-size: 0.92rem; font-weight: 500; color: var(--cream); }
+.cc-footer {
+  margin-top: 28px;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: rgba(138, 158, 141, 0.6);
+  text-align: center;
+}
+@media (max-width: 440px) {
+  .cc-card { padding: 36px 24px 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cc-links a { transition: none; }
+}
+
+
+/* ================================================================
+   18. CARE GUIDE — HERO  (viper-gecko-care-guide.html)
+   Visually distinct from the home hero (photo backdrop, bottom-
+   aligned content), so it gets its own "cg-" (care guide) prefix
+   rather than reusing / overriding .hero.
+   ================================================================ */
+.cg-hero {
+  position: relative;
+  min-height: 72vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  padding-bottom: 80px;
+}
+.cg-hero-bg { position: absolute; inset: 0; background-color: var(--bg-surface); }
+.cg-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url("images/viper_main.JPG");
+  background-size: cover;
+  background-position: center 70%;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+}
+.cg-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 140px 24px 0;
+  max-width: 780px;
+  margin: 0 auto;
+}
+.cg-hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.cg-hero-eyebrow::before, .cg-hero-eyebrow::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.6;
+}
+.cg-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 9vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+.cg-hero-title em { font-style: normal; color: var(--accent); }
+.cg-hero-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  font-weight: 300;
+  margin-bottom: 36px;
+}
+.cg-hero-scroll { color: var(--accent); border-color: var(--accent); }
+.cg-hero-scroll:hover { border-color: var(--border); color: var(--accent); }
+.cg-hero-scroll svg { width: 14px; height: 14px; animation: bounce 2s ease-in-out infinite; }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(3px); }
+}
+
+
+/* ================================================================
+   19. CARE GUIDE — ANCHOR NAV
+   ================================================================ */
+.anchor-nav {
+  position: sticky;
+  top: 68px;
+  z-index: 90;
+  background: rgba(17, 32, 21, 0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.anchor-nav-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.anchor-nav-inner::-webkit-scrollbar { display: none; }
+.anchor-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+.anchor-link:hover, .anchor-link.active { color: var(--accent); border-bottom-color: var(--accent); }
+.anchor-link .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: 0.5; }
+
+
+/* ================================================================
+   20. CARE GUIDE — SECTION SHELL & CONTENT GRID
+   ================================================================ */
+.section { padding: 96px 0; }
+.section + .section { border-top: 1px solid var(--border-subtle); }
+
+/* Alternating background stripe used on #tank, #temp and #diet */
+.section--surface { background: var(--bg-surface); }
+
+/* Soft gradient wash used behind #checklist */
+.section--checklist {
+  background: linear-gradient(135deg, rgba(31, 51, 36, 0.55) 0%, rgba(11, 22, 13, 0.35) 100%);
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.content-grid.reversed .text-col { order: 2; }
+.content-grid.reversed .media-col { order: 1; }
+.media-col { position: relative; }
+.text-col { padding-top: 4px; }
+
+/* Small uppercase mono label used above the tank-spec chip rows */
+.tank-spec-label {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+
+/* ================================================================
+   21. CARE GUIDE — CHECKLIST
+   ================================================================ */
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+.check-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+}
+.check-card:hover { border-color: var(--border); background: var(--bg-elevated); transform: translateY(-1px); }
+.check-card.checked { border-color: rgba(62, 207, 87, 0.35); background: rgba(62, 207, 87, 0.06); }
+.check-box {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  border-radius: 6px;
+  border: 1.5px solid var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  background: transparent;
+}
+.check-card.checked .check-box { border-color: var(--accent); background: var(--accent); }
+.check-box svg {
+  width: 13px;
+  height: 13px;
+  color: var(--text-on-accent);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: var(--transition);
+}
+.check-card.checked .check-box svg { opacity: 1; transform: scale(1); }
+.check-label {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+  line-height: 1.3;
+}
+.check-card.checked .check-label { color: var(--text-primary); }
+.check-body { display: flex; flex-direction: column; gap: 2px; }
+.check-sub {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+.check-sub--center { text-align: center; }
+.check-sub--strong { font-weight: bold; text-align: center; }
+.checklist-note {
+  margin-top: 24px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.checklist-note::before {
+  content: '';
+  display: block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+
+/* ================================================================
+   22. CARE GUIDE — INFO ROWS / ICONS
+   ================================================================ */
+.info-row { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+.info-item {
+  display: flex;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+.info-item:hover { border-color: var(--border); transform: translateX(2px); }
+.info-icon {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.info-icon svg { width: 18px; height: 18px; }
+.info-icon--gold  { color: var(--gold-dim); background: rgba(201, 168, 76, 0.1); }
+.info-icon--warn  { color: #ffa726; background: rgba(255, 152, 0, 0.1); }
+.info-icon--alert { color: #f87171; background: rgba(220, 50, 50, 0.08); }
+.info-body { display: flex; flex-direction: column; gap: 2px; }
+.info-label {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.info-value { font-size: 0.9rem; font-weight: 500; color: var(--text-primary); line-height: 1.4; }
+
+
+/* ================================================================
+   23. CARE GUIDE — TRAIT TAGS
+   ================================================================ */
+.trait-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.trait-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  background: var(--bg-card);
+}
+.trait-tag .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.trait-tag.accent-tag { border-color: rgba(62, 207, 87, 0.3); color: var(--accent); background: rgba(62, 207, 87, 0.06); }
+
+
+/* ================================================================
+   24. CARE GUIDE — STAT CARDS
+   ================================================================ */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+.stat-row .stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px 16px;
+  text-align: center;
+  transition: var(--transition);
+}
+.stat-row .stat-card:hover { border-color: var(--border); transform: translateY(-2px); }
+.stat-row .stat-val {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-row .stat-label {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+
+/* ================================================================
+   25. CARE GUIDE — TEMPERATURE GRADIENT
+   ================================================================ */
+.temp-bar {
+  width: 100%;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(90deg, #6fc3f7 0%, #a5d6a7 28%, #ffe082 55%, #ff8a65 78%, #d32f2f 100%);
+  position: relative;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+}
+.temp-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+.temp-label-cool { color: #6fc3f7; }
+.temp-label-hot  { color: #ff8a65; }
+
+
+/* ================================================================
+   26. CARE GUIDE — TANK SPEC CHIPS
+   ================================================================ */
+.tank-spec { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+.spec-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  min-width: 100px;
+}
+.spec-chip-label { font-size: 0.6rem; font-family: var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+.spec-chip-val { font-size: 0.92rem; font-weight: 600; color: var(--text-primary); }
+
+
+/* ================================================================
+   27. CARE GUIDE — LIGHTING CARDS
+   ================================================================ */
+.light-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+.light-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: var(--transition);
+}
+.light-card:hover { border-color: var(--border); transform: translateY(-2px); }
+.light-card-label { font-size: 0.62rem; font-family: var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
+.light-card-product { font-size: 0.92rem; font-weight: 600; color: var(--text-primary); }
+.light-card-note { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5; }
+.light-card-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 4px;
+}
+.light-card-icon svg { width: 18px; height: 18px; }
+.uvb-card .light-card-icon  { background: rgba(180, 130, 255, 0.12); color: #c084fc; }
+.heat-card .light-card-icon { background: rgba(255, 152, 0, 0.12);  color: #ffa726; }
+
+
+/* ================================================================
+   28. CARE GUIDE — HUMIDITY ZONES
+   ================================================================ */
+.humidity-zones { display: flex; flex-direction: column; gap: 12px; }
+.hz-row { display: grid; grid-template-columns: 140px 1fr auto; align-items: center; gap: 14px; }
+.hz-label { font-size: 0.78rem; font-family: var(--font-mono); letter-spacing: 0.08em; color: var(--text-secondary); }
+.hz-bar-track { height: 8px; border-radius: var(--radius-pill); background: var(--bg-elevated); overflow: hidden; }
+.hz-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hz-pct { font-size: 0.78rem; font-family: var(--font-mono); color: var(--accent); white-space: nowrap; }
+
+
+/* ================================================================
+   29. CARE GUIDE — DIET GRID
+   ================================================================ */
+.diet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+.diet-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: var(--transition);
+}
+.diet-item:hover { border-color: var(--border); transform: translateY(-2px); background: var(--bg-elevated); }
+.diet-item.preferred { border-color: rgba(62, 207, 87, 0.25); }
+.diet-item.limited   { border-color: rgba(255, 152, 0, 0.2); }
+.diet-badge {
+  font-size: 0.58rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: var(--radius-pill);
+  width: fit-content;
+}
+.diet-badge.preferred { background: rgba(62, 207, 87, 0.12);  color: var(--accent); }
+.diet-badge.limited   { background: rgba(255, 152, 0, 0.12);  color: #ffa726; }
+.diet-badge.avoid     { background: rgba(220, 50, 50, 0.1);   color: #f87171; }
+.diet-name { font-size: 0.88rem; font-weight: 500; color: var(--text-primary); }
+.diet-note { font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; }
+
+
+/* ================================================================
+   30. CARE GUIDE — ISSUE CARDS
+   ================================================================ */
+.issues-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.issue-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: var(--transition);
+}
+.issue-card:hover { border-color: var(--border); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.issue-severity {
+  font-size: 0.58rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  width: fit-content;
+}
+.issue-severity.monitor { background: rgba(62, 207, 87, 0.1);  color: var(--accent); }
+.issue-severity.caution { background: rgba(255, 152, 0, 0.1);  color: #ffa726; }
+.issue-severity.urgent  { background: rgba(220, 50, 50, 0.1);  color: #f87171; }
+.issue-title { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); font-family: var(--font-display); letter-spacing: 0.02em; }
+.issue-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; }
+.issue-fix {
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+}
+.issue-fix::before { content: '→  Fix: '; color: var(--text-muted); }
+
+
+/* ================================================================
+   31. CARE GUIDE — PHOTO CARDS & RICH TEXT
+   ================================================================ */
+.photo-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-card);
+}
+.photo-card--h400 { height: 400px; }
+.photo-card--h460 { height: 460px; }
+.photo-card--h500 { height: 500px; }
+.photo-card + .photo-card { margin-top: 16px; }
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.photo-card:hover img { transform: scale(1.03); }
+.photo-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 20px 22px 16px;
+  background: linear-gradient(transparent, rgba(11, 22, 13, 0.85));
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+.rich p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; margin-bottom: 14px; }
+.rich p:last-child { margin-bottom: 0; }
+.rich strong { color: var(--text-primary); font-weight: 600; }
+
+
+/* ================================================================
+   32. CARE GUIDE — FOOTER BACK LINK
+   ================================================================ */
+.footer-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+
+/* ================================================================
+   33. RESPONSIVE — GLOBAL BREAKPOINTS
+   Covers header/nav, hero, about, gallery, reviews, contact,
+   listings, and the care-guide-specific layout on every page.
+   ================================================================ */
 @media (max-width: 1024px) {
   .reviews-grid { grid-template-columns: repeat(2, 1fr); }
   .about-grid { gap: 48px; }
@@ -1221,30 +1968,28 @@ input, select, textarea { font-family: inherit; }
     display: none;
     position: fixed;
     inset: 72px 0 0 0;
-    background: rgba(13,26,15,0.97);
+    background: rgba(13, 26, 15, 0.97);
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 8px;
     z-index: 99;
   }
-  .nav-links.open { display: inline;}
+  .nav-links.open { display: flex; }
   .nav-link { font-size: 1.1rem; padding: 14px 24px; }
   .nav-cta { font-size: 1rem; padding: 14px 32px; margin: 8px 0; }
 
-  /* Hero */
-  .hero-title { font-size: clamp(3rem, 16vw, 5rem); }
+  /* Home hero */
   .hero-species { gap: 6px; }
   .hero-species .dot { display: none; }
 
-  /* About */
+  /* Home about */
   .about { padding: 80px 0; }
   .about-grid { grid-template-columns: 1fr; gap: 48px; }
   .about-visual { order: -1; }
-  .about-badge { display: none; }
   .about-stats { gap: 24px; flex-wrap: wrap; }
 
-  /* Slideshow */
+  /* Home slideshow */
   .gallery { padding: 80px 0; }
   .slide { grid-template-columns: 1fr; min-height: unset; }
   .slide-img-wrap { height: 280px; }
@@ -1254,25 +1999,39 @@ input, select, textarea { font-family: inherit; }
   .slide-meta { flex-direction: column; align-items: flex-start; }
   .slide-tags { justify-content: flex-start; }
 
-  /* Reviews */
+  /* Home reviews */
   .reviews { padding: 80px 0; }
   .reviews-grid { grid-template-columns: 1fr; }
 
-  /* Contact */
+  /* Contact (shared) */
   .contact { padding: 80px 0; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .contact-form-wrap { padding: 32px 24px; }
+
+  /* Care guide */
+  .anchor-nav { position: static; }
+  .anchor-nav-inner { display: inline; }
+  .anchor-link { display: block; }
+  .section { padding: 64px 0; }
+  .content-grid { grid-template-columns: 1fr; gap: 36px; }
+  .content-grid.reversed .text-col { order: 0; }
+  .content-grid.reversed .media-col { order: 0; }
+  .light-cards { grid-template-columns: 1fr; }
+  .hz-row { grid-template-columns: 110px 1fr auto; }
 }
 
 @media (max-width: 480px) {
   .hero-actions { flex-direction: column; align-items: center; }
   .btn { width: 100%; max-width: 300px; }
   .slide-arrow { display: none; }
+  .stat-row { grid-template-columns: 1fr 1fr; }
+  .checklist-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* =========================================
-   ACCESSIBILITY & REDUCED MOTION
-   ========================================= */
+
+/* ================================================================
+   34. ACCESSIBILITY & REDUCED MOTION
+   ================================================================ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
