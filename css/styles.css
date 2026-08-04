@@ -1125,6 +1125,7 @@ input, select, textarea { font-family: inherit; }
   height: 115px;
 }
 .card-description-title {
+  font-size: 14px;
   text-align: left;
   color: black;
 }
