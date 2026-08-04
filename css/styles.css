@@ -995,6 +995,7 @@ input, select, textarea { font-family: inherit; }
 }
 .card-top {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   background-color: transparent;     
   background-image:
@@ -1013,23 +1014,58 @@ input, select, textarea { font-family: inherit; }
 }
 .card-id {
   margin-left: 5px;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 14px;
 }
-.card-bubble {
-  color: black;
-  background-image: 
-  radial-gradient(
-      #0eaa09 70%,
-      #384739 100%
-  )
-  ;
+.card-bubble-container {
+  display: flex;
+}
+.card-bubble-price {
+  display: flex;
+  color: rgb(231, 231, 24);
   height: 20px;
+  min-width: 20px;
   width: fit-content;
-  border: 1px solid rgb(10, 105, 5);
   border-radius: 20px;
   padding: 0;
   margin: 3px;
-  font-size: 12px;
+  font-size: 11px;
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.card-bubble-coin {
+  display: flex;
+  color: rgb(22, 22, 16);
+  background-image: url('../assets/coin.png');
+  height: 20px;
+  min-width: 20px;
+  width: fit-content;
+  border-radius: 20px;
+  padding: 0;
+  margin: 3px;
+  font-size: 11px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.card-bubble-coin-leaf {
+  display: flex;
+  color: rgb(22, 22, 16);
+  background-image: url('../assets/coin-leaf.png');
+  height: 20px;
+  min-width: 20px;
+  width: fit-content;
+  border-radius: 20px;
+  padding: 0;
+  margin: 3px;
+  font-size: 11px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 .card-main {
   position: relative;
@@ -1049,47 +1085,88 @@ input, select, textarea { font-family: inherit; }
 .card-img {
   height: 200px;
   width: 100%;
-  object-fit:scale-down cover;          /* Magic: crops while keeping aspect ratio */
+  object-fit:cover;
   object-position: center;
   border: 2px solid black;
 }
-.card-line {
+.card-badge {
+  display: flex;
+  align-items: center;
   border-top: 1px solid rgba(160, 148, 45, 0.89);
   border-bottom: 1px solid rgba(160, 148, 45, 0.89);
   text-align: left;
   padding: 0 3px;
-  height: 50px;
+  height: 25px;
 }
-.card-line h3 {
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: smaller;
+.card-badge-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--accent-dim);
+  margin-right: 5px;
+}
+.card-badge-text {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+.card-badge h3 {
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: normal;
+  font-size: small;
 }
 .card-body {
+  position: relative;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  background-image: linear-gradient(
-  120deg,
-  #2A2D2C 0%,
-  #525856 25%,
-  #6c7571 40%,
-  #6c7571 60%,
-  #4a504e 900%,
-  #2A2D2C 100%
-);
-  padding: 10px;
+  background-color: rgb(243, 225, 202);
+  padding: 10px 20px;
   color: var(--accent);
-  background-color: rgb(77, 77, 77);
   border: 2px solid rgb(49, 49, 49);
+  height: 115px;
 }
-.card-parents {
+.card-description-title {
   text-align: left;
   color: black;
+}
+.card-description-skill {
+  font-size: 12px;
+  text-align: left;
+  text-indent: 10px;
+  color: black;
+}
+.card-parents {
+  font-size: 12px;
+  text-align: left;
+  text-indent: 10px;
+  color: black;
+}
+.card-stamp-sold {
+  position: absolute;
+  inset: 0;
+  top: 40%;
+  left: 40%;
+  background-image: url("../assets/sold.png");
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+}
+.card-stamp-hold {
+  position: absolute;
+  inset: 0;
+  top: 40%;
+  left: 40%;
+  background-image: url("../assets/onhold.png");
+  background-repeat: no-repeat;
+  width: 140px;
+  height: 100px;
 }
 .card-footer {
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
 .card-info {
-  color:rgba(155, 146, 22, 0.89);
+  color:rgba(212, 200, 31, 0.89);
   font-size: 12px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   text-align: left;
@@ -1097,6 +1174,35 @@ input, select, textarea { font-family: inherit; }
 .card-weight{
   font-size: 12px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.card-quantity{
+  font-size: 12px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.card-gem {
+  position: absolute;
+  inset: 0;
+  top: 20%; 
+  left: 50%;
+  margin: auto; 
+  transform: translate(-50%, -50%); 
+  display: flex;
+  color: rgb(22, 22, 16);
+  background-image: url('../assets/gem.png');
+  height: 27px;
+  width: 27px;
+  background-size: auto;
+  background-color: var(--accent-dim);
+  border-radius: 20px;
+  border: 4px solid rgb(15, 15, 13);
+  padding: 0;
+  margin: 3px;
+  font-size: 11px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 }
 /* =========================================
    RESPONSIVE
