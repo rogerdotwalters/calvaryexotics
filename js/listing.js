@@ -123,7 +123,7 @@ async function loadAnimals() {
         if (idInfo.length) {
             footerHTML += `<div class="card-info">${idInfo.join(' / ')}</div>`;
         }
-        footerHTML += '<div class="card-gem"></div>'
+        footerHTML += '<button type="button" class="card-gem" data-print-card aria-label="Open printable card" title="Print or download this card"></button>';
 
         // Weight
         if (animal.animal_type === 'isopod') {

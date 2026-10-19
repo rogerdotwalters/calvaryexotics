@@ -2205,3 +2205,11 @@ input, select, textarea { font-family: inherit; }
 .species-desc { flex: 1; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.65; }
 .species-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
 .species-btn { padding: 10px 18px; font-size: 0.8rem; }
+
+
+/* ================================================================
+   22. CARD GEM PRINT BUTTON
+   ================================================================ */
+button.card-gem { cursor: pointer; appearance: none; -webkit-appearance: none; }
+button.card-gem:hover { filter: brightness(1.25); box-shadow: 0 0 8px rgba(142, 224, 11, 0.7); }
+button.card-gem:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
