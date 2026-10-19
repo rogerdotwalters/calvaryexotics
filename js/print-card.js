@@ -47,13 +47,19 @@ ${styleLinks}
   .toolbar button { padding: 10px 20px; font-size: 15px; border: 1px solid #1F6B34; background: #1F6B34; color: #fff; border-radius: 6px; cursor: pointer; }
   .toolbar button.secondary { background: #fff; color: #1F6B34; }
   .sheet { display: flex; justify-content: center; padding: 32px 16px; }
-  .sheet .card-listing { margin: 0; }
+  /* Print layout: MTG / Pokemon size, 2.5in x 3.5in (63mm x 88mm).
+     The card is drawn 250px x 350px (same width as on the site, 5:7 ratio),
+     then scaled by 0.96 so it measures exactly 2.5in x 3.5in. */
+  .sheet .card-listing { margin: 0; height: 350px; transform: scale(0.96); transform-origin: top left; }
+  .sheet .card-img { height: 150px; }
   .sheet .card-gem { cursor: default; }
+  .card-frame { width: 2.5in; height: 3.5in; overflow: hidden; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  @page { margin: 0.4in; }
+  .note { text-align: center; font-size: 13px; color: #555; padding: 0 16px 24px; }
+  @page { margin: 0.5in; }
   @media print {
     body { background: #fff; }
-    .toolbar { display: none; }
+    .toolbar, .note { display: none; }
     .sheet { padding: 0; justify-content: flex-start; }
   }
 </style></head>
@@ -62,14 +68,16 @@ ${styleLinks}
     <button type="button" id="print-btn">Print / Save as PDF</button>
     <button type="button" id="png-btn" class="secondary">Download PNG</button>
   </div>
-  <div class="sheet" id="sheet">${clone.outerHTML}</div>
+  <div class="sheet" id="sheet"><div class="card-frame">${clone.outerHTML}</div></div>
+  <p class="note">Prints at 2.5 x 3.5 in (63 x 88 mm), the size of a Magic or Pok&eacute;mon card. Set the print scale to 100%.</p>
   <script src="${base}js/vendor/html-to-image.js"><\/script>
   <script>
     document.getElementById('print-btn').onclick = function () { window.print(); };
     document.getElementById('png-btn').onclick = async function () {
       var btn = this; btn.disabled = true; btn.textContent = 'Preparing...';
       try {
-        var dataUrl = await htmlToImage.toPng(document.querySelector('.card-listing'), { pixelRatio: 4, cacheBust: true });
+        var el = document.querySelector('.card-listing');
+        var dataUrl = await htmlToImage.toPng(el, { pixelRatio: 3, cacheBust: true, width: 250, height: 350, style: { transform: 'none', margin: '0' } });
         var a = document.createElement('a');
         a.download = ${JSON.stringify(slugify(title))} + '.png';
         a.href = dataUrl;

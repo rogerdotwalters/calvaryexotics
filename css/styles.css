@@ -51,20 +51,20 @@
    ================================================================ */
 :root {
   /* --- Surfaces --- */
-  --bg-base:        #0B160D;   /* deep forest — page background */
-  --bg-surface:     #112015;   /* +8 lightness — alternating section stripe */
-  --bg-card:        #18291C;   /* +16 lightness — card background */
-  --bg-elevated:    #1F3324;   /* +24 lightness — hover / raised card */
-  --bg-blur-light:  #f8fffb38;
-  --bg-blur-heavy:  #f8fffb7a;
+  --bg-base:        #fae6cd;   /* cream — page background */
+  --bg-surface:     #f4dcbc;   /* alternating section stripe */
+  --bg-card:        #fff1de;   /* page cards (species, facts, supplies) */
+  --bg-elevated:    #fde9d2;   /* hover / raised card */
+  --bg-blur-light:  #fae6cdcc; /* header over the hero */
+  --bg-blur-heavy:  #fae6cdf2; /* header once scrolled */
 
   /* --- Brand greens --- */
   --green-deep:      #1F4F2A;  /* rich pine */
   --green-mid:       #2F6F39;  /* balanced mid-tone */
-  --accent:          #3ECF57; /* primary brand green (lime) */
-  --accent-dim:      #34B84C; /* darker accent */
-  --accent-secondary:#4CA463; /* supporting green */
-  --accent-glow:     rgba(62, 207, 87, 0.16);
+  --accent:          #1F6B34; /* brand green, darkened for contrast on cream */
+  --accent-dim:      #185A2B; /* darker accent */
+  --accent-secondary:#2F6F39; /* supporting green */
+  --accent-glow:     rgba(31, 107, 52, 0.12);
 
   /* --- Gold / cream secondary accent (contact card, trading cards) --- */
   --gold:      #C9A84C;
@@ -74,19 +74,19 @@
 
   /* --- Text system --- */
   --text-bg-deep:   #071F14;
-  --text-primary:   #F2FFF7;  /* soft white with green tint */
-  --text-secondary: #B9CBBE;
-  --text-muted:     #506255;
-  --text-on-accent: #0B160D;
+  --text-primary:   #1B2A1E;  /* deep forest */
+  --text-secondary: #46584A;
+  --text-muted:     #5E6F61;
+  --text-on-accent: #fae6cd;
   --hero-text-muted:#A2B6A7;
 
   /* --- Borders / shadows --- */
-  --border:         rgba(168, 230, 61, 0.12);
-  --border-subtle:  rgba(255, 255, 255, 0.06);
+  --border:         rgba(31, 79, 42, 0.22);
+  --border-subtle:  rgba(31, 79, 42, 0.12);
   --border-gold:    rgba(160, 148, 45, 0.89);
-  --shadow-card:    0 4px 24px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.3);
-  --shadow-elevated:0 8px 32px rgba(0, 0, 0, 0.45);
-  --shadow-glow:    0 0 40px rgba(127, 179, 38, 0.18);
+  --shadow-card:    0 4px 18px rgba(60, 40, 10, 0.15);
+  --shadow-elevated:0 8px 28px rgba(60, 40, 10, 0.2);
+  --shadow-glow:    0 0 24px rgba(31, 107, 52, 0.2);
 
   /* --- Type --- */
   --font-display: 'Cinzel', Georgia, serif;
@@ -107,6 +107,31 @@
 
   /* --- Shared layout --- */
   --container-max: 1180px;
+}
+
+
+/* Dark zones keep the original dark-theme tokens: trading cards, the hero,
+   the footer and the Shop menu. Everything else uses the cream tokens above. */
+.card-listing,
+.hero,
+.site-footer,
+.nav-dropdown-menu,
+.cc-card {
+  --bg-base:         #0B160D;
+  --bg-surface:      #112015;
+  --bg-card:         #18291C;
+  --bg-elevated:     #1F3324;
+  --accent:          #3ECF57;
+  --accent-dim:      #34B84C;
+  --accent-secondary:#4CA463;
+  --accent-glow:     rgba(62, 207, 87, 0.16);
+  --text-primary:    #F2FFF7;
+  --text-secondary:  #B9CBBE;
+  --text-muted:      #506255;
+  --text-on-accent:  #0B160D;
+  --border:          rgba(168, 230, 61, 0.12);
+  --border-subtle:   rgba(255, 255, 255, 0.06);
+  --shadow-glow:     0 0 40px rgba(127, 179, 38, 0.18);
 }
 
 
@@ -348,7 +373,7 @@ input, select, textarea { font-family: inherit; }
   border-radius: var(--radius-sm);
   transition: var(--transition);
 }
-.nav-cta:hover { background: #C2FF4A; box-shadow: var(--shadow-glow); }
+.nav-cta:hover { background: var(--accent-dim); box-shadow: var(--shadow-glow); }
 .nav-toggle {
   overflow: hidden;
   border-radius: 3px;
@@ -1404,7 +1429,7 @@ input, select, textarea { font-family: inherit; }
 
 /* Soft gradient wash used behind #checklist */
 .section--checklist {
-  background: linear-gradient(135deg, rgba(31, 51, 36, 0.55) 0%, rgba(11, 22, 13, 0.35) 100%);
+  background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(250, 230, 205, 0.6) 100%);
 }
 
 .content-grid {
@@ -1795,7 +1820,7 @@ input, select, textarea { font-family: inherit; }
   font-size: 0.72rem;
   font-family: var(--font-mono);
   letter-spacing: 0.1em;
-  color: var(--text-secondary);
+  color: #F2FFF7; /* sits on the dark photo gradient */
   text-transform: uppercase;
 }
 .rich p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; margin-bottom: 14px; }
