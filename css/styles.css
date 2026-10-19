@@ -2129,3 +2129,5 @@ input, select, textarea { font-family: inherit; }
 @media (max-width: 768px) {
   .listings-container { padding: 24px; }
 }
+
+.card-link { color: var(--accent); text-decoration: underline; }

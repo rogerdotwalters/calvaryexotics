@@ -57,8 +57,9 @@ async function loadAnimals() {
         let mainHTML = `<div class="card-main">`;
 
         // Image (only if cover_url exists)
-        if (animal.cover_url != null && animal.price !== '') {
-            mainHTML += `<img src="${animal.cover_url}" alt="${animal.name || animal.animal_name || 'Isopod'}" class="card-img">`;
+        const coverImg = (typeof imageOverrides !== 'undefined' && imageOverrides[animal.animal_id]) || animal.cover_url;
+        if (coverImg != null && animal.price !== '') {
+            mainHTML += `<img src="${coverImg}" alt="${animal.name || animal.animal_name || 'Isopod'}" class="card-img">`;
         } else {
             mainHTML += `<img src="./assets/placeholder.png" alt="${animal.name || animal.animal_name || 'Isopod'}" class="card-img">`;
         }
