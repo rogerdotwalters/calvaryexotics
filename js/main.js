@@ -1,6 +1,6 @@
 /**
  * Calvary Exotics — main.js
- * Handles: sticky nav, mobile menu, slideshow, contact form, scroll animations
+ * Handles: sticky nav, mobile menu, contact form, scroll animations
  */
 
 'use strict';
@@ -95,91 +95,6 @@ if (navToggle && navLinks) {
 }
 
 /* =========================================
-   ANIMAL SLIDESHOW
-   ========================================= */
-(function initSlideshow() {
-  const track     = $('#slides-track');
-  const dotsWrap  = $('#slide-dots');
-  const prevBtn   = $('#slide-prev');
-  const nextBtn   = $('#slide-next');
-
-  if (!track) return;
-
-  const slides    = $$('.slide', track);
-  const dots      = $$('.dot-btn', dotsWrap);
-  let current     = 0;
-  let autoTimer   = null;
-  const AUTO_MS   = 15000;
-
-  function goTo(index) {
-    // Wrap index
-    index = (index + slides.length) % slides.length;
-
-    // Update slides
-    slides[current].classList.remove('active');
-    slides[index].classList.add('active');
-
-    // Update dots
-    dots[current].classList.remove('active');
-    dots[current].setAttribute('aria-selected', 'false');
-    dots[index].classList.add('active');
-    dots[index].setAttribute('aria-selected', 'true');
-
-    current = index;
-  }
-
-  function startAuto() {
-    stopAuto();
-    autoTimer = setInterval(() => goTo(current + 1), AUTO_MS);
-  }
-
-  function stopAuto() {
-    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
-  }
-
-  // Arrow buttons
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => { goTo(current - 1); startAuto(); });
-  }
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => { goTo(current + 1); startAuto(); });
-  }
-
-  // Dot buttons
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => { goTo(i); startAuto(); });
-  });
-
-  // Keyboard navigation (left/right when focused inside slideshow)
-  track.addEventListener('keydown', e => {
-    if (e.key === 'ArrowLeft')  { goTo(current - 1); stopAuto(); }
-    if (e.key === 'ArrowRight') { goTo(current + 1); stopAuto(); }
-  });
-
-  // Touch / swipe support
-  let touchStartX = 0;
-  const wrapper = $('.slideshow-wrapper') || track;
-
-  wrapper.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].clientX;
-  }, { passive: true });
-
-  wrapper.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) < 40) return; // ignore tiny swipes
-    if (dx < 0) { goTo(current + 1); startAuto(); }
-    else         { goTo(current - 1); startAuto(); }
-  }, { passive: true });
-
-  // Pause on hover
-  wrapper.addEventListener('mouseenter', stopAuto);
-  wrapper.addEventListener('mouseleave', startAuto);
-
-  // Start
-  startAuto();
-})();
-
-/* =========================================
    CONTACT FORM
    ========================================= */
 (function initContactForm() {
@@ -264,7 +179,6 @@ if (navToggle && navLinks) {
     '.about-grid',
     '.review-card',
     '.contact-grid',
-    '.slide',
   ];
 
   const style = document.createElement('style');
