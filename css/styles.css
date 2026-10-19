@@ -2048,3 +2048,84 @@ input, select, textarea { font-family: inherit; }
   outline-offset: 3px;
   border-radius: 2px;
 }
+
+
+/* ================================================================
+   17. PRODUCT / COMING-SOON PAGES
+   (isopods.html, supplies.html, feeders.html, sugar-gliders.html)
+   ================================================================ */
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+.page-intro {
+  max-width: 760px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+.page-intro a { text-decoration: underline; }
+.supply-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  padding: 24px 0;
+  border-top: 2px solid var(--border-subtle);
+  border-bottom: 2px solid var(--border-subtle);
+}
+.supply-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+.supply-card:hover { background: var(--bg-elevated); }
+.supply-card--soon { border-style: dashed; }
+.supply-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.supply-tag--soon {
+  padding: 3px 10px;
+  border: 1px solid var(--border-gold);
+  border-radius: 999px;
+  color: var(--text-primary);
+}
+.supply-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+.supply-desc {
+  flex: 1;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.supply-btn { margin-top: 8px; }
+.coming-soon-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 32px;
+  padding: 32px;
+  max-width: 560px;
+  background: var(--bg-card);
+  border: 1px dashed var(--border-gold);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+}
+@media (max-width: 768px) {
+  .listings-container { padding: 24px; }
+}

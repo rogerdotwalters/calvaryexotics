@@ -10,10 +10,14 @@ const ballContainer = document.getElementById('ball_listings');
 const isopodContainer = document.getElementById('isopod_listings');
 
 async function loadAnimals() {
-    const { data, error } = await dbclient
+    // Pages can restrict the query with <body data-animal-type="isopod">
+    const pageAnimalType = document.body.dataset.animalType;
+    let query = dbclient
     .from('animal_listing')
     .select('*')
     .order('name');
+    if (pageAnimalType) query = query.eq('animal_type', pageAnimalType);
+    const { data, error } = await query;
 
     if (error) {
         console.error('Error loading animal listings from db:', error);
