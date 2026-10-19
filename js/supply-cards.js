@@ -19,7 +19,7 @@ function buildSupplyCard(item) {
                 </div>
             </div>
             <div class="card-main">
-                <img src="${img}" alt="${item.name} ${item.species}" class="card-img" loading="lazy">
+                <img src="${img}" alt="${item.name} ${item.species}" class="card-img" loading="lazy" decoding="async" onload="this.classList.add('loaded')" onerror="this.classList.add('loaded')">
                 <div class="card-badge">
                     <div class="card-badge-title">${item.rarity}</div>
                     <div class="card-badge-text">${item.species}</div>

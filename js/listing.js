@@ -21,8 +21,10 @@ async function loadAnimals() {
 
     if (error) {
         console.error('Error loading animal listings from db:', error);
+        if (typeof clearSkeletons === 'function') clearSkeletons('We could not load listings right now. Please refresh, or message us for what is available.');
         return;
     }
+    if (typeof clearSkeletons === 'function') clearSkeletons();
 
     data.forEach(animal => {
         const card = document.createElement('div');
@@ -59,9 +61,9 @@ async function loadAnimals() {
         // Image (only if cover_url exists)
         const coverImg = localCoverFor(animal) || animal.cover_url;
         if (coverImg != null && animal.price !== '') {
-            mainHTML += `<img src="${coverImg}" alt="${animal.name || animal.animal_name || 'Isopod'}" class="card-img">`;
+            mainHTML += `<img src="${coverImg}" alt="${animal.name || animal.animal_name || 'Isopod'}" class="card-img" decoding="async" onload="this.classList.add('loaded')" onerror="this.classList.add('loaded')">`;
         } else {
-            mainHTML += `<img src="./assets/placeholder.png" alt="${animal.name || animal.animal_name || 'Isopod'}" class="card-img">`;
+            mainHTML += `<img src="./assets/placeholder.png" alt="${animal.name || animal.animal_name || 'Isopod'}" class="card-img" decoding="async" onload="this.classList.add('loaded')" onerror="this.classList.add('loaded')">`;
         }
 
         // Title
