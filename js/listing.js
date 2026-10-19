@@ -214,6 +214,11 @@ function localCoverFor(animal) {
     if (typeof imageOverrides !== 'undefined' && imageOverrides[animal.animal_id]) {
         return imageOverrides[animal.animal_id];
     }
+    // Same photo the listing already uses, served from this site instead of Supabase.
+    if (typeof localByUpload !== 'undefined' && animal.cover_url) {
+        const uploaded = String(animal.cover_url).split('/').pop().replace(/^\d+-/, '');
+        if (localByUpload[uploaded]) return localByUpload[uploaded];
+    }
     if (animal.animal_type !== 'isopod' || typeof isopodImages === 'undefined') return null;
     const slug = String(animal.morph || animal.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
     const key = isopodImages[slug] ? slug : isopodImageAliases[slug];
