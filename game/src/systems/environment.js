@@ -59,6 +59,7 @@ export function environmentInputs(state, station, registry) {
         + (RULES.substrateMoisture[tank.substrate] ?? 0)
         + (RULES.drainageMoisture[tank.drainage] ?? 0)
         + humidityBoost(station, registry)
+        - RULES.humidity.ventLoss * thermal.airflow // screen lets moist air out
         + ((tank.environment.litter ?? 0) > 30 ? H.freshLitter : 0)
         - dryness,
       10, 98,

@@ -11,7 +11,7 @@
 import { el } from '../utils/dom.js';
 import { createItemCard } from './itemCard.js';
 import { getSelectedIndex, getSelectedStation } from '../core/selectors.js';
-import { canAddAnimal, moodWord, needAdvice } from '../systems/needs.js';
+import { canAddAnimal, careSummary, moodWord, needAdvice } from '../systems/needs.js';
 import { ANIMAL_PALETTE } from '../data/palettes/animals.js';
 import { ANIMAL_SPRITES } from '../data/sprites/animals.js';
 import { getSprite } from '../render/spriteCache.js';
@@ -65,6 +65,8 @@ export function createAnimalsPanel({ root, bus, getState, registry }) {
       const row = el('div', 'resident');
       const title = el('p', 'resident-name');
       const tip = el('p', 'resident-tip');
+      const sp = registry.list('animals').find((x) => x.id === animal.species);
+      const care = el('p', 'resident-care', sp ? careSummary(sp).join('. ') + '.' : '');
       const buttons = el('div', 'resident-buttons');
       const move = el('button', 'opt', 'Move');
       move.type = 'button';
@@ -86,7 +88,7 @@ export function createAnimalsPanel({ root, bus, getState, registry }) {
         emit('animal/remove', { id: animal.id });
       });
       buttons.append(move, remove);
-      row.append(title, tip, buttons);
+      row.append(title, tip, care, buttons);
       return { animal, row, title, tip, move };
     });
     list.replaceChildren(...rows.map((r) => r.row));

@@ -139,6 +139,18 @@ export function createIconPainter(registry) {
       }
     },
 
+    tankMaterials(ctx, item) { // a tank, with dotted screen on the faces that are mesh
+      const t = (slot) => resolveColor(TANK_PALETTE, {}, slot);
+      const mesh = (x, y, w, h) => { for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) if ((i + j) % 2 === 0) fill(ctx, t(10), x + i, y + j, 1, 1); };
+      fill(ctx, t(0), 1, 2, 14, 12);
+      fill(ctx, t(4), 2, 4, 12, 9);
+      if (item.faces.front === 'screen') { fill(ctx, t(5), 2, 4, 12, 9); mesh(2, 4, 12, 9); }
+      if (item.faces.left === 'screen') { fill(ctx, t(5), 2, 4, 3, 9); mesh(2, 4, 3, 9); }
+      if (item.faces.right === 'screen') { fill(ctx, t(5), 11, 4, 3, 9); mesh(11, 4, 3, 9); }
+      if (item.faces.top === 'screen') mesh(1, 2, 14, 2);
+      else fill(ctx, t(3), 1, 2, 14, 2);
+    },
+
     tankSizes(ctx, item) {
       const t = (slot) => resolveColor(TANK_PALETTE, {}, slot);
       const scale = 14 / 36;

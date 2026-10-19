@@ -181,6 +181,7 @@ body { -webkit-font-smoothing: none; overflow: hidden; }
 .residents { display: flex; flex-direction: column; gap: 10px; }
 .resident { padding: 8px; background: var(--panel-2); border: 2px solid var(--edge); box-shadow: 2px 2px 0 var(--edge); }
 .resident-name { margin: 0 0 4px; line-height: 1.5; }
+.resident-care { margin: 0 0 8px; color: var(--dim); line-height: 1.5; }
 .resident-tip { margin: 0 0 8px; color: var(--dim); line-height: 1.5; }
 .resident-buttons { display: flex; gap: 6px; }
 .card:disabled { opacity: 0.5; cursor: default; }

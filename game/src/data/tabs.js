@@ -57,6 +57,8 @@ export const TABS = [
     icon: ['00000000', '0......0', '0.1....0', '0..1...0', '0......0', '0......0', '0......0', '00000000'],
     sections: [
       { title: 'Size', catalog: 'tankSizes', target: 'tank', field: 'size', action: 'tank/setSize' },
+      { title: 'Enclosure', catalog: 'tankMaterials', target: 'tank', field: 'material', action: 'tank/set',
+        note: 'Screen lets heat and moist air out. Chameleons need it; frogs need it sealed.' },
       { title: 'Tank properties', kind: 'readout', source: 'tank',
         note: 'Glass holds heat in. A bigger tank has more wall to lose it through, so lamps warm it less. Set the room temperature on the wall thermostat.' },
     ],

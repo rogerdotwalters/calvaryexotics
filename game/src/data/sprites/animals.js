@@ -13,7 +13,10 @@
  *          idle and lounge loops move the jaw and body, and the pupil narrows.
  *          Colors come from the species' genetics (palette swaps).
  */
+import { REPTILE_SPRITES } from './reptiles.js';
+
 export const ANIMAL_SPRITES = {
+  ...REPTILE_SPRITES,
   'crested-gecko': {
     size: [19, 10],
     frames: {

@@ -22,7 +22,7 @@ export const RULES = {
     refHeight: 24, // inches
   },
   tau: { temperature: 45, humidity: 90 }, // seconds to settle toward the target
-  humidity: { base: 52, avgMax: 20, freshLitter: 4 }, // what items add: data/humidityRules.js
+  humidity: { base: 52, avgMax: 20, freshLitter: 4, ventLoss: 28 }, // ventLoss: points lost if every face were screen // what items add: data/humidityRules.js
   substrateMoisture: { none: -10, bioactive: 8, coco: 10, topsoil: 4, sand: -12 },
   drainageMoisture: { none: 0, 'clay-balls': 2, pebbles: 1 },
   decay: { waste: 0.012, foodSpoil: 0.02, water: 0.015, litter: 0.008, animalWaste: 0.01, animalEats: 0.015, isopodLitter: 0.00004 },
