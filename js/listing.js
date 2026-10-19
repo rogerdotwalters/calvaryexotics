@@ -57,7 +57,7 @@ async function loadAnimals() {
         let mainHTML = `<div class="card-main">`;
 
         // Image (only if cover_url exists)
-        const coverImg = (typeof imageOverrides !== 'undefined' && imageOverrides[animal.animal_id]) || animal.cover_url;
+        const coverImg = localCoverFor(animal) || animal.cover_url;
         if (coverImg != null && animal.price !== '') {
             mainHTML += `<img src="${coverImg}" alt="${animal.name || animal.animal_name || 'Isopod'}" class="card-img">`;
         } else {
@@ -165,6 +165,19 @@ async function loadAnimals() {
             console.log(animal.animal_name);
         }
     });
+}
+
+// Finds a locally hosted cover photo from data/image-map.js, if one is mapped.
+function localCoverFor(animal) {
+    if (typeof imageOverrides !== 'undefined' && imageOverrides[animal.animal_id]) {
+        return imageOverrides[animal.animal_id];
+    }
+    if (animal.animal_type !== 'isopod' || typeof isopodImages === 'undefined') return null;
+    const slug = String(animal.morph || animal.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const key = isopodImages[slug] ? slug : isopodImageAliases[slug];
+    if (key && isopodImages[key]) return isopodImages[key][0];
+    console.warn('No local image for isopod:', slug);
+    return null;
 }
 
 function getRandomArbitrary(min, max) {
