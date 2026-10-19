@@ -28,10 +28,14 @@ export const worldSize = (stationCount, viewW) => Math.max(viewW, worldWidth(sta
 /** Pixels the tables are shifted right so they stay centered when the view is wider than the room. */
 export const worldOffset = (stationCount, viewW) => Math.floor((worldSize(stationCount, viewW) - worldWidth(stationCount)) / 2);
 
-/** Where the camera should be to center station `index` in a view of width viewW. */
-export const centerOnStation = (index, stationCount, viewW) => {
+/**
+ * Where the camera should be to center station `index` in a view of width viewW.
+ * inset is how many pixels along the left edge are covered by a drawer or the tab
+ * bar; the table is centered in the part that is left.
+ */
+export const centerOnStation = (index, stationCount, viewW, inset = 0) => {
   const center = worldOffset(stationCount, viewW) + EDGE_W + index * STATION_W + STATION_W / 2;
-  return Math.max(0, Math.min(worldSize(stationCount, viewW) - viewW, Math.round(center - viewW / 2)));
+  return Math.max(0, Math.min(worldSize(stationCount, viewW) - viewW, Math.round(center - (viewW + inset) / 2)));
 };
 
 // Tank scale and glass frame (internal pixels), shared by layout and core.

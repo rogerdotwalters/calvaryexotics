@@ -12,7 +12,8 @@
  *          stepped into color bands. Colors and legend: data/dataViews.js.
  */
 import { DATA_VIEWS, colorFor } from '../../data/dataViews.js';
-import { cellTemperature, coolSpot, hotSpot, humidityField } from '../../systems/gradient.js';
+import { cellTemperature, coolSpot, hotSpot } from '../../systems/gradient.js';
+import { humidityField } from '../../systems/humidity.js';
 import { px } from '../../utils/pixelScale.js';
 
 /** A function (col, row) -> value for the chosen view, plus the grid size. */

@@ -33,7 +33,7 @@ body { -webkit-font-smoothing: none; overflow: hidden; }
  * bottom with drawers sliding up over the tank. Wide screens: tab bar down the
  * left with drawers opening beside it.
  */
-#app { position: fixed; inset: 0; --tabbar-h: 56px; --edit-h: 0px; --topbar-h: 0px; --side-w: 64px; --drawer-w: min(300px, 46vw); }
+#app { position: fixed; inset: 0; --tabbar-h: 56px; --edit-h: 0px; --topbar-h: 0px; --side-w: 64px; --drawer-w: min(260px, 62vw); }
 #stage {
   position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden;
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
@@ -61,10 +61,16 @@ body { -webkit-font-smoothing: none; overflow: hidden; }
 
 /* Data view legend: a color gradient with its values. */
 #legend {
-  position: absolute; left: 6px; top: calc(var(--topbar-h, 0px) + 6px); width: 132px; padding: 6px 8px;
+  position: absolute; left: 6px; top: calc(var(--topbar-h, 0px) + 6px); width: 168px; padding: 6px 8px;
   background: var(--panel); border: 2px solid var(--edge); box-shadow: 2px 2px 0 var(--edge);
 }
 #legend[hidden] { display: none; }
+#legend { max-height: calc(100dvh - var(--topbar-h, 0px) - 72px); overflow-y: auto; }
+.legend-notes { margin-top: 6px; }
+.legend-notes[hidden] { display: none; }
+.legend-notes summary { cursor: pointer; color: var(--dim); line-height: 1.5; }
+.legend-note { margin: 6px 0 0; line-height: 1.5; }
+.legend-note b { font-weight: normal; color: var(--accent-ink); background: var(--accent); padding: 0 3px; }
 .legend-title { margin: 0 0 6px; line-height: 1.4; }
 .legend-body { position: relative; display: flex; gap: 6px; height: 120px; margin-bottom: 6px; }
 .legend-bar { flex: none; width: 16px; border: 2px solid var(--edge); }
@@ -77,12 +83,20 @@ body { -webkit-font-smoothing: none; overflow: hidden; }
   overflow-x: auto; overflow-y: hidden; background: var(--panel); border-top: 4px solid var(--edge);
   padding-bottom: env(safe-area-inset-bottom);
 }
+/*
+ * Drawers open from the left, over the tank, on phones and tablets held upright
+ * (the tab bar is along the bottom there). They stop above the tab bar and the edit
+ * drawer and below the care bar, so the tank stays in view on the right.
+ */
 #drawer {
-  position: absolute; left: 0; right: 0; bottom: calc(var(--tabbar-h) + var(--edit-h));
-  max-height: calc(42dvh - var(--edit-h)); overflow-y: auto; padding: 12px;
-  background: var(--panel); border-top: 4px solid var(--edge);
+  position: absolute; left: 0; width: var(--drawer-w); top: calc(var(--topbar-h) + 4px);
+  bottom: calc(var(--tabbar-h) + var(--edit-h)); overflow-y: auto; padding: 12px;
+  background: var(--panel); border-right: 4px solid var(--edge); box-shadow: 4px 0 0 var(--edge);
+  animation: drawer-in 140ms steps(5) both;
 }
 #drawer[hidden] { display: none; }
+@keyframes drawer-in { from { transform: translateX(-100%); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { #drawer { animation: none; } }
 #editbar {
   position: absolute; left: 0; right: 0; bottom: var(--tabbar-h); z-index: 5; padding: 6px 8px;
   display: flex; flex-direction: column; gap: 4px;
@@ -96,9 +110,9 @@ body { -webkit-font-smoothing: none; overflow: hidden; }
     top: 0; right: auto; width: var(--side-w); flex-direction: column; overflow-x: hidden; overflow-y: auto;
     border-top: 0; border-right: 4px solid var(--edge); padding-bottom: 0;
   }
+  #app { --drawer-w: min(300px, 46vw); }
   #drawer {
-    top: 0; right: auto; bottom: 0; left: var(--side-w); width: var(--drawer-w); max-height: none;
-    border-top: 0; border-right: 4px solid var(--edge);
+    top: 0; bottom: 0; left: var(--side-w); box-shadow: none;
   }
   #topbar { left: var(--side-w); }
   #app:not(.drawer-closed) #topbar { left: calc(var(--side-w) + var(--drawer-w)); }
@@ -112,7 +126,7 @@ body { -webkit-font-smoothing: none; overflow: hidden; }
 }
 
 /* Hide UI: clear everything but the toggle. */
-#app.ui-hidden #actionbar, #app.ui-hidden #drawer, #app.ui-hidden #editbar, #app.ui-hidden #tabbar { display: none; }
+#app.ui-hidden #actionbar, #app.ui-hidden #drawer, #app.ui-hidden #editbar, #app.ui-hidden #tabbar, #app.ui-hidden #thermostat { display: none; }
 #app.ui-hidden #topbar { left: auto; }
 
 /* Care bar: four actions and six small meters for the selected tank. */
@@ -211,3 +225,17 @@ body { -webkit-font-smoothing: none; overflow: hidden; }
   font: inherit; color: var(--ink); background: var(--panel-2); padding: 6px 8px;
   border: 2px solid var(--edge); box-shadow: 2px 2px 0 var(--edge); cursor: pointer;
 }
+
+/* Thermostat panel: opens over the middle of the screen. */
+#thermostat {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 6;
+  width: min(260px, calc(100vw - 24px)); padding: 12px; display: flex; flex-direction: column; gap: 8px;
+  background: var(--panel); border: 4px solid var(--edge); box-shadow: 4px 4px 0 var(--edge);
+}
+#thermostat[hidden] { display: none; }
+#thermostat h2 { margin: 0; font-size: 8px; font-weight: normal; }
+#thermostat .note { margin: 0; }
+.thermo-temp { margin: 4px 0 0; font-size: 24px; text-align: center; line-height: 1.2; }
+.thermo-sub { margin: 0; text-align: center; color: var(--dim); line-height: 1.5; }
+.thermo-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.thermo-btn { padding: 10px 0; text-align: center; }

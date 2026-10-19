@@ -2,7 +2,7 @@
  * render/hitTest.js
  * Purpose: answer "what is under this point?" for the stage input.
  * Inputs:  { getState, registry }
- * Outputs: { pickItem(wx, wy), toFraction(stationIndex, wx, wy),
+ * Outputs: { pickItem(wx, wy), pickThermostat(wx, wy), toFraction(stationIndex, wx, wy),
  *            snap(stationIndex, placed, fx, fy) }  (world pixel coordinates)
  * Notes:   read-only; uses the same geometry as the renderer.
  */
@@ -39,6 +39,13 @@ export function createPicker({ getState, registry }) {
     return null;
   }
 
+  /** Is the point on the wall thermostat? (A little slack around it, for fingers.) */
+  function pickThermostat(wx, wy) {
+    const t = getLayout(getState(), registry).thermostat;
+    const r = t.size / 2;
+    return Math.hypot(wx - (t.x + r), wy - (t.y + r)) <= r + 3;
+  }
+
   function toFraction(stationIndex, wx, wy) {
     const { interior } = getLayout(getState(), registry).stations[stationIndex].tank;
     return { fx: (wx - interior.x) / interior.w, fy: (wy - interior.y) / interior.h };
@@ -49,5 +56,5 @@ export function createPicker({ getState, registry }) {
     return snapPosition(st.tank.interior, st.ground, entryOf(placed) ?? { anchor: 'ground' }, fx, fy);
   }
 
-  return { pickItem, toFraction, snap };
+  return { pickItem, pickThermostat, toFraction, snap };
 }

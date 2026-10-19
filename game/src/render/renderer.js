@@ -6,15 +6,19 @@
  *          changes; compositing copies the visible window (camera).
  * Inputs:  { canvas, bus, getState, registry }
  * Outputs: { render, invalidate }. render() is cheap when nothing changed.
- * Notes:   read-only on state. Back-to-front: room, table, tank back,
+ * Notes:   read-only on state. Back-to-front: room, wall thermostat, table, tank back,
  *          background, wall items, items behind the substrate, substrate,
  *           items, tank front, lamps, night, light shadows, light, data view,
  *          overlay. Light layers use "multiply" and "screen" blending.
+ *          With a data view on and settings.mapEdit set, the map is drawn
+ *          see-through and the wall items and items are drawn again over it, so
+ *          you can still see and move them.
  */
 import { getLayout } from './layout.js';
 import { VIEW_H, VIEW_W } from '../data/world.js';
 import { makeCanvas } from './spriteCache.js';
 import { drawRoom } from './scene/room.js';
+import { drawThermostat } from './scene/thermostat.js';
 import { drawTables } from './scene/table.js';
 import { drawTankBack, drawTankFront } from './scene/tank.js';
 import { drawBackgrounds, drawSubstrates, drawItems, drawItemsBehind, drawWallItems } from './scene/contents.js';
@@ -34,8 +38,13 @@ const lightSig = (s) => s.stations.map((st) => [
   [st.tank.drainage, st.tank.charcoal, st.tank.substrate, st.tank.litter],
 ]);
 
+const MAP_ALPHA = 0.6; // how solid a see-through data map is
+const MAP_ITEM_ALPHA = 0.7; // how solid the items drawn over it are
+const ABOVE_MAP = ['wallItems', 'items'];
+
 const LAYERS = [
   { name: 'room', sig: (s) => [s.room, s.stations.length, s.view.w, s.view.h], draw: drawRoom },
+  { name: 'thermostat', sig: (s) => [s.room.ambient, s.stations.length, s.view.w, s.view.h], draw: drawThermostat },
   { name: 'table', sig: (s) => s.stations.map((st) => [st.table, st.tank.size]), draw: drawTables },
   { name: 'tankBack', sig: (s) => s.stations.map((st) => [place(st), st.tank.material]), draw: drawTankBack },
   { name: 'background', sig: (s) => s.stations.map((st) => [place(st), st.tank.background, st.tank.backgroundColor]), draw: drawBackgrounds },
@@ -61,7 +70,8 @@ const LAYERS = [
     sig: (s) => (s.settings.dataView === 'off' ? ['off'] : [
       s.settings.dataView,
       s.stations.map((st) => [
-        place(st), st.lighting.lamps, st.tank.gradient?.on, st.tank.substrate, st.placedItems.filter((p) => p.catalog === 'plants' || p.catalog === 'moss'),
+        place(st), st.lighting.lamps, st.tank.gradient?.on, st.placedItems,
+        [st.tank.drainage, st.tank.charcoal, st.tank.substrate, st.tank.litter, st.tank.material],
         Math.round(st.tank.environment.temperature * 2), Math.round(st.tank.environment.humidity * 2),
       ]),
     ]),
@@ -149,11 +159,19 @@ export function createRenderer({ canvas, bus, getState, registry }) {
     if (redrew || sx !== lastCamera || animating || wasAnimating) {
       lastCamera = sx;
       ctx.clearRect(0, 0, viewW, viewH);
+      const seeThrough = state.settings.dataView !== 'off' && state.settings.mapEdit;
       for (const layer of layers) {
         ctx.globalCompositeOperation = layer.blend ?? 'source-over';
+        ctx.globalAlpha = seeThrough && layer.name === 'dataView' ? MAP_ALPHA : 1;
         ctx.drawImage(layer.canvas, sx, 0, viewW, viewH, 0, 0, viewW, viewH);
         ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 1;
         if (layer.name === 'items') drawAnimals(ctx, state, layout, registry, sx, now); // inside the tank, in front of plants
+        if (seeThrough && layer.name === 'dataView') { // bring the movable items back above the map
+          ctx.globalAlpha = MAP_ITEM_ALPHA;
+          for (const name of ABOVE_MAP) ctx.drawImage(layers.find((l) => l.name === name).canvas, sx, 0, viewW, viewH, 0, 0, viewW, viewH);
+          ctx.globalAlpha = 1;
+        }
       }
       if (effects.length > 0) drawFx(ctx, effects, layout, sx, now);
     }

@@ -1,7 +1,7 @@
 /**
  * main.js
  * Purpose: wire the modules together. Contains no game logic.
- * Inputs:  DOM elements #app, #tabbar, #drawer, #stage, #game, #actionbar, #editbar
+ * Inputs:  DOM elements #app, #tabbar, #drawer, #stage, #game, #actionbar, #editbar, #thermostat
  * Outputs: starts the game loop.
  * Flow:    UI emits 'intent' -> store.dispatch -> 'state:changed' -> renderer + UI
  *          + autosave. On start, the last autosave (if any) is loaded.
@@ -28,6 +28,7 @@ import { createEditBar } from './ui/editBar.js';
 import { createActionBar } from './ui/actionBar.js';
 import { createChrome } from './ui/chrome.js';
 import { createDataLegend } from './ui/dataLegend.js';
+import { createThermostat } from './ui/thermostat.js';
 
 // Autosave uses localStorage when the browser allows it.
 function openStorage() {
@@ -72,8 +73,9 @@ const shell = createShell({
   },
 });
 shell.setActive(null); // start with the whole tank in view; open a drawer from the tab bar
-createChrome({ app: document.getElementById('app'), toggle: document.getElementById('uiToggle'), tabBar: document.getElementById('tabbar'), editBar: document.getElementById('editbar'), topBar: document.getElementById('topbar') });
-createDataLegend({ button: document.getElementById('viewToggle'), legend: document.getElementById('legend'), bus, getState: store.getState, registry });
+createChrome({ app: document.getElementById('app'), toggle: document.getElementById('uiToggle'), tabBar: document.getElementById('tabbar'), editBar: document.getElementById('editbar'), topBar: document.getElementById('topbar'), drawer: document.getElementById('drawer'), canvas, bus });
+createThermostat({ root: document.getElementById('thermostat'), bus, getState: store.getState });
+createDataLegend({ button: document.getElementById('viewToggle'), editButton: document.getElementById('editToggle'), legend: document.getElementById('legend'), bus, getState: store.getState, registry });
 
 window.addEventListener('pagehide', autosave.flush);
 document.addEventListener('visibilitychange', () => { if (document.hidden) autosave.flush(); });

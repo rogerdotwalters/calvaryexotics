@@ -13,6 +13,7 @@ import { registry } from '../data/registry.js';
 import { createDefaultState, createStation } from './defaultState.js';
 import { LIGHT_COLORS } from '../data/items/lighting.js';
 import { DATA_VIEW_ORDER } from '../data/dataViews.js';
+import { RULES } from '../data/environmentRules.js';
 import { computeGradient, gradientMatches } from '../systems/gradient.js';
 
 const isObject = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
@@ -138,6 +139,8 @@ export function sanitize(input) {
   const time = num(state.time, 0.4);
   state.time = time >= 0 && time < 1 ? time : ((time % 1) + 1) % 1;
   state.settings.dayNight = Boolean(state.settings.dayNight);
+  state.settings.mapEdit = state.settings.mapEdit !== false;
+  state.room.ambient = clamp(Math.round(num(state.room.ambient, RULES.ambient.day)), RULES.ambient.min, RULES.ambient.max);
   // Saves from before the data views had a single on/off map; that becomes the temperature view.
   const view = DATA_VIEW_ORDER.includes(input?.settings?.dataView) ? input.settings.dataView : (input?.settings?.showGradients ? 'temperature' : 'off');
   delete state.settings.showGradients;
@@ -154,6 +157,6 @@ export function sanitize(input) {
   const viewW = clamp(Math.round(num(state.view?.w, VIEW_W)), 120, 4000);
   const viewH = clamp(Math.round(num(state.view?.h, VIEW_H)), 120, 4000);
   const maxCamera = Math.max(0, worldSize(stations.length, viewW) - viewW);
-  state.view = { cameraX: clamp(Math.round(num(state.view?.cameraX, 0)), 0, maxCamera), w: viewW, h: viewH };
+  state.view = { cameraX: clamp(Math.round(num(state.view?.cameraX, 0)), 0, maxCamera), w: viewW, h: viewH, inset: 0 }; // the inset belongs to this screen; the UI sets it
   return state;
 }

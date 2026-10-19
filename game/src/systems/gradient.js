@@ -4,7 +4,7 @@
  *          from the lamps and saved with the tank (tank.gradient) so animals
  *          and hot-spot checks can read them any time. No rendering, no DOM.
  * Inputs:  station, state (for the clock), registry
- * Outputs: lampPositions(lamps), lampField(fixture, watts, dxIn, dyIn), humidityField(),
+ * Outputs: lampPositions(lamps), lampField(fixture, watts, dxIn, dyIn), GRADIENT_MODEL,
  *          computeGradient(station, state, registry) -> grid,
  *          cellTemperature / hotSpot / coolSpot, uvbZone, describeGradient,
  *          beamReach(fixture, watts)
@@ -16,6 +16,10 @@
  *          meanHeat is subtracted from the tank's average temperature to get
  *          the cool-side baseline, so a cell's temperature is
  *          environment.temperature - meanHeat + heat[cell].
+ *          The heat grid also carries the air stratification from the tank analysis
+ *          (systems/thermal.js): warm air collects under the lid, so the top rows are
+ *          warmer than the floor. It averages out to zero, so meanHeat is unchanged.
+ *          The humidity map lives in systems/humidity.js.
  * Notes:   each lamp is a cone: strength falls with the angle off straight
  *          down and with distance. A lamp's source sits SOURCE_IN above the
  *          lid. Only lamps that are on (see daylight.js) count.
@@ -23,9 +27,11 @@
 import { clamp } from '../utils/math.js';
 import { PPI, TANK_FRAME } from '../data/world.js';
 import { lightIsOn } from './daylight.js';
-import { RULES } from '../data/environmentRules.js';
+import { analyzeTank } from './thermal.js';
 
 export const CELL = PPI; // one cell per inch
+/** Bump when the saved grids mean something new, so older saves rebuild them. */
+export const GRADIENT_MODEL = 2;
 const SOURCE_IN = 3;
 const round = (v, step) => Math.round(v / step) * step;
 
@@ -95,6 +101,15 @@ export function computeGradient(station, state, registry) {
     }
   });
 
+  // Warm air rises: the rows under the lid run warmer than the floor, by the tank analysis.
+  const strat = analyzeTank(station, on, registry).stratification;
+  if (strat > 0) {
+    for (let r = 0; r < rows; r++) {
+      const offset = strat * (0.5 - (r + 0.5) / rows);
+      for (let c = 0; c < cols; c++) heat[r * cols + c] += offset;
+    }
+  }
+
   const n = Math.max(1, cols * rows);
   const meanHeat = heat.reduce((a, b) => a + b, 0) / n;
   let hot = 0;
@@ -111,7 +126,7 @@ export function computeGradient(station, state, registry) {
     if (d > farthest) { farthest = d; cool = i; }
   });
   return {
-    cols, rows, cell: CELL, on,
+    model: GRADIENT_MODEL, cols, rows, cell: CELL, on,
     heat: heat.map((v) => round(v, 0.1)),
     uvb: uvb.map((v) => round(v, 0.01)),
     light: light.map((v) => round(v, 0.01)),
@@ -127,7 +142,7 @@ export function computeGradient(station, state, registry) {
 export function gradientMatches(gradient, station, registry) {
   if (!gradient || !Array.isArray(gradient.heat)) return false;
   const { cols, rows } = gridSize(station.tank, registry);
-  return gradient.cols === cols && gradient.rows === rows && gradient.heat.length === cols * rows;
+  return gradient.model === GRADIENT_MODEL && gradient.cols === cols && gradient.rows === rows && gradient.heat.length === cols * rows;
 }
 
 /** Air temperature (F) in one cell, from the tank's average temperature. */
@@ -146,34 +161,6 @@ export function hotSpot(env, gradient) {
 export function coolSpot(env, gradient) {
   if (!gradient?.cols) return { temp: env.temperature, col: 0, row: 0 };
   return { temp: cellTemperature(env, gradient, gradient.cool.col, gradient.cool.row), ...gradient.cool };
-}
-
-/**
- * Relative humidity (%) in every cell of the tank, from the tank's average:
- * damper near the substrate and drier up top, drier where a lamp heats the air,
- * and damper around plants and moss. Derived (not saved): it follows the
- * environment, the saved heat gradient and what is in the tank.
- */
-export function humidityField(station, registry) {
-  const g = station.tank.gradient;
-  const env = station.tank.environment;
-  if (!g?.cols) return { cols: 0, rows: 0, values: [] };
-  const { cols, rows } = g;
-  const values = new Array(cols * rows);
-  const sources = station.placedItems
-    .filter((p) => p.catalog === 'plants' || p.catalog === 'moss')
-    .map((p) => ({ col: p.fx * cols, row: p.fy * rows - 1, boost: p.catalog === 'moss' ? 6 : 4 }));
-  const wetSoil = (RULES.substrateMoisture[station.tank.substrate] ?? 0) > 0;
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const k = r * cols + c;
-      let rh = env.humidity + ((r + 0.5) / rows - 0.5) * 12 - g.heat[k] * 0.5; // bottom damper, hot spots drier
-      if (wetSoil && r >= rows - 3) rh += 3;
-      for (const src of sources) rh += src.boost * Math.exp(-Math.hypot(c - src.col, r - src.row) / 2.5);
-      values[k] = Math.min(100, Math.max(0, rh));
-    }
-  }
-  return { cols, rows, values };
 }
 
 /** Ferguson UVB zones, by UV Index. */

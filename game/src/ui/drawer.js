@@ -9,11 +9,15 @@
  * Notes:   built from a tab definition in data/tabs.js. Reads state to show
  *          what is selected and emits 'intent' events; it never changes state.
  *          Section kinds: (cards) | 'place' | 'guide' | 'slot' | 'watts' | 'readout'.
+ *          A readout shows the lamp heat and UVB by default, or the tank's size and
+ *          heat properties with `source: 'tank'`. A footer button with `event` opens
+ *          something else (it emits that event on the bus).
  */
 import { el } from '../utils/dom.js';
 import { createItemCard } from './itemCard.js';
 import { getSelectedIndex, getSelectedStation } from '../core/selectors.js';
 import { beamReach, describeGradient } from '../systems/gradient.js';
+import { describeTank } from '../systems/thermal.js';
 
 const lampOf = (station) => station.lighting.lamps[station.lighting.slot];
 
@@ -133,9 +137,11 @@ export function createDrawer({ root, bus, getState, registry, paint, panels = {}
     for (const act of tab.footer ?? []) {
       const button = el('button', 'opt', act.label);
       button.type = 'button';
-      button.addEventListener('click', () => (act.toggle
-        ? emit('settings/toggle', { key: act.toggle })
-        : emit(act.action, {})));
+      button.addEventListener('click', () => {
+        if (act.toggle) emit('settings/toggle', { key: act.toggle });
+        else if (act.event) bus.emit(act.event);
+        else emit(act.action, {});
+      });
       footer.push({ button, act });
       root.append(button);
     }
@@ -156,7 +162,10 @@ export function createDrawer({ root, bus, getState, registry, paint, panels = {}
           name.textContent = `${layer.label}: ${entry.grid ? entry.name : 'None'}`;
         }
       } else if (section.kind === 'readout') {
-        section.box.replaceChildren(...describeGradient(station, station.tank.environment, registry).map(([label, value]) => {
+        const lines = section.source === 'tank'
+          ? describeTank(station, state, registry)
+          : describeGradient(station, station.tank.environment, registry);
+        section.box.replaceChildren(...lines.map(([label, value]) => {
           const row = el('p', 'readout-row');
           row.append(el('span', 'readout-label', label), el('span', null, value));
           return row;

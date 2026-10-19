@@ -57,7 +57,7 @@ function addStation(s, side) {
     selectedStation: station.id,
     nextStationId: s.nextStationId + 1,
     ...clearItem(s),
-    ...panTo(s, centerOnStation(side === 'left' ? 0 : stations.length - 1, stations.length, s.view.w), stations.length),
+    ...panTo(s, centerOnStation(side === 'left' ? 0 : stations.length - 1, stations.length, s.view.w, s.view.inset), stations.length),
   });
 }
 
@@ -97,7 +97,7 @@ function withGradients(state, patch, all = false) {
   const next = { ...state, ...patch };
   const stations = (patch.stations ?? state.stations).map((st) => {
     const old = state.stations.find((o) => o.id === st.id);
-    const stale = all || !st.tank.gradient || !old || old.lighting !== st.lighting || old.tank.size !== st.tank.size
+    const stale = all || !st.tank.gradient || !old || old.lighting !== st.lighting || old.tank.size !== st.tank.size || old.tank.material !== st.tank.material
       || JSON.stringify(lampStates(st, next, registry)) !== JSON.stringify(st.tank.gradient.on);
     return stale ? { ...st, tank: { ...st.tank, gradient: computeGradient(st, next, registry) } } : st;
   });
@@ -114,18 +114,28 @@ export const actions = {
   // The screen size belongs to this device, so loading or resetting keeps it.
   'game/load': (s, { state }) => ({
     ...state,
-    view: { ...state.view, w: s.view.w, h: s.view.h, cameraX: clamp(state.view.cameraX, 0, Math.max(0, worldSize(state.stations.length, s.view.w) - s.view.w)) },
+    view: { ...state.view, w: s.view.w, h: s.view.h, inset: s.view.inset, cameraX: clamp(state.view.cameraX, 0, Math.max(0, worldSize(state.stations.length, s.view.w) - s.view.w)) },
   }),
-  'game/reset': (s) => { const fresh = sanitize(createDefaultState()); return { ...fresh, view: { ...fresh.view, w: s.view.w, h: s.view.h } }; },
+  'game/reset': (s) => { const fresh = sanitize(createDefaultState()); return { ...fresh, view: { ...fresh.view, w: s.view.w, h: s.view.h, inset: s.view.inset } }; },
   // The UI reports the size of the screen (in internal pixels) and asks to center a table.
   'view/resize': (s, { w, h }) => (w === s.view.w && h === s.view.h ? {} : {
     view: { ...s.view, w, h, cameraX: clamp(s.view.cameraX, 0, Math.max(0, worldSize(s.stations.length, w) - w)) },
   }),
-  'view/focus': (s) => panTo(s, centerOnStation(getSelectedIndex(s), s.stations.length, s.view.w)),
+  'view/focus': (s) => panTo(s, centerOnStation(getSelectedIndex(s), s.stations.length, s.view.w, s.view.inset)),
+  // The UI reports how much of the left edge a drawer or the tab bar covers (internal pixels),
+  // so the selected table stays in the part of the screen that is still visible.
+  'view/inset': (s, { inset }) => {
+    const next = clamp(Math.round(inset) || 0, 0, Math.max(0, s.view.w - 80));
+    return next === s.view.inset ? {} : panTo({ ...s, view: { ...s.view, inset: next } }, centerOnStation(getSelectedIndex(s), s.stations.length, s.view.w, next));
+  },
 
   'room/set': (s, patch) => ({ room: { ...s.room, ...patch } }),
+  // The wall thermostat: room temperature in F, set directly or stepped by delta.
+  'room/ambient': (s, { value, delta = 0 }) => ({
+    room: { ...s.room, ambient: clamp(Math.round(Number.isFinite(value) ? value : s.room.ambient + delta), RULES.ambient.min, RULES.ambient.max) },
+  }),
   'table/set': (s, patch) => editSelected(s, (st) => ({ ...st, table: { ...st.table, ...patch } })),
-  'tank/set': (s, patch) => editSelected(s, (st) => ({ ...st, tank: { ...st.tank, ...patch } })),
+  'tank/set': (s, patch) => withGradients(s, editSelected(s, (st) => ({ ...st, tank: { ...st.tank, ...patch } }))),
   'tank/setSize': (s, { size }) => withGradients(s, editSelected(s, (st) => ({ ...st, tank: { ...st.tank, size } }))),
 
   'light/slot': (s, { slot }) => editSelected(s, (st) => ({ ...st, lighting: { ...st.lighting, slot: clamp(slot, 0, 1) } })),
@@ -145,6 +155,11 @@ export const actions = {
   }))),
   // Which data the tank shows: 'off', 'temperature', 'humidity' or 'uvb'.
   'settings/dataView': (s, { mode }) => ({ settings: { ...s.settings, dataView: DATA_VIEW_ORDER.includes(mode) ? mode : 'off' } }),
+  // While a data view is on: see-through map with items you can still move (true), or the map alone (false).
+  'settings/mapEdit': (s, { on }) => {
+    const value = typeof on === 'boolean' ? on : !s.settings.mapEdit;
+    return { settings: { ...s.settings, mapEdit: value }, ...(value ? {} : clearItem(s)) };
+  },
   'settings/toggle': (s, { key }) => {
     const settings = { ...s.settings, [key]: !s.settings[key] };
     return key === 'dayNight' ? withGradients({ ...s, settings }, { settings, stations: s.stations }, true) : { settings };

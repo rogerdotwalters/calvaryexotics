@@ -5,10 +5,11 @@
  * Inputs:  environmentInputs(state, station, registry) -> targets and flags
  *          stepEnvironment(env, inputs, dt) -> next environment
  * Outputs: plain objects; values stay in range and nothing ever fails.
- * Notes:   temperature settles toward room temperature plus the average heat
- *          from the lamps (tank.gradient); humidity toward a target from
- *          substrate, plants, moss, fresh litter and how much the lamps dry
- *          the air.
+ * Notes:   temperature settles toward the room temperature (the wall thermostat,
+ *          state.room.ambient) plus how much the closed tank holds in the lamp heat
+ *          (systems/thermal.js); humidity toward a target from substrate, what the
+ *          items add (data/humidityRules.js), fresh litter and how much the lamps
+ *          dry the air.
  *          Waste builds slowly, more with food sitting out, less with fresh
  *          litter, and cleanup-crew animals (isopods, added later) remove it.
  */
@@ -16,6 +17,8 @@ import { clamp } from '../utils/math.js';
 import { COMFORT, RULES } from '../data/environmentRules.js';
 import { isDay } from './daylight.js';
 import { computeGradient } from './gradient.js';
+import { analyzeTank } from './thermal.js';
+import { humidityBoost } from './humidity.js';
 
 /** Total number of cleanup-crew animals (isopods) in a station. */
 export function crewCount(station, registry) {
@@ -40,20 +43,22 @@ export function environmentInputs(state, station, registry) {
   const size = registry.get('tankSizes', tank.size);
   const gradient = tank.gradient ?? computeGradient(station, state, registry);
   const night = Boolean(state.settings?.dayNight) && !isDay(state.time ?? 0.4);
-  const count = (catalog) => station.placedItems.filter((p) => p.catalog === catalog).length;
   const H = RULES.humidity;
   const dryness = station.lighting.lamps.reduce((sum, lamp, i) => (
     gradient.on?.[i] ? sum + registry.get('lights', lamp.type).dryK * lamp.watts : sum), 0);
 
+  const room = state.room?.ambient ?? RULES.ambient.day;
+  const thermal = analyzeTank(station, gradient.on, registry);
+
   return {
-    // The tank's average air temperature: room temperature plus what the lamps add on average.
-    tempTarget: (night ? RULES.ambient.night : RULES.ambient.day) + (gradient.meanHeat ?? 0),
+    // The tank's average air temperature: the room (a little cooler at night) plus the heat the closed tank holds in.
+    tempTarget: (night ? room - RULES.ambient.nightDrop : room) + thermal.rise,
+    tauTemp: thermal.tau,
     humTarget: clamp(
       H.base
         + (RULES.substrateMoisture[tank.substrate] ?? 0)
         + (RULES.drainageMoisture[tank.drainage] ?? 0)
-        + Math.min(count('plants') * H.perPlant, H.plantMax)
-        + Math.min(count('moss') * H.perMoss, H.mossMax)
+        + humidityBoost(station, registry)
         + ((tank.environment.litter ?? 0) > 30 ? H.freshLitter : 0)
         - dryness,
       10, 98,
@@ -73,7 +78,7 @@ export function stepEnvironment(env, inputs, dt) {
   const litterEaten = inputs.crew * RULES.decay.isopodLitter;
   return {
     ...env,
-    temperature: clamp(approach(env.temperature, inputs.tempTarget, RULES.tau.temperature, dt), 50, 110),
+    temperature: clamp(approach(env.temperature, inputs.tempTarget, inputs.tauTemp ?? RULES.tau.temperature, dt), 50, 110),
     humidity: clamp(approach(env.humidity, inputs.humTarget, RULES.tau.humidity, dt), 0, 100),
     cleanliness: clamp(env.cleanliness - netWaste * dt, 0, 100),
     food: clamp(env.food - (RULES.decay.foodSpoil + (inputs.animals ?? 0) * RULES.decay.animalEats) * dt, 0, 100),

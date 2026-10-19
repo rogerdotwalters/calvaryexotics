@@ -7,11 +7,14 @@
  * Outputs: DATA_VIEWS { [id]: view }, DATA_VIEW_ORDER, colorFor(view, value),
  *          cssGradient(view), STEPS
  * View:    { id, name, unit, min, max, stops: [[value, '#hex'], ...],
- *            ticks: [values for the legend], format(value) }
+ *            ticks: [values for the legend], format(value),
+ *            notes: [[label, text]] what raises and lowers it, shown under the legend }
  * Notes:   colors are blended between the stops and then stepped into STEPS
  *          bands, so the map reads as clean pixel bands, not a smooth blur.
  *          Humidity is a blue gradient down to black at zero.
  */
+import { HUMIDITY_NOTES } from './humidityRules.js';
+
 export const STEPS = 28;
 
 export const DATA_VIEWS = {
@@ -20,12 +23,18 @@ export const DATA_VIEWS = {
     stops: [[55, '#16205e'], [65, '#2563c9'], [72, '#2bb7c4'], [78, '#4cc864'], [84, '#e2e24a'], [92, '#f29a2c'], [100, '#dd3a28'], [110, '#7d0f22']],
     ticks: [60, 70, 80, 90, 100, 110],
     format: (v) => `${Math.round(v)}F`,
+    notes: [
+      ['Room', 'Set on the wall thermostat. Every tank starts from it.'],
+      ['Lamps', 'Warm the air under them. A closed glass tank holds that heat, and small tanks hold the most.'],
+      ['Rises', 'Warm air collects at the top, so the floor is cooler.'],
+    ],
   },
   humidity: {
     id: 'humidity', name: 'Humid', title: 'Humidity (%)', unit: '%', min: 0, max: 100,
     stops: [[0, '#000000'], [100, '#3da5ff']],
     ticks: [0, 25, 50, 75, 100],
     format: (v) => `${Math.round(v)}%`,
+    notes: HUMIDITY_NOTES,
   },
   uvb: {
     id: 'uvb', name: 'UVB', title: 'UV index (zones 1-4)', unit: 'UVI', min: 0, max: 8,
