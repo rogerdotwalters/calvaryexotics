@@ -412,6 +412,13 @@ input, select, textarea { font-family: inherit; }
   font-weight: 300;
   letter-spacing: 0.04em;
 }
+.hero-location {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: -20px 0 28px;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
 .hero-species {
   display: flex;
   flex-wrap: wrap;
