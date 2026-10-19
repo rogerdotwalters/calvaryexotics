@@ -29,6 +29,8 @@ import { createActionBar } from './ui/actionBar.js';
 import { createChrome } from './ui/chrome.js';
 import { createDataLegend } from './ui/dataLegend.js';
 import { createThermostat } from './ui/thermostat.js';
+import { createRangesPanel } from './ui/rangesPanel.js';
+import { createTimeToggle } from './ui/timeToggle.js';
 
 // Autosave uses localStorage when the browser allows it.
 function openStorage() {
@@ -74,8 +76,10 @@ const shell = createShell({
 });
 shell.setActive(null); // start with the whole tank in view; open a drawer from the tab bar
 createChrome({ app: document.getElementById('app'), toggle: document.getElementById('uiToggle'), tabBar: document.getElementById('tabbar'), editBar: document.getElementById('editbar'), topBar: document.getElementById('topbar'), drawer: document.getElementById('drawer'), canvas, bus });
+createRangesPanel({ root: document.getElementById('ranges'), bus, getState: store.getState, registry });
+createTimeToggle({ button: document.getElementById('timeToggle'), bus, getState: store.getState });
 createThermostat({ root: document.getElementById('thermostat'), bus, getState: store.getState });
-createDataLegend({ button: document.getElementById('viewToggle'), editButton: document.getElementById('editToggle'), legend: document.getElementById('legend'), bus, getState: store.getState, registry });
+createDataLegend({ button: document.getElementById('viewToggle'), opacityButton: document.getElementById('opacityToggle'), legend: document.getElementById('legend'), bus, getState: store.getState, registry });
 
 window.addEventListener('pagehide', autosave.flush);
 document.addEventListener('visibilitychange', () => { if (document.hidden) autosave.flush(); });

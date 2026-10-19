@@ -15,7 +15,7 @@
  */
 import { clamp } from '../utils/math.js';
 import { COMFORT, RULES } from '../data/environmentRules.js';
-import { isDay } from './daylight.js';
+import { isNight } from './daylight.js';
 import { computeGradient } from './gradient.js';
 import { analyzeTank } from './thermal.js';
 import { humidityBoost } from './humidity.js';
@@ -42,7 +42,7 @@ export function environmentInputs(state, station, registry) {
   const { tank } = station;
   const size = registry.get('tankSizes', tank.size);
   const gradient = tank.gradient ?? computeGradient(station, state, registry);
-  const night = Boolean(state.settings?.dayNight) && !isDay(state.time ?? 0.4);
+  const night = isNight(state);
   const H = RULES.humidity;
   const dryness = station.lighting.lamps.reduce((sum, lamp, i) => (
     gradient.on?.[i] ? sum + registry.get('lights', lamp.type).dryK * lamp.watts : sum), 0);

@@ -14,6 +14,8 @@ import { createDefaultState, createStation } from './defaultState.js';
 import { LIGHT_COLORS } from '../data/items/lighting.js';
 import { DATA_VIEW_ORDER } from '../data/dataViews.js';
 import { RULES } from '../data/environmentRules.js';
+import { isDay } from '../systems/daylight.js';
+import { MAP_OPACITIES } from '../data/dataViews.js';
 import { computeGradient, gradientMatches } from '../systems/gradient.js';
 
 const isObject = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
@@ -136,10 +138,13 @@ export function sanitize(input) {
   state.nextItemId = Math.max(num(state.nextItemId, 1), maxIdNumber([...itemIds]) + 1);
   state.nextAnimalId = Math.max(num(state.nextAnimalId, 1), maxIdNumber([...animalIds]) + 1);
 
-  const time = num(state.time, 0.4);
-  state.time = time >= 0 && time < 1 ? time : ((time % 1) + 1) % 1;
-  state.settings.dayNight = Boolean(state.settings.dayNight);
-  state.settings.mapEdit = state.settings.mapEdit !== false;
+  // Saves from before the Day/Night switch had a clock and a cycle option; keep where they were.
+  const old = input?.settings ?? {};
+  state.settings.night = old.night !== undefined ? Boolean(old.night) : Boolean(old.dayNight) && !isDay(num(input?.time, 0.4));
+  delete state.settings.dayNight;
+  delete state.time;
+  state.settings.mapOpacity = MAP_OPACITIES.includes(old.mapOpacity) ? old.mapOpacity : (old.mapEdit === false ? 1 : 0.6);
+  delete state.settings.mapEdit;
   state.room.ambient = clamp(Math.round(num(state.room.ambient, RULES.ambient.day)), RULES.ambient.min, RULES.ambient.max);
   // Saves from before the data views had a single on/off map; that becomes the temperature view.
   const view = DATA_VIEW_ORDER.includes(input?.settings?.dataView) ? input.settings.dataView : (input?.settings?.showGradients ? 'temperature' : 'off');

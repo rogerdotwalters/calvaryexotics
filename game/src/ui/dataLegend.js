@@ -4,11 +4,13 @@
  *          cycles Normal -> Temp -> Humid -> UVB. While a data view is on, a
  *          legend shows its color gradient with values, plus the numbers that
  *          matter for the selected tank (hot spot, driest and dampest zones,
- *          peak UVB) and a short note on what raises and lowers it. The Edit
- *          button (shown while a view is on) switches between a see-through map
- *          with movable items and the map alone.
- * Inputs:  { button, editButton, legend, bus, getState, registry }
- * Outputs: emits 'intent' settings/dataView and settings/mapEdit; keeps the
+ *          peak UVB) and a short note on what raises and lowers it. The Opacity
+ *          button (shown with a live map) steps the map through 100%, 60% and
+ *          30%; below 100% the tank shows through and items can still be moved.
+ *          The 'Ranges' view is a static chart (ui/rangesPanel.js), so it has no
+ *          legend or opacity button here.
+ * Inputs:  { button, opacityButton, legend, bus, getState, registry }
+ * Outputs: emits 'intent' settings/dataView and settings/mapOpacity; keeps the
  *          legend current.
  * Notes:   the gradient and ticks come from data/dataViews.js, the same data
  *          the map is drawn from. No game logic here.
@@ -41,7 +43,7 @@ function info(viewId, station, state, registry) {
   return [`Peak ${g.maxUvb.toFixed(1)} UVI`, `Zone ${uvbZone(g.maxUvb)}`];
 }
 
-export function createDataLegend({ button, editButton, legend, bus, getState, registry }) {
+export function createDataLegend({ button, opacityButton, legend, bus, getState, registry }) {
   const title = el('p', 'legend-title');
   const bar = el('div', 'legend-bar');
   const ticks = el('ul', 'legend-ticks');
@@ -60,19 +62,19 @@ export function createDataLegend({ button, editButton, legend, bus, getState, re
     bus.emit('intent', { action: 'settings/dataView', payload: { mode: DATA_VIEW_ORDER[(now + 1) % DATA_VIEW_ORDER.length] } });
   });
 
-  editButton.addEventListener('click', () => bus.emit('intent', { action: 'settings/mapEdit', payload: {} }));
+  opacityButton.addEventListener('click', () => bus.emit('intent', { action: 'settings/mapOpacity', payload: {} }));
 
   let built = null;
   function refresh() {
     const state = getState();
     const mode = state.settings.dataView;
     const view = DATA_VIEWS[mode];
-    button.textContent = `View: ${view ? view.name : 'Normal'}`;
-    button.setAttribute('aria-pressed', String(Boolean(view)));
+    button.textContent = `View: ${view ? view.name : mode === 'ranges' ? 'Ranges' : 'Normal'}`;
+    button.setAttribute('aria-pressed', String(mode !== 'off'));
     legend.hidden = !view;
-    editButton.hidden = !view;
-    editButton.textContent = `Edit: ${state.settings.mapEdit ? 'On' : 'Off'}`;
-    editButton.setAttribute('aria-pressed', String(state.settings.mapEdit));
+    opacityButton.hidden = !view;
+    opacityButton.textContent = `Opacity: ${Math.round(state.settings.mapOpacity * 100)}%`;
+    opacityButton.setAttribute('aria-pressed', String(state.settings.mapOpacity < 1));
     if (!view) return;
     if (built !== mode) { // the gradient and its labels only change with the view
       built = mode;

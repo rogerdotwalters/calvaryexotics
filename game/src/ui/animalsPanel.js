@@ -1,11 +1,13 @@
 /**
  * ui/animalsPanel.js
- * Purpose: the Animals tab: add an animal to the selected tank, see how each
- *          resident is feeling and what it needs, move it to another table, or
- *          remove it (with a confirm step).
+ * Purpose: the Animals tab: add an animal to the selected tank (one card per
+ *          kind of animal, in its standard look), then recolor it from the
+ *          resident's own color and pattern buttons. See how each resident is
+ *          feeling and what it needs, move it to another table, or remove it
+ *          (with a confirm step).
  * Inputs:  { root, bus, getState, registry }
- * Outputs: builds controls in `root`; emits 'intent' animal/add, animal/move,
- *          animal/remove. Returns { destroy }.
+ * Outputs: builds controls in `root`; emits 'intent' animal/add, animal/morph,
+ *          animal/move, animal/remove. Returns { destroy }.
  * Notes:   no game logic: tips and capacity come from systems/needs.js.
  */
 import { el } from '../utils/dom.js';
@@ -27,27 +29,27 @@ export function createAnimalsPanel({ root, bus, getState, registry }) {
   const emit = (action, payload) => bus.emit('intent', { action, payload });
 
   const species = registry.list('animals');
-  // One card per variant (starting morph); species without variants get a single card.
-  const options = species.flatMap((sp) => (sp.variants ?? [{ id: undefined, name: sp.name, description: sp.description, morph: {} }]).map((v) => ({ sp, v })));
-  const cards = options.map(({ sp, v }) => {
+  // One card per kind of animal, shown in its standard look.
+  const standard = (sp) => sp.variants?.[0]?.morph ?? { color: sp.genetics.traits.color.alleles[0], pattern: 'none' };
+  const cards = species.map((sp) => {
     const card = createItemCard({
-      item: { name: v.name, description: v.description },
+      item: { name: sp.name, description: sp.description },
       paint: (canvas) => {
         const set = ANIMAL_SPRITES[sp.sprite];
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, 24, 24);
         if (!set) return;
-        const sprite = getSprite(scaleGrid(set.frames.idle[0]), ANIMAL_PALETTE, morphSwaps(sp, v.morph));
+        const sprite = getSprite(scaleGrid(set.frames.idle[0]), ANIMAL_PALETTE, morphSwaps(sp, standard(sp)));
         const f = sprite.width > 24 ? Math.ceil(sprite.width / 24) : 1;
         const scale = sprite.width <= 12 ? 2 : 1;
         const w = Math.round((sprite.width / f) * scale);
         const h = Math.round((sprite.height / f) * scale);
         ctx.drawImage(sprite, Math.floor((24 - w) / 2), 22 - h, w, h);
       },
-      onPick: () => emit('animal/add', { speciesId: sp.id, variantId: v.id }),
+      onPick: () => emit('animal/add', { speciesId: sp.id }),
     });
     addGrid.append(card.el);
-    return { sp, v, card };
+    return { sp, card };
   });
 
   wrap.append(
@@ -59,6 +61,32 @@ export function createAnimalsPanel({ root, bus, getState, registry }) {
   let rowsKey = '';
   let rows = [];
   let erasing = null;
+
+  /** Color swatches (and pattern buttons) for one animal: tap to recolor it. */
+  function buildLooks(animal, sp) {
+    const el0 = el('div', 'looks');
+    const traits = sp?.genetics?.traits ?? {};
+    const buttons = [];
+    for (const trait of ['color', 'pattern']) {
+      const alleles = traits[trait]?.alleles ?? [];
+      if (alleles.length < 2) continue;
+      el0.append(el('span', 'looks-label', trait === 'color' ? 'Color' : 'Pattern'));
+      const row = el('div', 'looks-row');
+      for (const value of alleles) {
+        const label = sp.variants?.find((v) => v.morph[trait] === value)?.name ?? traits[trait].labels?.[value] ?? value;
+        const button = el('button', trait === 'color' ? 'swatch' : 'opt look-btn', trait === 'color' ? '' : label);
+        button.type = 'button';
+        button.title = label;
+        button.setAttribute('aria-label', `${trait} ${label}`);
+        if (trait === 'color') button.style.background = morphSwaps(sp, { color: value })[2] ?? ANIMAL_PALETTE.colors[2];
+        button.addEventListener('click', () => emit('animal/morph', { id: animal.id, trait, value }));
+        row.append(button);
+        buttons.push({ trait, value, button });
+      }
+      el0.append(row);
+    }
+    return { el: el0, buttons };
+  }
 
   function buildRows(station, state) {
     rows = station.animals.map((animal) => {
@@ -88,8 +116,9 @@ export function createAnimalsPanel({ root, bus, getState, registry }) {
         emit('animal/remove', { id: animal.id });
       });
       buttons.append(move, remove);
-      row.append(title, tip, care, buttons);
-      return { animal, row, title, tip, move };
+      const looks = buildLooks(animal, sp);
+      row.append(title, tip, care, looks.el, buttons);
+      return { animal, row, title, tip, move, looks };
     });
     list.replaceChildren(...rows.map((r) => r.row));
     if (rows.length === 0) list.append(el('p', 'empty', 'No animals in this tank yet.'));
@@ -120,6 +149,7 @@ export function createAnimalsPanel({ root, bus, getState, registry }) {
       r.title.textContent = `${label}${size}  ${moodWord(animal.mood)}, ${where}`;
       r.tip.textContent = animal.mood < 0.8 && sp ? needAdvice(animal.worst, station, sp) : 'Everything looks good.';
       r.move.disabled = state.stations.length < 2;
+      for (const { trait, value, button } of r.looks.buttons) button.setAttribute('aria-pressed', String((animal.morph?.[trait] ?? 'none') === value));
     });
   }
 

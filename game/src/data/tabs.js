@@ -137,9 +137,6 @@ export const TABS = [
       { title: 'Heat and UVB', kind: 'readout',
         note: 'Saved for hot spot checks. Press View (top right) to see temperature, humidity or UVB across the tank.' },
     ],
-    footer: [
-      { toggle: 'dayNight', label: 'Day and night cycle' },
-    ],
   },
   {
     id: 'save', name: 'Save', scope: 'room', panel: 'save',

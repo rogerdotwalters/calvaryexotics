@@ -7,7 +7,7 @@
  * Outputs: emits 'intent' room/ambient; opens and closes itself on the bus
  *          event 'ui:thermostat'.
  * Notes:   reads state only. The night setpoint is the room temperature minus
- *          RULES.ambient.nightDrop and only applies with the day and night cycle on.
+ *          RULES.ambient.nightDrop and applies when the Time switch is on Night.
  */
 import { el } from '../utils/dom.js';
 import { RULES } from '../data/environmentRules.js';
@@ -31,7 +31,7 @@ export function createThermostat({ root, bus, getState }) {
     row.append(button);
     return { button, delta };
   });
-  const note = el('p', 'note', 'Every tank starts from the room temperature, then its lamps warm it. Press View, then Temp, to see how a closed tank holds the heat.');
+  const note = el('p', 'note', 'Every tank starts from the room temperature, then its lamps warm it. Press View twice to see the heat ranges, then Temp to see how a closed tank holds the heat.');
   root.append(head, temp, sub, row, note);
 
   const setOpen = (open) => { root.hidden = !open; };
@@ -42,7 +42,7 @@ export function createThermostat({ root, bus, getState }) {
   function refresh() {
     const { ambient } = getState().room;
     temp.textContent = `${Math.round(ambient)}F`;
-    sub.textContent = `Night ${Math.round(ambient - RULES.ambient.nightDrop)}F with the day and night cycle`;
+    sub.textContent = `${Math.round(ambient - RULES.ambient.nightDrop)}F at night`;
     for (const { button, delta } of buttons) button.disabled = delta < 0 ? ambient <= RULES.ambient.min : ambient >= RULES.ambient.max;
   }
   bus.on('state:changed', (event) => { if (event.action !== 'sim/tick') refresh(); });

@@ -20,16 +20,17 @@ import {
 import { registry } from '../data/registry.js';
 import { createDefaultState, createStation } from './defaultState.js';
 import { sanitize } from './sanitize.js';
-import { DATA_VIEW_ORDER } from '../data/dataViews.js';
+import { DATA_VIEW_ORDER, MAP_OPACITIES } from '../data/dataViews.js';
 import { getSelectedIndex, getSelectedStation, maxCameraX } from './selectors.js';
 import { groundFraction, interiorHeight, interiorWidth } from './geometry.js';
 import { moveLayer } from './layers.js';
-import { DAY, RULES } from '../data/environmentRules.js';
+import { RULES } from '../data/environmentRules.js';
 import { environmentInputs, stepEnvironment } from '../systems/environment.js';
 import { computeGradient, lampStates } from '../systems/gradient.js';
 import { stepAnimals } from '../systems/animals.js';
 import { canAddAnimal } from '../systems/needs.js';
 import { createAnimal } from '../entities/animal.js';
+import { morphLabel } from '../entities/morph.js';
 
 const editSelected = (s, fn) => ({
   stations: s.stations.map((st) => (st.id === s.selectedStation ? fn(st) : st)),
@@ -104,6 +105,16 @@ function withGradients(state, patch, all = false) {
   return { ...patch, stations };
 }
 
+// The collection log remembers every species and look you have had.
+function logLook(log, species, morph) {
+  const pattern = morph.pattern && morph.pattern !== 'none' ? `+${morph.pattern}` : '';
+  const key = `${species.id}:${morph.color}${pattern}`;
+  return {
+    species: log.species.includes(species.id) ? log.species : [...log.species, species.id],
+    morphs: log.morphs.includes(key) ? log.morphs : [...log.morphs, key],
+  };
+}
+
 const editEnv = (s, fn) =>
   editSelected(s, (st) => ({ ...st, tank: { ...st.tank, environment: fn(st.tank.environment, st) } }));
 const cap = (v) => Math.min(100, v);
@@ -155,30 +166,33 @@ export const actions = {
   }))),
   // Which data the tank shows: 'off', 'temperature', 'humidity' or 'uvb'.
   'settings/dataView': (s, { mode }) => ({ settings: { ...s.settings, dataView: DATA_VIEW_ORDER.includes(mode) ? mode : 'off' } }),
-  // While a data view is on: see-through map with items you can still move (true), or the map alone (false).
-  'settings/mapEdit': (s, { on }) => {
-    const value = typeof on === 'boolean' ? on : !s.settings.mapEdit;
-    return { settings: { ...s.settings, mapEdit: value }, ...(value ? {} : clearItem(s)) };
+  // How solid the live map is: steps through 100%, 60% and 30%. At 100% items cannot be picked.
+  'settings/mapOpacity': (s, { value }) => {
+    const next = MAP_OPACITIES.includes(value) ? value : MAP_OPACITIES[(MAP_OPACITIES.indexOf(s.settings.mapOpacity) + 1) % MAP_OPACITIES.length];
+    return { settings: { ...s.settings, mapOpacity: next }, ...(next === 1 ? clearItem(s) : {}) };
   },
   'settings/toggle': (s, { key }) => {
     const settings = { ...s.settings, [key]: !s.settings[key] };
-    return key === 'dayNight' ? withGradients({ ...s, settings }, { settings, stations: s.stations }, true) : { settings };
+    return { settings };
+  },
+  // Day or night. Lamps switch on and off with it, so every tank's heat and light are recomputed.
+  'settings/night': (s, { on }) => {
+    const settings = { ...s.settings, night: typeof on === 'boolean' ? on : !s.settings.night };
+    return withGradients({ ...s, settings }, { settings, stations: s.stations }, true);
   },
 
-  // Simulation step: every tank's environment, and the clock when day/night is on.
+  // Simulation step: every tank's environment and animals.
   'sim/tick': (s, { dt }) => {
-    const time = s.settings.dayNight ? (s.time + dt / DAY.seconds) % 1 : s.time;
-    const clock = { ...s, time };
     const stations = s.stations.map((st) => {
-      const { animals, foodGain } = stepAnimals(st, clock, registry, dt);
-      const environment = stepEnvironment(st.tank.environment, environmentInputs(clock, st, registry), dt);
+      const { animals, foodGain } = stepAnimals(st, s, registry, dt);
+      const environment = stepEnvironment(st.tank.environment, environmentInputs(s, st, registry), dt);
       return {
         ...st,
         tank: { ...st.tank, environment: foodGain ? { ...environment, food: Math.min(100, environment.food + foodGain) } : environment },
         animals,
       };
     });
-    return withGradients(clock, { stations, ...(s.settings.dayNight ? { time } : {}) });
+    return withGradients(s, { stations });
   },
 
   // Care actions act on the selected tank.
@@ -197,16 +211,22 @@ export const actions = {
     if (!species || !canAddAnimal(station, species, registry).ok) return {};
     const variant = species.variants?.find((v) => v.id === variantId) ?? species.variants?.[0];
     const animal = createAnimal({ id: `a${s.nextAnimalId}`, species, variant, tank: station.tank, count: station.animals.length, registry });
-    const log = s.discoveredLog;
-    const pattern = animal.morph.pattern && animal.morph.pattern !== 'none' ? `+${animal.morph.pattern}` : '';
-    const morphKey = `${species.id}:${animal.morph.color}${pattern}`;
     return {
       ...editSelected(s, (st) => ({ ...st, animals: [...st.animals, animal] })),
       nextAnimalId: s.nextAnimalId + 1,
-      discoveredLog: {
-        species: log.species.includes(species.id) ? log.species : [...log.species, species.id],
-        morphs: log.morphs.includes(morphKey) ? log.morphs : [...log.morphs, morphKey],
-      },
+      discoveredLog: logLook(s.discoveredLog, species, animal.morph),
+    };
+  },
+  // Recolor an animal: trait is 'color' or 'pattern'; the value must be one the species has.
+  'animal/morph': (s, { id, trait, value }) => {
+    const owner = s.stations.find((st) => st.animals.some((a) => a.id === id));
+    const animal = owner?.animals.find((a) => a.id === id);
+    const species = animal && registry.list('animals').find((x) => x.id === animal.species);
+    if (!species || !(trait === 'color' || trait === 'pattern') || !(species.genetics.traits[trait]?.alleles ?? []).includes(value)) return {};
+    const morph = { ...animal.morph, [trait]: value };
+    return {
+      stations: s.stations.map((st) => (st === owner ? { ...st, animals: st.animals.map((a) => (a.id === id ? { ...a, morph, name: species.colony ? morphLabel(species, morph) : a.name } : a)) } : st)),
+      discoveredLog: logLook(s.discoveredLog, species, morph),
     };
   },
   'animal/remove': (s, { id }) => ({

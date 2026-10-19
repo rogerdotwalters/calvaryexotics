@@ -126,7 +126,7 @@ body { -webkit-font-smoothing: none; overflow: hidden; }
 }
 
 /* Hide UI: clear everything but the toggle. */
-#app.ui-hidden #actionbar, #app.ui-hidden #drawer, #app.ui-hidden #editbar, #app.ui-hidden #tabbar, #app.ui-hidden #thermostat { display: none; }
+#app.ui-hidden #actionbar, #app.ui-hidden #drawer, #app.ui-hidden #editbar, #app.ui-hidden #tabbar, #app.ui-hidden #thermostat, #app.ui-hidden #ranges { display: none; }
 #app.ui-hidden #topbar { left: auto; }
 
 /* Care bar: four actions and six small meters for the selected tank. */
@@ -181,6 +181,13 @@ body { -webkit-font-smoothing: none; overflow: hidden; }
 .residents { display: flex; flex-direction: column; gap: 10px; }
 .resident { padding: 8px; background: var(--panel-2); border: 2px solid var(--edge); box-shadow: 2px 2px 0 var(--edge); }
 .resident-name { margin: 0 0 4px; line-height: 1.5; }
+.looks { display: flex; flex-direction: column; gap: 4px; margin: 0 0 8px; }
+.looks-label { color: var(--dim); }
+.looks-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.swatch { width: 24px; height: 24px; padding: 0; border: 2px solid var(--edge); box-shadow: 2px 2px 0 var(--edge); cursor: pointer; }
+.swatch[aria-pressed="true"] { outline: 3px solid var(--accent); outline-offset: 1px; }
+.look-btn { padding: 4px 6px; }
+.look-btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
 .resident-care { margin: 0 0 8px; color: var(--dim); line-height: 1.5; }
 .resident-tip { margin: 0 0 8px; color: var(--dim); line-height: 1.5; }
 .resident-buttons { display: flex; gap: 6px; }
@@ -240,3 +247,27 @@ body { -webkit-font-smoothing: none; overflow: hidden; }
 .thermo-sub { margin: 0; text-align: center; color: var(--dim); line-height: 1.5; }
 .thermo-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
 .thermo-btn { padding: 10px 0; text-align: center; }
+
+/* Ranges view: a static chart of recommended ranges. */
+#ranges {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 6;
+  width: min(560px, calc(100vw - 24px)); max-height: calc(100dvh - 140px); overflow-y: auto; padding: 12px;
+  background: var(--panel); border: 4px solid var(--edge); box-shadow: 4px 4px 0 var(--edge);
+}
+#ranges[hidden] { display: none; }
+#ranges h2 { margin: 0; font-size: 8px; font-weight: normal; }
+.range-tabs { display: flex; gap: 6px; margin: 8px 0; }
+.range-tab[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.range-axis { position: relative; height: 12px; margin: 0 0 4px 0; }
+.range-axis span { position: absolute; transform: translateX(-50%); color: var(--dim); }
+.range-row { margin-bottom: 8px; }
+.range-name { margin: 0 0 2px; }
+.range-text { margin: 2px 0 0; color: var(--dim); }
+.range-track { position: relative; height: 12px; background: var(--panel-3); border: 2px solid var(--edge); }
+.range-zone { position: absolute; top: 0; bottom: 0; opacity: 0.55; }
+.range-zone.z1 { background: #7d8fb8; } .range-zone.z2 { background: #8aa7c8; } .range-zone.z3 { background: #a99ad6; } .range-zone.z4 { background: #c9a4e8; }
+.range-bar { position: absolute; top: 2px; bottom: 2px; border: 1px solid var(--edge); }
+.range-bar.cool { background: #3f9a88; } .range-bar.hot { background: #e0752f; }
+.range-bar.uvb { background: #6a3fc8; } .range-bar.wet { background: #2f86e0; }
+.zone-table { margin-top: 12px; }
+.zone-line { margin: 4px 0; line-height: 1.5; }
