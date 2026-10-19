@@ -220,10 +220,15 @@ function localCoverFor(animal) {
         if (localByUpload[uploaded]) return localByUpload[uploaded];
     }
     if (animal.animal_type !== 'isopod' || typeof isopodImages === 'undefined') return null;
-    const slug = String(animal.morph || animal.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-    const key = isopodImages[slug] ? slug : isopodImageAliases[slug];
-    if (key && isopodImages[key]) return isopodImages[key][0];
-    console.warn('No local image for isopod:', slug);
+    // Try the full name first ("Armadillidium Sunset"), then the morph ("Sunset"),
+    // so two listings that share a morph can have different photos.
+    const slugs = [animal.name, animal.morph].filter(Boolean)
+        .map(v => String(v).toLowerCase().replace(/[^a-z0-9]/g, ''));
+    for (const slug of slugs) {
+        const key = isopodImages[slug] ? slug : isopodImageAliases[slug];
+        if (key && isopodImages[key]) return isopodImages[key][0];
+    }
+    console.warn('No local image for isopod:', slugs.join(' / '));
     return null;
 }
 
