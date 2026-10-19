@@ -7,14 +7,22 @@
  * Notes:   temperature is in degrees Fahrenheit; other levels are 0-100.
  *          Rates are per second of real time. Everything is gentle: values
  *          drift slowly and nothing here can hurt an animal.
+ *          ambient is the default room temperature; the player sets it with the wall
+ *          thermostat (state.room.ambient) and the night setpoint is nightDrop lower.
+ *          thermal feeds systems/thermal.js (how a closed tank holds lamp heat).
  *          COMFORT is a generic range used for the meter colors until species
  *          define their own needs.
  */
 export const RULES = {
-  ambient: { day: 73, night: 68 },
-  refVolume: 7776, // 18x18x24 inches; smaller tanks heat up more, larger less
+  ambient: { day: 73, nightDrop: 5, min: 55, max: 90 },
+  refVolume: 7776, // 18x18x24 inches; larger tanks react more slowly, smaller ones faster
+  thermal: {
+    airShare: 0.6, // share of a lamp's watts that ends up warming the tank's air (a fixture can set its own)
+    stratification: 0.4, // top-to-floor air difference, as a share of the enclosure rise (for a 24 inch tank)
+    refHeight: 24, // inches
+  },
   tau: { temperature: 45, humidity: 90 }, // seconds to settle toward the target
-  humidity: { base: 52, perPlant: 2.5, plantMax: 15, perMoss: 3, mossMax: 10, freshLitter: 4 },
+  humidity: { base: 52, avgMax: 20, freshLitter: 4 }, // what items add: data/humidityRules.js
   substrateMoisture: { none: -10, bioactive: 8, coco: 10, topsoil: 4, sand: -12 },
   drainageMoisture: { none: 0, 'clay-balls': 2, pebbles: 1 },
   decay: { waste: 0.012, foodSpoil: 0.02, water: 0.015, litter: 0.008, animalWaste: 0.01, animalEats: 0.015, isopodLitter: 0.00004 },

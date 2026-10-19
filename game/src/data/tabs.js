@@ -15,6 +15,9 @@
  *   of cards: { title, note, layers: [{ field, catalog, label, purpose }] }.
  * Footer:  [{ label, action, needs? }]  needs: 'multiple' = 2+ tables.
  *          { toggle: 'key', label } is an on/off switch for settings[key].
+ *          { event: 'name', label } emits a bus event (opens a panel).
+ *   kind 'readout' lists numbers instead of cards; `source: 'tank'` lists the
+ *   tank's size and heat properties (default: lamp heat and UVB).
  * Panel:   a tab with `panel: 'name'` shows a custom panel (built in main.js)
  *          instead of sections, for things that are not item cards (saving).
  */
@@ -37,6 +40,7 @@ export const TABS = [
       room('Baseboard', 'trims', 'trim'),
       room('Baseboard color', 'trimColors', 'trimColor'),
     ],
+    footer: [{ label: 'Room thermostat', event: 'ui:thermostat' }],
   },
   {
     id: 'table', name: 'Table', scope: 'station',
@@ -51,7 +55,11 @@ export const TABS = [
   {
     id: 'tank', name: 'Tank', scope: 'station',
     icon: ['00000000', '0......0', '0.1....0', '0..1...0', '0......0', '0......0', '0......0', '00000000'],
-    sections: [{ title: 'Size', catalog: 'tankSizes', target: 'tank', field: 'size', action: 'tank/setSize' }],
+    sections: [
+      { title: 'Size', catalog: 'tankSizes', target: 'tank', field: 'size', action: 'tank/setSize' },
+      { title: 'Tank properties', kind: 'readout', source: 'tank',
+        note: 'Glass holds heat in. A bigger tank has more wall to lose it through, so lamps warm it less. Set the room temperature on the wall thermostat.' },
+    ],
   },
   {
     id: 'plants', name: 'Plants', scope: 'station',

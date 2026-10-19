@@ -2,7 +2,7 @@
  * render/layout.js
  * Purpose: all scene geometry in internal pixels, derived from state.
  * Inputs:  state (state.view is the screen size), registry
- * Outputs: getLayout() -> { view, world, room, stations[], plus }.
+ * Outputs: getLayout() -> { view, world, room, stations[], plus, thermostat }.
  *          Each station has { id, table, tank } rects in world coordinates;
  *          tank.interior is the glass area items live in; station.ground is the
  *          pixel offset down the interior where the substrate surface sits.
@@ -22,6 +22,7 @@ const FLOOR_DEPTH = px(18); // how far the table feet stand into the floor
 const LAMP_ROOM = px(16); // space kept above the tallest tank for lamps
 const MIN_TABLE = px(24);
 const PLUS = { size: px(28) };
+const THERMOSTAT_SIZE = px(22);
 const TOP_UI = 56; // portrait: room kept clear for the care bar floating over the top
 
 function stationLayout(station, index, registry, feetY, centerX, reserve) {
@@ -72,6 +73,12 @@ export function getLayout(state, registry) {
       y: feetY - px(70),
       leftX: offset + Math.round((EDGE_W - PLUS.size) / 2),
       rightX: offset + EDGE_W + count * STATION_W + Math.round((EDGE_W - PLUS.size) / 2),
+    },
+    // The wall thermostat hangs in the empty bay at the right end of the room, clear of the tab bar.
+    thermostat: {
+      size: THERMOSTAT_SIZE,
+      x: offset + EDGE_W + count * STATION_W + Math.round((EDGE_W - THERMOSTAT_SIZE) / 2),
+      y: Math.max(TOP_UI + px(8), Math.round(floorTop * 0.4)),
     },
     baseW,
   };

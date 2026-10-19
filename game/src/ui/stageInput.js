@@ -5,7 +5,9 @@
  *          "+". Press on a placed item = select it, drag to move it.
  * Inputs:  { canvas, bus, getState, picker }
  * Outputs: emits 'intent' { action, payload } for view/pan, world/tap,
- *          item/select, item/move and item/nudge (arrow keys).
+ *          item/select, item/move and item/nudge (arrow keys). Tapping the wall
+ *          thermostat emits 'ui:thermostat' on the bus. While a data view is on
+ *          with Edit off, items cannot be picked, so dragging looks around.
  * Notes:   positions are converted to the canvas's internal pixels; the picker
  *          (render/hitTest.js) supplies hit testing and soft snapping.
  */
@@ -24,9 +26,13 @@ export function createStageInput({ canvas, bus, getState, picker }) {
   canvas.addEventListener('pointerdown', (e) => {
     canvas.setPointerCapture(e.pointerId);
     const p = toView(e);
-    const wx = getState().view.cameraX + p.x;
-    const hit = picker.pickItem(wx, p.y);
-    if (hit) {
+    const state = getState();
+    const wx = state.view.cameraX + p.x;
+    const locked = state.settings.dataView !== 'off' && !state.settings.mapEdit; // the map alone: nothing to edit
+    const hit = locked ? null : picker.pickItem(wx, p.y);
+    if (!hit && picker.pickThermostat(wx, p.y)) {
+      drag = { mode: 'pan', startX: p.x, lastX: p.x, moved: false, thermostat: true };
+    } else if (hit) {
       const at = picker.toFraction(hit.stationIndex, wx, p.y);
       drag = { mode: 'item', hit, grab: { dx: hit.fx - at.fx, dy: hit.fy - at.fy }, startX: p.x, startY: p.y, moved: false, last: null };
       emit('item/select', { id: hit.id });
@@ -61,7 +67,10 @@ export function createStageInput({ canvas, bus, getState, picker }) {
   });
 
   canvas.addEventListener('pointerup', (e) => {
-    if (drag && drag.mode === 'pan' && !drag.moved) emit('world/tap', { x: toView(e).x });
+    if (drag && drag.mode === 'pan' && !drag.moved) {
+      if (drag.thermostat) bus.emit('ui:thermostat');
+      else emit('world/tap', { x: toView(e).x });
+    }
     drag = null;
   });
   canvas.addEventListener('pointercancel', () => { drag = null; });
