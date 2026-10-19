@@ -2061,18 +2061,15 @@ input, select, textarea { font-family: inherit; }
 /* ================================================================
    19. NAV DROPDOWN  (Shop menu)
    ================================================================ */
-.nav-dropdown { position: relative; display: flex; align-items: center; height: 72px; }
-.nav-dropdown-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: none;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  cursor: pointer;
-}
+/* The li is a normal nav item (so its text lines up with the other links); the
+   padding/negative margin only extend the hover area down to the menu. */
+.nav-dropdown { position: relative; padding: 26px 0; margin: -26px 0; }
+.nav-dropdown-toggle { cursor: pointer; }
 .nav-dropdown-toggle::after {
   content: "";
+  display: inline-block;
+  margin-left: 7px;
+  vertical-align: 2px;
   width: 6px;
   height: 6px;
   border-right: 1.5px solid currentColor;
@@ -2124,9 +2121,15 @@ input, select, textarea { font-family: inherit; }
 @media (max-width: 768px) {
   .nav-links { overflow-y: auto; justify-content: flex-start; padding-top: 16px; }
   .nav-links.open { max-height: calc(100vh - 72px); }
-  .nav-links.open .nav-dropdown { height: auto; flex-direction: column; justify-content: center; }
+  .nav-dropdown { padding: 0; margin: 0; }
+  .nav-links.open .nav-dropdown { height: auto; display: flex; flex-direction: column; justify-content: center; align-items: center; }
   .nav-links.open .nav-dropdown-toggle { height: 60px; }
   .nav-dropdown-menu {
+    /* inside the cream mobile menu, use the cream-theme colors again */
+    --accent: #1F6B34;
+    --text-primary: #1B2A1E;
+    --bg-elevated: #fde9d2;
+    --border: rgba(31, 79, 42, 0.22);
     position: static;
     min-width: 0;
     width: 100%;

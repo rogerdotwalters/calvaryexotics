@@ -64,6 +64,7 @@ if (navToggle && navLinks) {
   $$('.nav-dropdown').forEach(dd => {
     const toggle = $('.nav-dropdown-toggle', dd);
     toggle.addEventListener('click', e => {
+      e.preventDefault();
       e.stopPropagation();
       const open = dd.classList.toggle('open');
       toggle.setAttribute('aria-expanded', String(open));
