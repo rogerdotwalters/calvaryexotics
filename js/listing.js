@@ -167,6 +167,46 @@ async function loadAnimals() {
             console.log(animal.animal_name);
         }
     });
+    addEmptyCards();
+}
+
+// Adds a "None available" card to any listing section that ended up empty.
+function addEmptyCards() {
+    [
+        [crestedContainer, 'Crested Geckos'],
+        [viperContainer, 'Viper Geckos'],
+        [ballContainer, 'Ball Pythons'],
+        [isopodContainer, 'Isopods']
+    ].forEach(([container, label]) => {
+        if (!container || container.querySelector('.card-listing')) return;
+        const card = document.createElement('div');
+        card.className = 'card-listing card-empty';
+        card.innerHTML = `
+            <div class="card-container">
+                <div class="card-accent"></div>
+                <div class="card-top">
+                    <div class="card-id">None Available</div>
+                    <div class="card-bubble-container"><div class="card-bubble-coin">0</div></div>
+                </div>
+                <div class="card-main">
+                    <img src="./assets/placeholder.png" alt="No ${label} available right now" class="card-img loaded">
+                    <div class="card-badge">
+                        <div class="card-badge-title">Check back soon</div>
+                        <div class="card-badge-text">${label}</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-description-title">Nothing listed right now</div>
+                        <div class="card-description-skill">New ${label.toLowerCase()} are added as they become available. Message us or follow us on Instagram to be first to know.</div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-info">${label.toLowerCase()}</div>
+                    <div class="card-gem"></div>
+                    <div class="card-quantity"><a href="#contact" class="card-link">Contact us</a></div>
+                </div>
+            </div>`;
+        container.appendChild(card);
+    });
 }
 
 // Finds a locally hosted cover photo from data/image-map.js, if one is mapped.

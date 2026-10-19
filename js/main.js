@@ -51,12 +51,35 @@ if (navToggle && navLinks) {
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
-  // Close on link click
-  $$('.nav-link, .nav-cta', navLinks).forEach(link => {
+  // Close on link click (the Shop dropdown toggle only opens its submenu)
+  $$('.nav-link:not(.nav-dropdown-toggle), .nav-cta, .nav-sublink', navLinks).forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('open');
       navToggle.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
+    });
+  });
+
+  // Shop dropdown: click toggles, click outside or Escape closes
+  $$('.nav-dropdown').forEach(dd => {
+    const toggle = $('.nav-dropdown-toggle', dd);
+    toggle.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = dd.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', e => {
+      if (!dd.contains(e.target)) {
+        dd.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && dd.classList.contains('open')) {
+        dd.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      }
     });
   });
 
