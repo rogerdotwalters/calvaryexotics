@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CE Vivarium: Build, Create, Learn | Calvary Exotics</title>
+  <meta name="description" content="CE Vivarium is a free browser game for learning bioactive builds and getting ideas for real ones. Design a vivarium layer by layer, add plants, moss and isopods, and watch temperature, humidity and UVB.">
+  <link rel="canonical" href="https://www.calvaryexotics.com/game/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <meta name="theme-color" content="#d8dcc0">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Calvary Exotics">
+  <meta property="og:title" content="CE Vivarium: Build, Create, Learn | Calvary Exotics">
+  <meta property="og:description" content="CE Vivarium is a free browser game for learning bioactive builds and getting ideas for real ones. Design a vivarium layer by layer, add plants, moss and isopods, and watch temperature, humidity and UVB.">
+  <meta property="og:url" content="https://www.calvaryexotics.com/game/">
+  <meta property="og:image" content="https://www.calvaryexotics.com/images/game-preview.jpg">
+  <meta property="og:image:alt" content="CE Vivarium: a pixel-art terrarium with plants, moss and a plant picker">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CE Vivarium: Build, Create, Learn | Calvary Exotics">
+  <meta name="twitter:description" content="CE Vivarium is a free browser game for learning bioactive builds and getting ideas for real ones. Design a vivarium layer by layer, add plants, moss and isopods, and watch temperature, humidity and UVB.">
+  <meta name="twitter:image" content="https://www.calvaryexotics.com/images/game-preview.jpg">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "CE Vivarium: Build, Create, Learn",
+  "url": "https://www.calvaryexotics.com/game/",
+  "description": "CE Vivarium is a free browser game for learning bioactive builds and getting ideas for real ones. Design a vivarium layer by layer, add plants, moss and isopods, and watch temperature, humidity and UVB.",
+  "genre": [
+    "Simulation",
+    "Educational"
+  ],
+  "gamePlatform": "Web browser",
+  "applicationCategory": "Game",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "publisher": {
+    "@type": "Organization",
+    "name": "Calvary Exotics",
+    "url": "https://www.calvaryexotics.com/"
+  },
+  "image": "https://www.calvaryexotics.com/images/game-preview.jpg"
+}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="drawer-closed">
+    <main id="stage">
+      <noscript>CE Vivarium needs JavaScript. <a href="../index.html">Back to Calvary Exotics</a></noscript>
+      <canvas id="game" width="512" height="288" tabindex="0"
+        aria-label="Your vivarium room. Drag to look around. Tap a table to select it, or tap plus to add a table."></canvas>
+    </main>
+    <div id="chrome">
+      <header id="topbar">
+        <div id="actionbar" aria-label="Care"></div>
+        <div id="topright">
+          <a id="siteLink" class="top-btn" href="../index.html" title="Back to Calvary Exotics">&larr; Site</a>
+          <button id="viewToggle" class="top-btn" type="button" aria-pressed="false">View: Normal</button>
+          <button id="uiToggle" class="top-btn" type="button" aria-pressed="false">Hide UI</button>
+        </div>
+      </header>
+      <div id="legend" aria-label="Data view legend" hidden></div>
+      <aside id="drawer" aria-label="Items" hidden></aside>
+      <div id="editbar" role="dialog" aria-label="Edit selected item" hidden></div>
+      <nav id="tabbar" aria-label="Categories"></nav>
+    </div>
+  </div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

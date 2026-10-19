@@ -2238,3 +2238,42 @@ input, select, textarea { font-family: inherit; }
 button.card-gem { cursor: pointer; appearance: none; -webkit-appearance: none; }
 button.card-gem:hover { filter: brightness(1.25); box-shadow: 0 0 8px rgba(142, 224, 11, 0.7); }
 button.card-gem:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+
+/* ================================================================
+   23. HOME: CE VIVARIUM GAME PROMO
+   ================================================================ */
+.game-promo { padding: 100px 0; background: var(--bg-surface); }
+.game-promo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 56px;
+  align-items: center;
+}
+.game-promo .section-sub { margin-bottom: 24px; max-width: 560px; }
+.game-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.game-points strong { color: var(--accent); font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.85rem; }
+.game-promo-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.game-promo-visual {
+  display: block;
+  border: 3px solid var(--text-bg-deep);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-elevated);
+  transition: var(--transition);
+}
+.game-promo-visual:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(60, 40, 10, 0.28); }
+.game-promo-visual img { display: block; width: 100%; height: auto; image-rendering: auto; }
+@media (max-width: 860px) {
+  .game-promo { padding: 72px 0; }
+  .game-promo-grid { grid-template-columns: 1fr; gap: 32px; }
+  .game-promo-visual { order: -1; }
+}

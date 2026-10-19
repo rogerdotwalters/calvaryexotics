@@ -1,0 +1,71 @@
+/**
+ * core/defaultState.js
+ * Purpose: the starting state of a new game, in the shape of the data model.
+ * Inputs:  none
+ * Outputs: createDefaultState(), createStation(id)
+ * Notes:   view is the camera: cameraX is how far the room is scrolled, w and h
+ *          are the size of the screen in internal pixels (set by the UI).
+ *          lighting has two lamp slots (they sit on top of the tank); slot is
+ *          the one being edited. tank.gradient holds the saved light, heat and
+ *          UVB grids (see systems/gradient.js). placedItems are in layer order (first = back). Item positions are
+ *          fractions of the tank interior (fx across, fy down) so they survive
+ *          tank resizes. the room is shared; each station is one table with its own tank,
+ *          items, animals and lighting. Temperature is in degrees Fahrenheit.
+ *          view.cameraX is how far the room is scrolled. time is the time of
+ *          day as a fraction (0 = midnight); it only advances when
+ *          settings.dayNight is on.
+ */
+import { VIEW_H, VIEW_W } from '../data/world.js';
+
+export const SAVE_VERSION = 3;
+
+export function createStation(id) {
+  return {
+    id,
+    table: { style: 'plain', color: 'oak', height: 'medium' },
+    tank: {
+      size: '18x18x24',
+      material: 'glass',
+      drainage: 'clay-balls',
+      charcoal: 'charcoal',
+      substrate: 'bioactive',
+      litter: 'oak-leaves',
+      background: 'none',
+      backgroundColor: 'natural',
+      gradient: null, // filled in by systems/gradient.js
+      environment: { temperature: 75, humidity: 60, cleanliness: 100, food: 100, water: 100, litter: 60 },
+    },
+    placedItems: [],
+    animals: [],
+    lighting: {
+      lamps: [
+        { type: 'none', color: 'warm', watts: 0 },
+        { type: 'none', color: 'warm', watts: 0 },
+      ],
+      slot: 0,
+    },
+  };
+}
+
+export function createDefaultState() {
+  return {
+    saveVersion: SAVE_VERSION,
+    room: {
+      wallColor: 'cream',
+      wallpaper: 'stripes',
+      wallpaperColor: 'sage',
+      trim: 'stepped',
+      trimColor: 'white',
+    },
+    stations: [createStation('s1')],
+    selectedStation: 's1',
+    nextStationId: 2,
+    selectedItem: null,
+    nextItemId: 1,
+    nextAnimalId: 1,
+    view: { cameraX: 0, w: VIEW_W, h: VIEW_H },
+    time: 0.4,
+    discoveredLog: { species: [], morphs: [] },
+    settings: { dayNight: false, dataView: 'off' },
+  };
+}
