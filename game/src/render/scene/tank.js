@@ -4,15 +4,17 @@
  *          (behind the contents) and the front (glints, mesh lid, frame).
  * Inputs:  ctx, state, { registry, layout }
  * Outputs: pixels on ctx (layer 'tank').
- * Notes:   material swaps recolor the tank palette, so other materials can
- *          reuse this drawing later.
+ * Notes:   material swaps recolor the tank palette. A material's faces say what
+ *          is screen: a screen lid is drawn as mesh, screen sides as mesh strips
+ *          down both edges, and a screen front as mesh across the whole tank (no
+ *          glass glints). Glass faces are clear.
  */
 import { TANK_PALETTE } from '../../data/palettes/tank.js';
 import { TANK_FRAME } from '../layout.js';
 import { getSprite, drawTiled } from '../spriteCache.js';
 import { resolveColor } from '../paletteSwap.js';
 import { ditherRect } from '../dither.js';
-import { scaleGrid } from '../../utils/pixelScale.js';
+import { scaleGrid, px } from '../../utils/pixelScale.js';
 
 const MESH = scaleGrid(['abab', 'baba', 'abab'], true);
 
@@ -38,13 +40,34 @@ function front(ctx, station, t, registry) {
   const c = (slot) => resolveColor(TANK_PALETTE, mat.swaps, slot);
   const i = t.interior;
 
-  const len = Math.max(8, Math.min(19, i.h - 13));
-  glint(ctx, i.x + 8, i.y + 7, len, c(8));
-  glint(ctx, i.x + 16, i.y + 7, Math.floor(len / 2), c(9));
+  const mesh = getSprite(MESH, TANK_PALETTE, mat.swaps);
+  const meshOver = (x, y, w, h, alpha) => {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    drawTiled(ctx, mesh, x, y, w, h);
+    ctx.restore();
+  };
+  if (mat.faces.front !== 'screen') {
+    const len = Math.max(8, Math.min(19, i.h - 13));
+    glint(ctx, i.x + 8, i.y + 7, len, c(8));
+    glint(ctx, i.x + 16, i.y + 7, Math.floor(len / 2), c(9));
+  } else {
+    meshOver(i.x, i.y, i.w, i.h, 0.4);
+  }
+  const edge = Math.min(px(6), Math.floor(i.w / 4)); // screen sides, seen at an angle
+  if (mat.faces.left === 'screen') meshOver(i.x, i.y, edge, i.h, 0.7);
+  if (mat.faces.right === 'screen') meshOver(i.x + i.w - edge, i.y, edge, i.h, 0.7);
 
   ctx.fillStyle = c(3);
   ctx.fillRect(t.x, t.y, t.w, 1);
-  drawTiled(ctx, getSprite(MESH, TANK_PALETTE, mat.swaps), t.x, t.y + 1, t.w, TANK_FRAME.lid - 2);
+  if (mat.faces.top === 'screen') {
+    drawTiled(ctx, mesh, t.x, t.y + 1, t.w, TANK_FRAME.lid - 2);
+  } else { // a solid glass lid
+    ctx.fillStyle = c(1);
+    ctx.fillRect(t.x, t.y + 1, t.w, TANK_FRAME.lid - 2);
+    ctx.fillStyle = c(2);
+    ctx.fillRect(t.x, t.y + 1, t.w, 1);
+  }
   ctx.fillStyle = c(0);
   ctx.fillRect(t.x, t.y + TANK_FRAME.lid - 1, t.w, 1);
 

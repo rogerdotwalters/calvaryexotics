@@ -6,7 +6,7 @@
  * Inputs:  station, on (which lamps are on, see gradient.js), registry
  * Outputs: tankGeometry(size) -> { width, depth, height, volumeIn3, liters, gallons, faces (in2) },
  *          analyzeTank(station, on, registry) -> {
- *            ...geometry, ua (W per C, all faces), faceUA, heatW (watts into the air),
+ *            ...geometry, ua (W per C, all faces), faceUA, airflow (share of the surface that is screen), heatW (watts into the air),
  *            rise (F above the room), stratification (F, top minus floor), tau (response speed) },
  *          describeTank(station, state, registry) -> [[label, value]] for the Tank tab
  * Notes:   steady state: heat in = heat out, so rise = heatW / ua. A big tank has
@@ -51,16 +51,21 @@ export function analyzeTank(station, on, registry) {
   const geometry = tankGeometry(size);
   const faceUA = {};
   let ua = 0;
+  let screen = 0;
+  let total = 0;
   for (const [face, area] of Object.entries(geometry.faces)) {
     faceUA[face] = area * IN2_TO_M2 * (SURFACES[material.faces[face]] ?? SURFACES.glass).u;
     ua += faceUA[face];
+    total += area;
+    if (material.faces[face] === 'screen') screen += area;
   }
+  const airflow = screen / total; // share of the tank's surface that is screen
   const heatW = airHeat(station, on, registry);
   const rise = clamp((heatW / ua) * C_TO_F, 0, 60);
   const stratification = rise * RULES.thermal.stratification * (size.height / RULES.thermal.refHeight);
   // Bigger tanks hold more heat and respond more slowly; smaller ones faster.
   const tau = RULES.tau.temperature * clamp(Math.sqrt(geometry.volumeIn3 / RULES.refVolume), 0.6, 1.8);
-  return { ...geometry, ua, faceUA, heatW, rise, stratification, tau, material: material.name };
+  return { ...geometry, ua, faceUA, airflow, heatW, rise, stratification, tau, material: material.name };
 }
 
 const f1 = (v) => (Math.round(v * 10) / 10).toString();
@@ -73,6 +78,7 @@ export function describeTank(station, state, registry, on = station.tank.gradien
     ['Volume', `${f1(t.gallons)} gal (${Math.round(t.liters)} L)`],
     ['Walls', `${t.material}, ${Math.round(glassIn2)} sq in`],
     ['Heat loss', `${f1(t.ua)} W per C`],
+    ['Airflow', t.airflow <= 0 ? 'Sealed' : `${Math.round(t.airflow * 100)}% screen`],
     ['Room', `${Math.round(state.room.ambient)}F`],
     ['Lamp heat', t.heatW > 0 ? `${Math.round(t.heatW)}W into the air` : 'No lamps on'],
     ['Warms by', `${f1(t.rise)}F above the room`],

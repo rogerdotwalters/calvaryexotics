@@ -23,6 +23,9 @@ import { DAY, RULES } from '../data/environmentRules.js';
 import { isDay } from './daylight.js';
 import { evaluateNeeds } from './needs.js';
 import { crewCount } from './environment.js';
+import { hotSpot } from './gradient.js';
+import { restsOnGround } from './humidity.js';
+import { analyzeTank } from './thermal.js';
 
 export function activityLevel(species, state) {
   if (!state.settings?.dayNight) return 0.55;
@@ -41,7 +44,7 @@ function contextFor(station, state, registry, species) {
     const entry = registry.list(p.catalog)?.find((e) => e.id === p.itemId);
     if (!entry) return [];
     const r = itemRect(interior, p, entry);
-    return [{ id: p.id, tags: tagsOf(p.itemId), rect: r }];
+    return [{ id: p.id, tags: tagsOf(p.itemId), rect: r, onGround: restsOnGround(p, entry, h - stackHeight(tank, registry), h) }];
   });
   const speciesOf = (a) => registry.list('animals').find((sp) => sp.id === a.species);
   // Prey this species can hunt: colonies out in the open and above their floor.
@@ -64,7 +67,27 @@ function contextFor(station, state, registry, species) {
     soil: soilBand(tank, registry),
     areaIn2: registry.get('tankSizes', tank.size).width * registry.get('tankSizes', tank.size).depth,
     crew: crewCount(station, registry),
+    night: Boolean(state.settings?.dayNight) && !isDay(state.time ?? 0.4),
+    hotTemp: hotSpot(tank.environment, tank.gradient).temp,
+    maxUvb: tank.gradient?.maxUvb ?? 0,
+    lengthIn: Math.max(registry.get('tankSizes', tank.size).width, registry.get('tankSizes', tank.size).depth),
+    openFrac: openFloor(items, w),
+    substrate: tank.substrate,
+    airflow: analyzeTank(station, tank.gradient?.on, registry).airflow,
   };
+}
+
+/** Share of the floor width not covered by anything standing on the ground. */
+function openFloor(items, width) {
+  const spans = items.filter((i) => i.onGround).map((i) => [i.rect.x, i.rect.x + i.rect.w]).sort((a, b) => a[0] - b[0]);
+  let covered = 0;
+  let end = -Infinity;
+  for (const [from, to] of spans) {
+    const start = Math.max(from, end);
+    if (to > start) covered += to - start;
+    end = Math.max(end, to);
+  }
+  return Math.max(0, 1 - covered / Math.max(1, width));
 }
 
 function chooseBehavior(animal, ctx) {
