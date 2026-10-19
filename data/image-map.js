@@ -40,6 +40,7 @@ const isopodImages = {
 
 // Alternate spellings that should use the same photos.
 const isopodImageAliases = {
+    "clown": "montenegroclowns",
     "lemonade": "lemonades",
     "crystalpineapples": "crystalpineapple",
     "pandakings": "pandaking",
