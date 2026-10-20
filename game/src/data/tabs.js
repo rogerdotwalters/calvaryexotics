@@ -124,6 +124,12 @@ export const TABS = [
     sections: [],
   },
   {
+    id: 'warnings', name: 'Warnings', scope: 'station',
+    icon: ['...00...', '..0000..', '..0110..', '.001100.', '.001100.', '.000000.', '.001100.', '00000000'],
+    panel: 'warnings',
+    sections: [],
+  },
+  {
     id: 'lighting', name: 'Lights', scope: 'station',
     icon: ['..1111..', '.111111.', '.111111.', '.111111.', '..1111..', '..0000..', '..0000..', '...00...'],
     sections: [

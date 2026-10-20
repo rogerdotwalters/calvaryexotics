@@ -145,6 +145,7 @@ export function sanitize(input) {
   delete state.time;
   state.settings.mapOpacity = MAP_OPACITIES.includes(old.mapOpacity) ? old.mapOpacity : (old.mapEdit === false ? 1 : 0.6);
   delete state.settings.mapEdit;
+  state.settings.editItems = old.editItems !== false;
   state.room.ambient = clamp(Math.round(num(state.room.ambient, RULES.ambient.day)), RULES.ambient.min, RULES.ambient.max);
   // Saves from before the data views had a single on/off map; that becomes the temperature view.
   const view = DATA_VIEW_ORDER.includes(input?.settings?.dataView) ? input.settings.dataView : (input?.settings?.showGradients ? 'temperature' : 'off');

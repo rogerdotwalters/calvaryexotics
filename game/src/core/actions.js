@@ -47,6 +47,9 @@ const panTo = (s, x, count = s.stations.length) => ({
   view: { ...s.view, cameraX: clamp(x, 0, Math.max(0, worldSize(count, s.view.w) - s.view.w)) },
 });
 
+// With Edit switched off the objects in the tank are locked: they can be placed but not selected or changed.
+const whenEditing = (fn) => (s, payload) => (s.settings.editItems ? fn(s, payload) : {});
+
 const clearItem = (s) => (s.selectedItem ? { selectedItem: null } : {});
 
 function addStation(s, side) {
@@ -87,7 +90,7 @@ function placeItem(s, { catalog, itemId }) {
         ? [...st.placedItems.filter((p) => p.plane === 'back'), placed, ...st.placedItems.filter((p) => p.plane !== 'back')]
         : [...st.placedItems, placed],
     })),
-    selectedItem: placed.id,
+    ...(s.settings.editItems ? { selectedItem: placed.id } : {}),
     nextItemId: s.nextItemId + 1,
   };
 }
@@ -166,6 +169,11 @@ export const actions = {
   }))),
   // Which data the tank shows: 'off', 'temperature', 'humidity' or 'uvb'.
   'settings/dataView': (s, { mode }) => ({ settings: { ...s.settings, dataView: DATA_VIEW_ORDER.includes(mode) ? mode : 'off' } }),
+  // Lock or unlock the objects in the tank. Locking drops the current selection.
+  'settings/editItems': (s, { on }) => {
+    const value = typeof on === 'boolean' ? on : !s.settings.editItems;
+    return { settings: { ...s.settings, editItems: value }, ...(value ? {} : clearItem(s)) };
+  },
   // How solid the live map is: steps through 100%, 60% and 30%. At 100% items cannot be picked.
   'settings/mapOpacity': (s, { value }) => {
     const next = MAP_OPACITIES.includes(value) ? value : MAP_OPACITIES[(MAP_OPACITIES.indexOf(s.settings.mapOpacity) + 1) % MAP_OPACITIES.length];
@@ -277,18 +285,19 @@ export const actions = {
   'item/place': placeItem,
   'item/select': (s, { id }) => {
     if (id === null) return clearItem(s);
+    if (!s.settings.editItems) return {}; // locked
     const owner = s.stations.find((st) => st.placedItems.some((p) => p.id === id));
     return owner ? { selectedItem: id, selectedStation: owner.id } : {};
   },
-  'item/move': (s, { id, fx, fy }) => mapItem(s, id, (p) => ({ ...p, fx: clamp(fx, 0, 1), fy: clamp(fy, 0, 1) })),
-  'item/scale': (s, { id, delta }) =>
-    mapItem(s, id, (p) => ({ ...p, scale: clamp(p.scale + delta, 1, MAX_ITEM_SCALE) })),
-  'item/rotate': (s, { id, delta }) =>
-    mapItem(s, id, (p) => ({ ...p, rotation: ((((p.rotation ?? 0) + delta) % 360) + 360) % 360 })),
-  'item/flip': (s, { id }) => mapItem(s, id, (p) => ({ ...p, flip: !p.flip })),
-  'item/layer': (s, { id, dir }) => editItems(s, id, (list) => moveLayer(list, id, dir)),
+  'item/move': whenEditing((s, { id, fx, fy }) => mapItem(s, id, (p) => ({ ...p, fx: clamp(fx, 0, 1), fy: clamp(fy, 0, 1) }))),
+  'item/scale': whenEditing((s, { id, delta }) =>
+    mapItem(s, id, (p) => ({ ...p, scale: clamp(p.scale + delta, 1, MAX_ITEM_SCALE) }))),
+  'item/rotate': whenEditing((s, { id, delta }) =>
+    mapItem(s, id, (p) => ({ ...p, rotation: ((((p.rotation ?? 0) + delta) % 360) + 360) % 360 }))),
+  'item/flip': whenEditing((s, { id }) => mapItem(s, id, (p) => ({ ...p, flip: !p.flip }))),
+  'item/layer': whenEditing((s, { id, dir }) => editItems(s, id, (list) => moveLayer(list, id, dir))),
   // Move by whole pixels (dx, dy) without dragging.
-  'item/nudge': (s, { id, dx = 0, dy = 0 }) => ({
+  'item/nudge': whenEditing((s, { id, dx = 0, dy = 0 }) => ({
     stations: s.stations.map((st) => {
       if (!st.placedItems.some((p) => p.id === id)) return st;
       const w = interiorWidth(st.tank, registry);
@@ -302,11 +311,11 @@ export const actions = {
         })),
       };
     }),
-  }),
-  'item/remove': (s, { id }) => ({
+  })),
+  'item/remove': whenEditing((s, { id }) => ({
     ...editItems(s, id, (list) => list.filter((p) => p.id !== id)),
     ...clearItem(s),
-  }),
+  })),
 };
 
 export { maxCameraX };
