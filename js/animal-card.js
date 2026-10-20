@@ -2,9 +2,9 @@
 // and the isopod sections on supplies.html).
 
 function buildAnimalCard(animal) {
-    // Isopods and springtails share the bug-card layout (morph title, stock, skill line).
-    const isBug = animal.animal_type === 'isopod' || animal.animal_type === 'springtail';
-    const card = document.createElement('div');
+        // Isopods and springtails share the bug-card layout (morph title, stock, skill line).
+        const isBug = animal.animal_type === 'isopod' || animal.animal_type === 'springtail';
+        const card = document.createElement('div');
         card.className = 'card-listing';
         // Use a unique ID if you have one, otherwise fall back
         card.id = animal.animal_id ? `listing-${animal.animal_id}` : `listing-${Date.now()}-${Math.random().toString(36).slice(2)}`;
