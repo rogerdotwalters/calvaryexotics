@@ -32,7 +32,9 @@ function buildSupplyCard(item) {
             <div class="card-footer">
                 <div class="card-info">${item.id}</div>
                 <button type="button" class="card-gem" data-print-card aria-label="Open printable card" title="Print or download this card"></button>
-                <div class="card-quantity"><a href="${item.link}" class="card-link">${item.link.startsWith('#') ? 'Inquire' : 'See listings'}</a></div>
+                ${item.stock_label
+                    ? `<div class="card-quantity" style="color: lime">${item.stock_label}</div>`
+                    : `<div class="card-quantity"><a href="${item.link}" class="card-link">${item.link.startsWith('#') ? 'Inquire' : 'See listings'}</a></div>`}
             </div>
         </div>
     `;
