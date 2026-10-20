@@ -39,38 +39,10 @@ function buildSupplyCard(item) {
     return card;
 }
 
-// Isopod sections show the same live cards as isopods.html: each item is matched
-// (by its "match" text) against the isopod listings in the database. An item with
-// no matching listing keeps its static card above.
-async function loadSupplyIsopods(containers) {
-    let listings = [];
-    try {
-        const dbclient = supabase.createClient(config.db_url, config.db_key);
-        const { data, error } = await dbclient.from('animal_listing').select('*').eq('animal_type', 'isopod').order('name');
-        if (error) throw error;
-        listings = data || [];
-    } catch (e) {
-        console.error('Error loading isopod listings from db:', e);
-    }
-    containers.forEach(container => {
-        const items = supplyCards[container.dataset.supplyCards] || [];
-        items.forEach(item => {
-            const matches = item.match
-                ? listings.filter(a => `${a.name || ''} ${a.morph || ''}`.toLowerCase().includes(item.match))
-                : [];
-            if (matches.length) matches.forEach(a => container.appendChild(buildAnimalCard(a)));
-            else container.appendChild(buildSupplyCard(item));
-        });
-    });
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    const live = [];
     document.querySelectorAll('[data-supply-cards]').forEach(container => {
-        if (container.hasAttribute('data-live-isopods')) { live.push(container); return; }
         (supplyCards[container.dataset.supplyCards] || []).forEach(item => {
-            container.appendChild(buildSupplyCard(item));
+            container.appendChild(item.animal_type === 'isopod' ? buildAnimalCard(item) : buildSupplyCard(item));
         });
     });
-    if (live.length) loadSupplyIsopods(live);
 });
