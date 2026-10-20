@@ -7,7 +7,8 @@
  * Outputs: an animal: { id, species, name, morph, count?, stage, age, fx, fy, heading, surface,
  *          mode, target, timer, hidden, spotId, mood, needs, worst, seed }
  * Notes:   position is a fraction of the tank interior. The starting color is
- *          picked from the species' color trait, repeatably from the id.
+ *          is the species' first color (its standard look); the player recolors it
+ *          from the Animals tab.
  */
 import { createRng } from '../utils/rng.js';
 import { groundFraction } from '../core/geometry.js';
@@ -18,7 +19,7 @@ const hash = (text) => [...text].reduce((h, ch) => (Math.imul(h, 31) + ch.charCo
 export function createAnimal({ id, species, variant, tank, count, registry }) {
   const rng = createRng(hash(id));
   const colors = species.genetics.traits.color.alleles;
-  const morph = variant ? { ...variant.morph } : { color: rng.pick(colors), pattern: 'none' };
+  const morph = variant ? { ...variant.morph } : { color: colors[0], pattern: 'none' }; // the standard look; recolor it afterwards
   return {
     id,
     species: species.id,

@@ -12,11 +12,9 @@
  *          fractions of the tank interior (fx across, fy down) so they survive
  *          tank resizes. the room is shared; each station is one table with its own tank,
  *          items, animals and lighting. Temperature is in degrees Fahrenheit.
- *          view.cameraX is how far the room is scrolled. time is the time of
- *          day as a fraction (0 = midnight); it only advances when
- *          settings.dayNight is on. room.ambient is the room temperature (F) that
- *          every tank warms up from. settings.mapEdit: while a data view is on, the
- *          map is see-through and items can still be moved (off = map only).
+ *          view.cameraX is how far the room is scrolled. room.ambient is the room temperature (F) that
+ *          every tank warms up from. settings.night is the Day/Night switch. settings.mapOpacity: how solid
+ *          a data map is; below 1 you see the tank through it and can still move items.
  */
 import { VIEW_H, VIEW_W } from '../data/world.js';
 
@@ -68,8 +66,7 @@ export function createDefaultState() {
     nextItemId: 1,
     nextAnimalId: 1,
     view: { cameraX: 0, w: VIEW_W, h: VIEW_H, inset: 0 },
-    time: 0.4,
     discoveredLog: { species: [], morphs: [] },
-    settings: { dayNight: false, dataView: 'off', mapEdit: true },
+    settings: { night: false, dataView: 'off', mapOpacity: 0.6 },
   };
 }

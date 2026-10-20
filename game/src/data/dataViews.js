@@ -4,8 +4,10 @@
  *          shows, its color gradient and its legend, in one place so the
  *          picture and the legend can never disagree.
  * Inputs:  none (pure data)
- * Outputs: DATA_VIEWS { [id]: view }, DATA_VIEW_ORDER, colorFor(view, value),
- *          cssGradient(view), STEPS
+ * Outputs: DATA_VIEWS { [id]: view }, DATA_VIEW_ORDER, isLiveView(mode), MAP_OPACITIES,
+ *          colorFor(view, value), cssGradient(view), STEPS
+ *          The order is Normal, Ranges (a static chart of recommended ranges, see
+ *          ui/rangesPanel.js), then the live maps of the selected tank.
  * View:    { id, name, unit, min, max, stops: [[value, '#hex'], ...],
  *            ticks: [values for the legend], format(value),
  *            notes: [[label, text]] what raises and lowers it, shown under the legend }
@@ -44,7 +46,13 @@ export const DATA_VIEWS = {
   },
 };
 
-export const DATA_VIEW_ORDER = ['off', 'temperature', 'humidity', 'uvb'];
+export const DATA_VIEW_ORDER = ['off', 'ranges', 'temperature', 'humidity', 'uvb'];
+
+/** Is this a live map of the selected tank? ('ranges' is the static reference chart instead.) */
+export const isLiveView = (mode) => Boolean(DATA_VIEWS[mode]);
+
+/** How solid the live map is over the tank. Below 1 you see the tank through it and can move items. */
+export const MAP_OPACITIES = [1, 0.6, 0.3];
 
 const hexToRgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
 

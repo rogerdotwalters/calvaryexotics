@@ -8,9 +8,8 @@
  *          interior), heading, mode, hidden, mood, needs and seed.
  * Notes:   predators (species.prey) hunt prey colonies that are out in the
  *          open and eat a few at a time; foodGain is what they got from it.
- *          activity follows the day/night cycle: a nocturnal animal is busy at
- *          night and mostly hides by day. With the cycle off it is moderately
- *          active so you can still watch it. Hot-spot comfort uses the saved
+ *          activity follows the Day/Night switch: a nocturnal animal is busy at
+ *          night and mostly rests by day, a diurnal one the other way round. Hot-spot comfort uses the saved
  *          gradient (tank.gradient).
  */
 import { clamp } from '../utils/math.js';
@@ -20,7 +19,7 @@ import { tagsOf } from '../data/itemTags.js';
 import { itemRect } from '../core/itemGeometry.js';
 import { interiorHeight, interiorWidth, soilBand, stackHeight } from '../core/geometry.js';
 import { DAY, RULES } from '../data/environmentRules.js';
-import { isDay } from './daylight.js';
+import { isNight } from './daylight.js';
 import { evaluateNeeds } from './needs.js';
 import { crewCount } from './environment.js';
 import { hotSpot } from './gradient.js';
@@ -28,8 +27,7 @@ import { restsOnGround } from './humidity.js';
 import { analyzeTank } from './thermal.js';
 
 export function activityLevel(species, state) {
-  if (!state.settings?.dayNight) return 0.55;
-  const day = isDay(state.time ?? 0.4);
+  const day = !isNight(state);
   if (species.activity === 'nocturnal') return day ? 0.15 : 1;
   if (species.activity === 'diurnal') return day ? 1 : 0.15;
   return 0.6;
@@ -67,7 +65,7 @@ function contextFor(station, state, registry, species) {
     soil: soilBand(tank, registry),
     areaIn2: registry.get('tankSizes', tank.size).width * registry.get('tankSizes', tank.size).depth,
     crew: crewCount(station, registry),
-    night: Boolean(state.settings?.dayNight) && !isDay(state.time ?? 0.4),
+    night: isNight(state),
     hotTemp: hotSpot(tank.environment, tank.gradient).temp,
     maxUvb: tank.gradient?.maxUvb ?? 0,
     lengthIn: Math.max(registry.get('tankSizes', tank.size).width, registry.get('tankSizes', tank.size).depth),
