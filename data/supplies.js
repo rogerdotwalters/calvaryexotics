@@ -20,6 +20,7 @@ const supplyCards = {
             "scientific_name": "Collembola sp.",
             "description": "Consume mold, bacteria and waste, and cycle nutrients back into the soil.",
             "cover_url": "",
+            "stock_label": "10 In Stock",
             "link": "#contact"
         }
     ]
