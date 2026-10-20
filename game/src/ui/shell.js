@@ -4,7 +4,7 @@
  *          drawer; tapping the active tab (or Close) closes it. Tapping an item
  *          in the tank closes the drawer so you can see what you are editing.
  * Inputs:  { app, tabBarRoot, drawerRoot, tabs, bus, getState, registry, paint, panels }
- * Outputs: { setActive(id | null) }
+ * Outputs: { setActive(id | null), setBadge(id, count, bad) }
  */
 import { createTabBar } from './tabBar.js';
 import { createDrawer } from './drawer.js';
@@ -35,5 +35,5 @@ export function createShell({ app, tabBarRoot, drawerRoot, tabs, bus, getState, 
     else drawer.refresh();
   });
   bus.on('ui:closeDrawer', () => setActive(null));
-  return { setActive };
+  return { setActive, setBadge: bar.setBadge };
 }

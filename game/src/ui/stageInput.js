@@ -7,7 +7,7 @@
  * Outputs: emits 'intent' { action, payload } for view/pan, world/tap,
  *          item/select, item/move and item/nudge (arrow keys). Tapping the wall
  *          thermostat emits 'ui:thermostat' on the bus. While a data view is on
- *          at 100% opacity, items cannot be picked, so dragging looks around.
+ *          with Edit off, or at 100% map opacity, items cannot be picked, so dragging looks around.
  * Notes:   positions are converted to the canvas's internal pixels; the picker
  *          (render/hitTest.js) supplies hit testing and soft snapping.
  */
@@ -30,7 +30,7 @@ export function createStageInput({ canvas, bus, getState, picker }) {
     const p = toView(e);
     const state = getState();
     const wx = state.view.cameraX + p.x;
-    const locked = isLiveView(state.settings.dataView) && state.settings.mapOpacity === 1; // a solid map: nothing to edit
+    const locked = !state.settings.editItems || (isLiveView(state.settings.dataView) && state.settings.mapOpacity === 1); // Edit off, or a solid map: nothing to move
     const hit = locked ? null : picker.pickItem(wx, p.y);
     if (!hit && picker.pickThermostat(wx, p.y)) {
       drag = { mode: 'pan', startX: p.x, lastX: p.x, moved: false, thermostat: true };

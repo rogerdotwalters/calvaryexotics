@@ -33,7 +33,8 @@ export function activityLevel(species, state) {
   return 0.6;
 }
 
-function contextFor(station, state, registry, species) {
+/** Everything about a tank an animal's needs are scored against (see systems/needs.js). */
+export function needsContext(station, state, registry, species) {
   const tank = station.tank;
   const w = interiorWidth(tank, registry);
   const h = interiorHeight(tank, registry);
@@ -157,7 +158,7 @@ export function stepAnimals(station, state, registry, dt) {
   let animals = station.animals.map((animal) => {
     const species = registry.list('animals').find((s) => s.id === animal.species);
     if (!species) return animal;
-    const next = stepOne(animal, contextFor(station, state, registry, species), dt, effects);
+    const next = stepOne(animal, needsContext(station, state, registry, species), dt, effects);
     const { x, y, ...saved } = next;
     return saved;
   });

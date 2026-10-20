@@ -126,7 +126,7 @@ body { -webkit-font-smoothing: none; overflow: hidden; }
 }
 
 /* Hide UI: clear everything but the toggle. */
-#app.ui-hidden #actionbar, #app.ui-hidden #drawer, #app.ui-hidden #editbar, #app.ui-hidden #tabbar, #app.ui-hidden #thermostat, #app.ui-hidden #ranges { display: none; }
+#app.ui-hidden #actionbar, #app.ui-hidden #drawer, #app.ui-hidden #editbar, #app.ui-hidden #tabbar, #app.ui-hidden #thermostat, #app.ui-hidden #ranges, #app.ui-hidden #maptip { display: none; }
 #app.ui-hidden #topbar { left: auto; }
 
 /* Care bar: four actions and six small meters for the selected tank. */
@@ -271,3 +271,31 @@ body { -webkit-font-smoothing: none; overflow: hidden; }
 .range-bar.uvb { background: #6a3fc8; } .range-bar.wet { background: #2f86e0; }
 .zone-table { margin-top: 12px; }
 .zone-line { margin: 4px 0; line-height: 1.5; }
+
+/* Value under the pointer on a live map. */
+.map-tip {
+  position: fixed; z-index: 8; pointer-events: none; padding: 6px 8px;
+  background: var(--panel); border: 2px solid var(--edge); box-shadow: 2px 2px 0 var(--edge);
+}
+.map-tip[hidden] { display: none; }
+.map-tip p { margin: 0; line-height: 1.5; }
+.map-tip-value { color: var(--ink); }
+.map-tip p:not(.map-tip-value) { color: var(--dim); }
+
+/* Warnings tab. */
+.tab { position: relative; }
+.tab-badge {
+  position: absolute; top: 2px; right: 6px; min-width: 14px; padding: 0 3px; line-height: 14px; text-align: center;
+  background: var(--accent); color: var(--accent-ink); border: 2px solid var(--edge);
+}
+.tab-badge[hidden] { display: none; }
+.tab-badge[data-severity="bad"] { background: #d0452f; color: #fff; }
+.warn-select { width: 100%; margin: 4px 0 12px; font: inherit; color: var(--ink); background: var(--panel-2); border: 2px solid var(--edge); padding: 6px; }
+.warn-list { display: flex; flex-direction: column; gap: 10px; }
+.warn-card { padding: 8px; background: var(--panel-2); border: 2px solid var(--edge); box-shadow: 2px 2px 0 var(--edge); }
+.warn-ok { margin: 4px 0 0; color: var(--dim); }
+.warn-issue { margin-top: 8px; padding: 6px 8px; border-left: 6px solid #e0a93b; background: var(--panel); }
+.warn-issue.bad { border-left-color: #d0452f; }
+.warn-issue p { margin: 0; line-height: 1.5; }
+.warn-head { color: var(--ink); }
+.warn-detail, .warn-advice { color: var(--dim); }
