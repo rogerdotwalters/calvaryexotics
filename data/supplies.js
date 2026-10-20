@@ -7,6 +7,7 @@ const supplyCards = {
     popular_isopods: [
         {
             "id": "powders",
+            "match": "powder",
             "name": "Powders",
             "species": "Isopod",
             "rarity": "Popular",
@@ -17,6 +18,7 @@ const supplyCards = {
         },
         {
             "id": "dairy-cows",
+            "match": "dairy cow",
             "name": "Dairy Cows",
             "species": "Isopod",
             "rarity": "Popular",
@@ -27,6 +29,7 @@ const supplyCards = {
         },
         {
             "id": "giant-canyon",
+            "match": "giant canyon",
             "name": "Giant Canyon",
             "species": "Isopod",
             "rarity": "Popular",
