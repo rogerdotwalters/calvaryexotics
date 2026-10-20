@@ -11,6 +11,8 @@ function buildAnimalCard(animal) {
         let topHTML = `<div class="card-top">`;
         if (animal.animal_type === 'isopod') {
             topHTML += `<div class="card-id">${animal.morph}</div>`;
+        } else if (animal.card_title) {
+            topHTML += `<div class="card-id">${animal.card_title}</div>`;
         } else if (animal.animal_id != null && animal.price !== '') {
             topHTML += `<div class="card-id">#${animal.id} - ${animal.animal_name}</div>`;
         }
@@ -24,7 +26,7 @@ function buildAnimalCard(animal) {
             else 
                 topHTML += `<div class="card-bubble-coin">ask</div>`;
         } else if (animal.price != null && animal.price !== '') {
-            topHTML += `<div class="card-bubble-price">$${animal.price}</div>`;
+            topHTML += `<div class="card-bubble-price">$${animal.price}${animal.price_suffix || ''}</div>`;
             topHTML += `<div class="card-bubble-coin-leaf"></div>`;
         }
 
@@ -110,6 +112,8 @@ function buildAnimalCard(animal) {
                 footerHTML += `Out of Stock`;
             }
             footerHTML += `</div>`;
+        } else if (animal.stock_label) {
+            footerHTML += `<div class="card-quantity" style="color: lime">${animal.stock_label}</div>`;
         } else if (animal.weight != null && animal.weight !== '') {
             footerHTML += `<div class="card-quantity">`;
             footerHTML += `<div class="card-weight">Weight: ${animal.weight}g</div>`;

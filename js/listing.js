@@ -26,7 +26,9 @@ async function loadAnimals() {
     }
     if (typeof clearSkeletons === 'function') clearSkeletons();
 
-    data.forEach(animal => {
+    const staticRows = (typeof staticListings !== 'undefined' ? staticListings : [])
+        .filter(a => !pageAnimalType || a.animal_type === pageAnimalType);
+    [...data, ...staticRows].forEach(animal => {
         const card = buildAnimalCard(animal);
         try {
             if (animal.animal_type === 'crested_gecko')
