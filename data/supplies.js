@@ -4,44 +4,19 @@
 const PLACEHOLDER_IMG = 'assets/placeholder.png';
 
 const supplyCards = {
+    // Same fields as the isopod listings, shipped with the site (no database).
+    // Update price / count / quantity / in_stock here when stock changes.
     popular_isopods: [
-        {
-            "id": "powders",
-            "name": "Powders",
-            "species": "Isopod",
-            "rarity": "Popular",
-            "scientific_name": "",
-            "description": "Bright, hardy isopods that are a favorite for bioactive clean-up crews.",
-            "cover_url": "",
-            "link": "isopods.html"
-        },
-        {
-            "id": "dairy-cows",
-            "name": "Dairy Cows",
-            "species": "Isopod",
-            "rarity": "Popular",
-            "scientific_name": "",
-            "description": "Black-and-white spotted isopods that are easy to keep and look great in a display.",
-            "cover_url": "",
-            "link": "isopods.html"
-        },
-        {
-            "id": "giant-canyon",
-            "name": "Giant Canyon",
-            "species": "Isopod",
-            "rarity": "Popular",
-            "scientific_name": "",
-            "description": "A larger-bodied isopod that works hard for the soil and stands out in the tank.",
-            "cover_url": "",
-            "link": "isopods.html"
-        }
+        { "id": 55, "animal_type": "isopod", "name": "Powder Mix", "morph": "Powder Mix", "species": "Isopod", "scientific_name": "Porcellionides pruinosus", "rarity": "common", "price": 10, "count": 5, "quantity": 0, "in_stock": false },
+        { "id": 10, "animal_type": "isopod", "name": "Dairy Cow", "morph": "Dairy Cow", "species": "Isopod", "scientific_name": "Porcellio laevis", "rarity": "uncommon", "price": 12, "count": 5, "quantity": 0, "in_stock": false },
+        { "id": 41, "animal_type": "isopod", "name": "Giant Canyon", "morph": "Giant Canyon", "species": "Isopod", "scientific_name": "Porcellio dilatatus", "rarity": "uncommon", "price": 12, "count": 5, "quantity": 2, "in_stock": true }
     ],
     cleanup_crew: [
         {
             "id": "springtails",
             "name": "Springtails",
             "species": "Springtail",
-            "rarity": "Clean-Up Crew",
+            "rarity": "common",
             "scientific_name": "Collembola sp.",
             "description": "Consume mold, bacteria and waste, and cycle nutrients back into the soil.",
             "cover_url": "",

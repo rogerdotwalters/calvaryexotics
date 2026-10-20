@@ -42,7 +42,7 @@ function buildSupplyCard(item) {
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-supply-cards]').forEach(container => {
         (supplyCards[container.dataset.supplyCards] || []).forEach(item => {
-            container.appendChild(buildSupplyCard(item));
+            container.appendChild(item.animal_type === 'isopod' ? buildAnimalCard(item) : buildSupplyCard(item));
         });
     });
 });
