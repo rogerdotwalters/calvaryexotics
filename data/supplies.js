@@ -7,8 +7,8 @@ const supplyCards = {
     // Same fields as the isopod listings, shipped with the site (no database).
     // Update price / count / quantity / in_stock here when stock changes.
     popular_isopods: [
-        { "id": 55, "animal_type": "isopod", "name": "Powder Mix", "morph": "Powder Mix", "species": "Isopod", "scientific_name": "Porcellionides pruinosus", "rarity": "common", "price": 10, "count": 5, "quantity": 0, "in_stock": false },
-        { "id": 10, "animal_type": "isopod", "name": "Dairy Cow", "morph": "Dairy Cow", "species": "Isopod", "scientific_name": "Porcellio laevis", "rarity": "uncommon", "price": 12, "count": 5, "quantity": 0, "in_stock": false },
+        { "id": 55, "animal_type": "isopod", "name": "Powder Mix", "morph": "Powder Mix", "species": "Isopod", "scientific_name": "Porcellionides pruinosus", "rarity": "common", "price": 10, "count": 5, "quantity": 2, "in_stock": true },
+        { "id": 10, "animal_type": "isopod", "name": "Dairy Cow", "morph": "Dairy Cow", "species": "Isopod", "scientific_name": "Porcellio laevis", "rarity": "uncommon", "price": 12, "count": 5, "quantity": 2, "in_stock": true },
         { "id": 41, "animal_type": "isopod", "name": "Giant Canyon", "morph": "Giant Canyon", "species": "Isopod", "scientific_name": "Porcellio dilatatus", "rarity": "uncommon", "price": 12, "count": 5, "quantity": 2, "in_stock": true }
     ],
     cleanup_crew: [
