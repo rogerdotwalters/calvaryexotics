@@ -1,29 +1,16 @@
 console.log("listing.js loaded");
 
-const DB_URL = config.db_url;
-const DB_Key = config.db_key;
-const dbclient = supabase.createClient(DB_URL, DB_Key);
-
 const crestedContainer = document.getElementById('crested_listings');
 const viperContainer = document.getElementById('viper_listings');
 const ballContainer = document.getElementById('ball_listings');
 const isopodContainer = document.getElementById('isopod_listings');
 
-async function loadAnimals() {
-    // Pages can restrict the query with <body data-animal-type="isopod">
+// Listings come from data/animals.js (loaded before this file); there is no database.
+function loadAnimals() {
+    // Pages can restrict the list with <body data-animal-type="isopod">
     const pageAnimalType = document.body.dataset.animalType;
-    let query = dbclient
-    .from('animal_listing')
-    .select('*')
-    .order('name');
-    if (pageAnimalType) query = query.eq('animal_type', pageAnimalType);
-    const { data, error } = await query;
-
-    if (error) {
-        console.error('Error loading animal listings from db:', error);
-        if (typeof clearSkeletons === 'function') clearSkeletons('We could not load listings right now. Please refresh, or message us for what is available.');
-        return;
-    }
+    const data = (typeof animals !== 'undefined' ? animals : [])
+        .filter(a => !pageAnimalType || a.animal_type === pageAnimalType);
     if (typeof clearSkeletons === 'function') clearSkeletons();
 
     data.forEach(animal => {
@@ -59,7 +46,7 @@ async function loadAnimals() {
         let mainHTML = `<div class="card-main">`;
 
         // Image (only if cover_url exists)
-        const coverImg = localCoverFor(animal) || animal.cover_url;
+        const coverImg = animal.cover_url;
         if (coverImg != null && animal.price !== '') {
             mainHTML += `<img src="${coverImg}" alt="${animal.name || animal.animal_name || 'Isopod'}" class="card-img" decoding="async" onload="this.classList.add('loaded')" onerror="this.classList.add('loaded')">`;
         } else {
@@ -209,53 +196,8 @@ function addEmptyCards() {
     });
 }
 
-// Finds a locally hosted cover photo from data/image-map.js, if one is mapped.
-function localCoverFor(animal) {
-    if (typeof imageOverrides !== 'undefined' && imageOverrides[animal.animal_id]) {
-        return imageOverrides[animal.animal_id];
-    }
-    // Same photo the listing already uses, served from this site instead of Supabase.
-    if (typeof localByUpload !== 'undefined' && animal.cover_url) {
-        const uploaded = String(animal.cover_url).split('/').pop().replace(/^\d+-/, '');
-        if (localByUpload[uploaded]) return localByUpload[uploaded];
-    }
-    if (animal.animal_type !== 'isopod' || typeof isopodImages === 'undefined') return null;
-    // Try the full name first ("Armadillidium Sunset"), then the morph ("Sunset"),
-    // so two listings that share a morph can have different photos.
-    const slugs = [animal.name, animal.morph].filter(Boolean)
-        .map(v => String(v).toLowerCase().replace(/[^a-z0-9]/g, ''));
-    for (const slug of slugs) {
-        const key = isopodImages[slug] ? slug : isopodImageAliases[slug];
-        if (key && isopodImages[key]) return isopodImages[key][0];
-    }
-    console.warn('No local image for isopod:', slugs.join(' / '));
-    return null;
-}
-
 function getRandomArbitrary(min, max) {
 return Math.random() * (max - min) + min;
 }
 
-//Supabase storage bucket name = animal_photos
-
-// import { createClient } from '@supabase/supabase-js'
-
-// const supabase = createClient('YOUR_PROJECT_URL', 'YOUR_ANON_KEY')
-
-// const { data } = supabase
-//   .storage
-//   .from('your-bucket-name')
-//   .getPublicUrl('path/to/photo.jpg')   // e.g. 'avatars/user123.jpg'
-
-// console.log(data.publicUrl)
-// const { data, error } = await supabase
-//   .storage
-//   .from('your-bucket-name')
-//   .createSignedUrl('path/to/photo.jpg', 3600)  // expires in 1 hour (seconds)
-
-// if (error) {
-//   console.error(error)
-// } else {
-//   console.log(data.signedUrl)
-// }
 document.addEventListener('DOMContentLoaded', loadAnimals);
