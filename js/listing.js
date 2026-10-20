@@ -1,34 +1,27 @@
 console.log("listing.js loaded");
 
-const DB_URL = config.db_url;
-const DB_Key = config.db_key;
-const dbclient = supabase.createClient(DB_URL, DB_Key);
-
 const crestedContainer = document.getElementById('crested_listings');
 const viperContainer = document.getElementById('viper_listings');
 const ballContainer = document.getElementById('ball_listings');
 const isopodContainer = document.getElementById('isopod_listings');
 
 async function loadAnimals() {
-    // Pages can restrict the query with <body data-animal-type="isopod">
+    // Pages can restrict the cards with <body data-animal-type="isopod">
     const pageAnimalType = document.body.dataset.animalType;
-    let query = dbclient
-    .from('animal_listing')
-    .select('*')
-    .order('name');
-    if (pageAnimalType) query = query.eq('animal_type', pageAnimalType);
-    const { data, error } = await query;
-
-    if (error) {
-        console.error('Error loading animal listings from db:', error);
+    let data;
+    try {
+        const response = await fetch('data/listings.json');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        data = (await response.json()).listings;
+    } catch (error) {
+        console.error('Error loading listings:', error);
         if (typeof clearSkeletons === 'function') clearSkeletons('We could not load listings right now. Please refresh, or message us for what is available.');
         return;
     }
     if (typeof clearSkeletons === 'function') clearSkeletons();
+    if (pageAnimalType) data = data.filter(a => a.animal_type === pageAnimalType);
 
-    const staticRows = (typeof staticListings !== 'undefined' ? staticListings : [])
-        .filter(a => !pageAnimalType || a.animal_type === pageAnimalType);
-    [...data, ...staticRows].forEach(animal => {
+    data.forEach(animal => {
         const card = buildAnimalCard(animal);
         try {
             if (animal.animal_type === 'crested_gecko')
@@ -88,26 +81,4 @@ function addEmptyCards() {
     });
 }
 
-//Supabase storage bucket name = animal_photos
-
-// import { createClient } from '@supabase/supabase-js'
-
-// const supabase = createClient('YOUR_PROJECT_URL', 'YOUR_ANON_KEY')
-
-// const { data } = supabase
-//   .storage
-//   .from('your-bucket-name')
-//   .getPublicUrl('path/to/photo.jpg')   // e.g. 'avatars/user123.jpg'
-
-// console.log(data.publicUrl)
-// const { data, error } = await supabase
-//   .storage
-//   .from('your-bucket-name')
-//   .createSignedUrl('path/to/photo.jpg', 3600)  // expires in 1 hour (seconds)
-
-// if (error) {
-//   console.error(error)
-// } else {
-//   console.log(data.signedUrl)
-// }
 document.addEventListener('DOMContentLoaded', loadAnimals);

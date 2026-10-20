@@ -1,4 +1,4 @@
-// Shared trading-card builder for animal_listing rows (used by js/listing.js
+// Shared trading-card builder for rows of data/listings.json (used by js/listing.js
 // and the isopod sections on supplies.html).
 
 function buildAnimalCard(animal) {
@@ -23,7 +23,7 @@ function buildAnimalCard(animal) {
         if (isBug) {
             if (animal.quantity != null && animal.price != null) {
                 topHTML += `<div class="card-bubble-price">$${animal.price}</div>`;
-                topHTML += `<div class="card-bubble-coin">${animal.count}</div>`;
+                if (animal.count != null) topHTML += `<div class="card-bubble-coin">${animal.count}</div>`;
             }
             else 
                 topHTML += `<div class="card-bubble-coin">ask</div>`;
@@ -38,7 +38,7 @@ function buildAnimalCard(animal) {
         let mainHTML = `<div class="card-main">`;
 
         // Image (only if cover_url exists)
-        const coverImg = localCoverFor(animal) || animal.cover_url;
+        const coverImg = animal.cover_url;
         if (coverImg != null && animal.price !== '') {
             mainHTML += `<img src="${coverImg}" alt="${animal.name || animal.animal_name || 'Isopod'}" class="card-img" decoding="async" onload="this.classList.add('loaded')" onerror="this.classList.add('loaded')">`;
         } else {
@@ -133,29 +133,6 @@ function buildAnimalCard(animal) {
             </div>
         `;
     return card;
-}
-
-// Finds a locally hosted cover photo from data/image-map.js, if one is mapped.
-function localCoverFor(animal) {
-    if (typeof imageOverrides !== 'undefined' && imageOverrides[animal.animal_id]) {
-        return imageOverrides[animal.animal_id];
-    }
-    // Same photo the listing already uses, served from this site instead of Supabase.
-    if (typeof localByUpload !== 'undefined' && animal.cover_url) {
-        const uploaded = String(animal.cover_url).split('/').pop().replace(/^\d+-/, '');
-        if (localByUpload[uploaded]) return localByUpload[uploaded];
-    }
-    if (animal.animal_type !== 'isopod' || typeof isopodImages === 'undefined') return null;
-    // Try the full name first ("Armadillidium Sunset"), then the morph ("Sunset"),
-    // so two listings that share a morph can have different photos.
-    const slugs = [animal.name, animal.morph].filter(Boolean)
-        .map(v => String(v).toLowerCase().replace(/[^a-z0-9]/g, ''));
-    for (const slug of slugs) {
-        const key = isopodImages[slug] ? slug : isopodImageAliases[slug];
-        if (key && isopodImages[key]) return isopodImages[key][0];
-    }
-    console.warn('No local image for isopod:', slugs.join(' / '));
-    return null;
 }
 
 function getRandomArbitrary(min, max) {

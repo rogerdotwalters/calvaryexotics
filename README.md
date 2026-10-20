@@ -111,3 +111,14 @@ The JS reads the DOM dynamically — no JS changes needed.
 - Chrome, Firefox, Safari, Edge (latest 2 versions)
 - Mobile: iOS Safari 15+, Android Chrome 100+
 - Responsive breakpoints: 480px / 768px / 1024px
+
+---
+
+## Listings data
+
+All animal cards (listings pages and the supplies page) are built from
+`data/listings.json`, which ships with the site. There is no database. To change
+stock, prices or photos, edit that file (`quantity`, `in_stock`, `price`,
+`cover_url`, ...). `supplies.html` picks which listings to show with the ids in
+its `data-listing-ids` attributes. The file is public, so keep only
+customer-facing information in it.
