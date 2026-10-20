@@ -2,15 +2,17 @@
 // and the isopod sections on supplies.html).
 
 function buildAnimalCard(animal) {
-        const card = document.createElement('div');
+    // Isopods and springtails share the bug-card layout (morph title, stock, skill line).
+    const isBug = animal.animal_type === 'isopod' || animal.animal_type === 'springtail';
+    const card = document.createElement('div');
         card.className = 'card-listing';
         // Use a unique ID if you have one, otherwise fall back
         card.id = animal.animal_id ? `listing-${animal.animal_id}` : `listing-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
         // ---------- Top section (ID + Price) ----------
         let topHTML = `<div class="card-top">`;
-        if (animal.animal_type === 'isopod') {
-            topHTML += `<div class="card-id">${animal.morph}</div>`;
+        if (isBug) {
+            topHTML += `<div class="card-id">${animal.morph || animal.name}</div>`;
         } else if (animal.card_title) {
             topHTML += `<div class="card-id">${animal.card_title}</div>`;
         } else if (animal.animal_id != null && animal.price !== '') {
@@ -18,8 +20,8 @@ function buildAnimalCard(animal) {
         }
         
         topHTML += '<div class="card-bubble-container">'
-        if (animal.animal_type === 'isopod') {
-            if (animal.quantity != null) {
+        if (isBug) {
+            if (animal.quantity != null && animal.price != null) {
                 topHTML += `<div class="card-bubble-price">$${animal.price}</div>`;
                 topHTML += `<div class="card-bubble-coin">${animal.count}</div>`;
             }
@@ -61,9 +63,9 @@ function buildAnimalCard(animal) {
 
 
         // Description
-        if (animal.animal_type === 'isopod') {
+        if (isBug) {
             mainHTML += `<div class="card-description-title">${animal.scientific_name}</div>`;
-            mainHTML += `<div class="card-description-skill">Conglobate: Transforms into a ball. +1 Def</div>`;
+            mainHTML += `<div class="card-description-skill">${animal.skill || 'Conglobate: Transforms into a ball. +1 Def'}</div>`;
         } else {
             mainHTML += `<div class="card-description-title">${animal.name}</div>`
         }
@@ -103,7 +105,7 @@ function buildAnimalCard(animal) {
         footerHTML += '<button type="button" class="card-gem" data-print-card aria-label="Open printable card" title="Print or download this card"></button>';
 
         // Weight
-        if (animal.animal_type === 'isopod') {
+        if (isBug) {
             if (animal.in_stock && animal.quantity >= 0) {
                 footerHTML += `<div class="card-quantity" style="color: lime">`;
                 footerHTML += `In Stock - ${animal.quantity} Left`;
