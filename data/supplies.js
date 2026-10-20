@@ -12,16 +12,6 @@ const supplyCards = {
         { "id": 41, "animal_type": "isopod", "name": "Giant Canyon", "morph": "Giant Canyon", "species": "Isopod", "scientific_name": "Porcellio dilatatus", "rarity": "uncommon", "price": 12, "count": 5, "quantity": 2, "in_stock": true }
     ],
     cleanup_crew: [
-        {
-            "id": "springtails",
-            "name": "Springtails",
-            "species": "Springtail",
-            "rarity": "common",
-            "scientific_name": "Collembola sp.",
-            "description": "Consume mold, bacteria and waste, and cycle nutrients back into the soil.",
-            "cover_url": "",
-            "stock_label": "10 In Stock",
-            "link": "#contact"
-        }
+        { "id": 56, "animal_type": "springtail", "name": "Springtails", "morph": "Springtails", "species": "Springtail", "scientific_name": "Collembola sp.", "rarity": "common", "skill": "Clean-Up: Eats mold and waste. +1 Soil", "quantity": 10, "in_stock": true, "cover_url": "images/springtails.jpg" }
     ]
 };
