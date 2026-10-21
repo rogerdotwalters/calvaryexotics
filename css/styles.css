@@ -1315,7 +1315,7 @@ input, select, textarea { font-family: inherit; }
 .cg-hero-overlay {
   position: absolute;
   inset: 0;
-  background-image: url("images/viper_main.JPG");
+  background-image: url("../images/viper_main.JPG");
   background-size: cover;
   background-position: center 70%;
   background-repeat: no-repeat;
