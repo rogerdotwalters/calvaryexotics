@@ -14,7 +14,7 @@ Come see what's available. 👇
 Have Morph Fun This Fall!
 
 ## Description
-Family-owned · Local delivery available
+Local Delivery · Shipping Available
 
 ## Call to action button
 Learn More → https://www.calvaryexotics.com/listings.html
