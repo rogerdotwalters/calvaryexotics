@@ -143,3 +143,13 @@ Listing cards use small WebP copies in `images/cards/`. After adding a listing w
 python3 tools/make_card_images.py      # writes images/cards/*.webp and updates data/listings.json
 python3 tools/prerender_listings.py    # refreshes crested-geckos.html
 ```
+
+## CSS and fonts
+
+Pages link `css/styles.min.css`, a minified bundle of `css/fonts.css` (self-hosted `@font-face` rules; the woff2 files live in `fonts/`) and `css/styles.css`. **Edit the source files, then rebuild and commit the bundle:**
+
+```
+python3 tools/build_css.py
+```
+
+If you add a new font weight, add its woff2 to `fonts/`, a rule to `css/fonts.css`, and (if it appears above the fold) a `<link rel="preload" ... crossorigin>` in the page `<head>`. Preloading the above-the-fold weights is what keeps the page from shifting when fonts load.
