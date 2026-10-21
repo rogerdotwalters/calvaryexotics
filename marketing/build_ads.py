@@ -136,7 +136,7 @@ ADS = {
     'facebook-ad': dict(H=1350, PH=810, ctaTop=1210, base=1236, logoY=44, panelTop=655, side_max=760, hayMt=18, img='harley_1.jpg', pos='60% 40%', excl=[(80, 420, 120, 440)],
                         eyebrow='Welcoming the next generation of keepers', h1='Have <span>Morph Fun</span><br>This Fall!', h1fs=100, cap='',
                         hay='We have <b>new amazing geckos</b> available.', hayFs=42),
-    'facebook-ad-2': dict(H=1350, PH=810, ctaTop=1210, base=1236, logoY=44, panelTop=655, side_max=760, hayMt=34, img='tiger_1.jpg', pos='50% 45%', excl=[(60, 320, 440, 640)],
+    'facebook-ad-2': dict(H=1350, PH=810, ctaTop=1210, base=1236, logoY=44, panelTop=655, side_max=760, hayMt=34, img='cappuccino_1.jpg', pos='50% 52%', excl=[(60, 320, 440, 640)],
                           eyebrow='', h1='<small>Tired of pumpkin lattes?</small>Get a <span>Cappuccino.</span>', h1fs=96, cap='Cappuccino is a crested gecko morph!',
                           hay='<b>New crested geckos</b> available.', hayFs=52),
 }
@@ -145,7 +145,6 @@ for k, v in list(ADS.items()):
     s = dict(v)
     s.update(H=1920, PT=340, PH=780, ctaTop=1440, base=1476, logoY=270, panelTop=880, side_max=900, hayMt=34)
     s['excl'] = [(60, 420, 420, 700)] if k == 'facebook-ad' else [(60, 340, 560, 800)]
-    if k == 'facebook-ad-2': s['pos'] = '50% 90%'
     ADS[k + '-story'] = s
 
 

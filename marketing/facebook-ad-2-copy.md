@@ -5,7 +5,7 @@ Rebuild both with `python3 marketing/build_ads.py`.
 
 ## Primary text
 Tired of pumpkin lattes? ☕🍂
-Get a cappuccino instead! (Cappuccino is a crested gecko morph, with rich coffee tones.) 🦎
+Get a cappuccino instead! (Cappuccino is a crested gecko morph, with rich coffee tones, like this one.) 🦎
 
 We have new crested geckos available, captive-bred and raised with care in Tyler, TX. Crested geckos are a great first reptile for a new generation of keepers, and we love helping new owners get started.
 
@@ -22,5 +22,5 @@ Learn More → https://www.calvaryexotics.com/listings.html
 
 ## Notes
 - The image says "Cappuccino is a crested gecko morph!" so people outside the hobby get the joke.
-- The photo is a warm brown crested gecko from our listings, not a labeled cappuccino morph. Only say "this is a cappuccino" in the post when you're showing an actual one. To feature one, change `img` for `facebook-ad-2` in `build_ads.py` and rebuild.
+- The photo is a real cappuccino morph crested gecko (`images/cappuccino_1.jpg`), so the headline and the caption match the animal shown.
 - See the Meta live-animal policy checklist in `facebook-ad-copy.md`; the same rules apply here.
