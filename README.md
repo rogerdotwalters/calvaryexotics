@@ -134,3 +134,12 @@ python3 tools/prerender_listings.py
 ```
 
 Commit the updated `crested-geckos.html`. Sold animals stay on the page but are left out of the structured data.
+
+## Images
+
+Listing cards use small WebP copies in `images/cards/`. After adding a listing with a full-size `cover_url`, run:
+
+```
+python3 tools/make_card_images.py      # writes images/cards/*.webp and updates data/listings.json
+python3 tools/prerender_listings.py    # refreshes crested-geckos.html
+```

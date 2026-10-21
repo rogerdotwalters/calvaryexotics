@@ -407,7 +407,7 @@ input, select, textarea { font-family: inherit; }
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image: url("../images/rainforest-dark.jpeg");
+  background-image: url("../images/rainforest-dark.webp");
   background-size: cover;
   background-position-x: center;
   background-blend-mode: overlay;
