@@ -21,6 +21,5 @@ Local Delivery · Shipping Available
 Learn More → https://www.calvaryexotics.com/listings.html
 
 ## Notes
-- The image says "Cappuccino is a crested gecko morph!" so people outside the hobby get the joke.
 - The photo is a real cappuccino morph crested gecko (`images/cappuccino_1.jpg`), so the headline and the caption match the animal shown.
 - See the Meta live-animal policy checklist in `facebook-ad-copy.md`; the same rules apply here.
