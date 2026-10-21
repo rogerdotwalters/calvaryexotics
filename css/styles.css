@@ -2287,3 +2287,34 @@ button.card-gem:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 .prerender-card h3 { font-size: 1rem; margin: .5rem 0 .25rem; }
 .prerender-card p { margin: .15rem 0; font-size: .9rem; }
 .prerender-price { font-weight: 600; }
+
+/* Crested gecko care guide (crested-gecko-care-guide.html) */
+.care-meta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin: 0 0 24px; }
+.care-toc { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px 22px; margin: 0 0 8px; }
+.care-toc strong { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); }
+.care-toc ol { columns: 2; column-gap: 28px; margin: 10px 0 0; padding-left: 20px; }
+.care-toc li { margin-bottom: 4px; }
+.care-toc a { color: var(--accent); }
+.care-body { font-family: var(--font-body); text-transform: none; }
+.care-body h3 { font-family: var(--font-body); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); margin: 24px 0 6px; }
+.care-body > p:not(.page-intro):not(.care-meta), .care-body > ul, .care-body > ol { color: var(--text-secondary); line-height: 1.75; margin: 0 0 16px; }
+.care-body > ul, .care-body > ol { padding-left: 22px; }
+.care-body > ul:not(.care-checklist) { list-style: disc; }
+.care-body > ol { list-style: decimal; }
+.care-toc ol { list-style: decimal; }
+.care-body li { margin-bottom: 6px; }
+.care-body > p a, .care-body li a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.care-body .listing-header { margin-top: 48px; }
+.care-callout { border-left: 4px solid var(--gold); background: rgba(201, 168, 76, 0.12); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 14px 18px; margin: 20px 0; }
+.care-callout p { margin: 0; color: var(--text-primary); line-height: 1.65; }
+.care-callout--warn { border-left-color: #b3392f; background: rgba(179, 57, 47, 0.08); }
+.care-checklist { list-style: none; padding: 0; }
+.care-checklist li { position: relative; padding-left: 30px; color: var(--text-secondary); }
+.care-checklist li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.care-cta { margin: 56px 0 8px; padding: 30px 28px; background: var(--green-deep); border-radius: var(--radius-lg); }
+.care-cta h2 { font-family: var(--font-display); color: var(--cream); margin: 0 0 8px; }
+.care-cta p { color: #D9E6DC; margin: 0 0 16px; }
+.care-cta .btn { margin: 4px 10px 0 0; }
+.care-cta .btn-primary { background: var(--gold); color: var(--text-primary); border-color: var(--gold); }
+.care-cta .btn-ghost { background: transparent; color: var(--cream); border: 1px solid rgba(245, 240, 232, 0.6); }
+@media (max-width: 600px) { .care-toc ol { columns: 1; } }
