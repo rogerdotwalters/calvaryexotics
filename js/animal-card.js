@@ -40,9 +40,9 @@ function buildAnimalCard(animal) {
         // Image (only if cover_url exists)
         const coverImg = animal.cover_url;
         if (coverImg != null && animal.price !== '') {
-            mainHTML += `<img src="${coverImg}" alt="${animal.name || animal.animal_name || 'Isopod'}" class="card-img" decoding="async" onload="this.classList.add('loaded')" onerror="this.classList.add('loaded')">`;
+            mainHTML += `<img src="${coverImg}" alt="${cardAlt(animal)}" class="card-img" decoding="async" onload="this.classList.add('loaded')" onerror="this.classList.add('loaded')">`;
         } else {
-            mainHTML += `<img src="./assets/placeholder.png" alt="${animal.name || animal.animal_name || 'Isopod'}" class="card-img" decoding="async" onload="this.classList.add('loaded')" onerror="this.classList.add('loaded')">`;
+            mainHTML += `<img src="./assets/placeholder.png" alt="${cardAlt(animal)}" class="card-img" decoding="async" onload="this.classList.add('loaded')" onerror="this.classList.add('loaded')">`;
         }
 
         // Title
@@ -133,6 +133,14 @@ function buildAnimalCard(animal) {
             </div>
         `;
     return card;
+}
+
+// Descriptive alt text: "<name> <species> for sale in Tyler, TX".
+function cardAlt(animal) {
+    const name = animal.name || animal.animal_name || '';
+    const species = animal.species || 'Isopod';
+    const label = name && !name.toLowerCase().includes(species.toLowerCase()) ? `${name} ${species}` : (name || species);
+    return `${label} for sale in Tyler, TX`.replace(/"/g, '&quot;');
 }
 
 function getRandomArbitrary(min, max) {

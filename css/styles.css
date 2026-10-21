@@ -2280,3 +2280,10 @@ button.card-gem:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
   .game-promo-grid { grid-template-columns: 1fr; gap: 32px; }
   .game-promo-visual { order: -1; }
 }
+
+/* Static listings written by tools/prerender_listings.py; replaced by cards once JS loads. */
+.prerendered-listings { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.prerender-card img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 8px; }
+.prerender-card h3 { font-size: 1rem; margin: .5rem 0 .25rem; }
+.prerender-card p { margin: .15rem 0; font-size: .9rem; }
+.prerender-price { font-weight: 600; }
