@@ -122,3 +122,15 @@ stock, prices or photos, edit that file (`quantity`, `in_stock`, `price`,
 `cover_url`, ...). `supplies.html` picks which listings to show with the ids in
 its `data-listing-ids` attributes. The file is public, so keep only
 customer-facing information in it.
+
+---
+
+## SEO: prerendered listings
+
+`crested-geckos.html` ships the crested gecko listings as static HTML and `Product` JSON-LD so search engines see them without running JavaScript. After editing `data/listings.json`, regenerate with:
+
+```
+python3 tools/prerender_listings.py
+```
+
+Commit the updated `crested-geckos.html`. Sold animals stay on the page but are left out of the structured data.

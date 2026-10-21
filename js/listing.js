@@ -15,10 +15,17 @@ async function loadAnimals() {
         data = (await response.json()).listings;
     } catch (error) {
         console.error('Error loading listings:', error);
+        // Keep any prerendered markup as the fallback instead of an error message.
+        if (document.querySelector('[data-prerendered]')) {
+            if (typeof clearSkeletons === 'function') clearSkeletons();
+            return;
+        }
         if (typeof clearSkeletons === 'function') clearSkeletons('We could not load listings right now. Please refresh, or message us for what is available.');
         return;
     }
     if (typeof clearSkeletons === 'function') clearSkeletons();
+    // Cards replace the static markup that tools/prerender_listings.py writes for crawlers.
+    document.querySelectorAll('[data-prerendered]').forEach(el => el.remove());
     if (pageAnimalType) data = data.filter(a => a.animal_type === pageAnimalType);
 
     data.forEach(animal => {
