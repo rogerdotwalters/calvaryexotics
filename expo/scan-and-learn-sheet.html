@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Calvary Exotics — Scan &amp; Learn</title>
+<style>
+  @font-face { font-family:'Cinzel'; font-weight:600; src:url('../fonts/cinzel-latin-600-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Cinzel'; font-weight:700; src:url('../fonts/cinzel-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Cinzel'; font-weight:900; src:url('../fonts/cinzel-latin-900-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Inter'; font-weight:400; src:url('../fonts/inter-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Inter'; font-weight:500; src:url('../fonts/inter-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Inter'; font-weight:600; src:url('../fonts/inter-latin-600-normal.woff2') format('woff2'); }
+
+  @page { size: 8.5in 11in; margin: 0; }
+  :root {
+    --cream:#fff; --card:#fff; --green:#1F4F2A; --accent:#1F6B34;
+    --gold:#A07C2E; --text:#1B2A1E; --muted:#5E6F61; --border:rgba(31,79,42,.22);
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { background:#fff; }
+  body { font-family:'Inter',system-ui,sans-serif; color:var(--text);
+         -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .sheet { width:8.5in; height:11in; margin:0 auto; background:var(--cream);
+           padding:.62in .68in .58in; display:flex; flex-direction:column; position:relative; overflow:hidden; }
+  .sheet::before { content:""; position:absolute; inset:.3in; border:1.5px solid var(--gold); border-radius:.12in; pointer-events:none; }
+
+  header { text-align:center; padding-bottom:.14in; }
+  header img { width:3.4in; display:block; margin:0 auto .06in; }
+  h1 { font-family:'Cinzel',serif; font-weight:900; font-size:31pt; letter-spacing:.06em; color:var(--green); line-height:1; }
+  .sub { margin-top:.07in; font-size:9.5pt; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); font-weight:600; }
+
+  
+  .lead { text-align:center; font-size:10.5pt; color:var(--muted); margin:-.02in 0 .14in; }
+  .contact { display:grid; grid-template-columns:1.55in 1fr; gap:.22in; align-items:center; background:var(--green);
+             border-radius:.1in; padding:.16in .22in; color:#fff; }
+  .contact .qr { background:#fff; border-radius:.08in; padding:.07in; }
+  .contact .qr img { width:100%; display:block; }
+  .eyebrow { font-size:8pt; letter-spacing:.24em; text-transform:uppercase; font-weight:600; color:#e6c76a; }
+  .contact h2 { font-family:'Cinzel',serif; font-weight:900; font-size:21pt; line-height:1.05; margin:.04in 0 .07in; }
+  .contact p { font-size:10pt; line-height:1.4; color:#eadfc8; }
+  .chips { display:flex; flex-wrap:wrap; gap:.06in; margin-top:.1in; }
+  .chips span { font-size:8.5pt; font-weight:600; background:rgba(255,255,255,.16); padding:.035in .11in; border-radius:99px; }
+
+  .sec { font-family:'Cinzel',serif; font-weight:700; font-size:12pt; letter-spacing:.18em; text-transform:uppercase;
+         color:var(--gold); text-align:center; margin:.2in 0 .1in; display:flex; align-items:center; gap:.14in; }
+  .sec::before, .sec::after { content:""; flex:1; height:1px; background:var(--gold); opacity:.6; }
+  .guides { display:flex; flex-direction:column; gap:.11in; flex:1; }
+  .guide { display:grid; grid-template-columns:1.25in 1fr; gap:.2in; align-items:center; border:1px solid var(--border);
+           border-radius:.1in; padding:.1in .2in .1in .1in; flex:1; }
+  .guide .qr { border:1px solid var(--border); border-radius:.07in; padding:.05in; }
+  .guide .qr img { width:100%; display:block; }
+  .tagline { font-size:7.5pt; letter-spacing:.2em; text-transform:uppercase; font-weight:600; color:var(--accent); }
+  .guide h3 { font-family:'Cinzel',serif; font-weight:700; font-size:16pt; line-height:1.1; color:var(--green); margin:.03in 0 .05in; }
+  .guide p { font-size:9.5pt; line-height:1.4; color:var(--text); }
+  .guide .topics { margin-top:.06in; font-size:8.5pt; color:var(--muted); }
+  .guide .topics b { color:var(--text); font-weight:600; }
+
+  footer { text-align:center; padding-top:.14in; }
+  .tag { font-family:'Cinzel',serif; font-weight:700; font-size:11pt; color:var(--green); letter-spacing:.08em; }
+  .pay { margin-top:.05in; font-size:8.5pt; color:var(--muted); }
+  .pay b { color:var(--text); font-weight:600; }
+
+  @media print { html, body { background:none; } .sheet { margin:0; } }
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header>
+    <img src="../logo_gold.svg" alt="Calvary Exotics">
+    <h1>Scan &amp; Learn</h1>
+    <p class="sub">Point your phone camera at a code</p>
+  </header>
+
+  <section class="contact">
+    <div class="qr"><img src="qr/contact-card.svg" alt="QR code for the Calvary Exotics contact card"></div>
+    <div>
+      <p class="eyebrow">Stay in touch</p>
+      <h2>Our Contact Card</h2>
+      <p>Everything in one place: follow us, message us, and pay. Save us to your phone before you leave the table.</p>
+      <div class="chips"><span>Instagram</span><span>Facebook</span><span>CashApp</span><span>Venmo</span></div>
+    </div>
+  </section>
+
+  <h2 class="sec">Free Care Guides</h2>
+  <section class="guides">
+    <article class="guide">
+      <div class="qr"><img src="qr/crested-gecko-care-guide.svg" alt="QR code for the Crested Gecko Care Guide"></div>
+      <div>
+        <p class="tagline">Care Guide</p>
+        <h3>Crested Gecko Care Guide</h3>
+        <p>A beginner-friendly walkthrough from a Tyler, TX breeder for keeping your crested gecko healthy and thriving.</p>
+        <p class="topics"><b>Covers:</b> enclosure &amp; bioactive setup &middot; temperature &middot; humidity &middot; feeding &middot; handling &middot; common health issues</p>
+      </div>
+    </article>
+    <article class="guide">
+      <div class="qr"><img src="qr/crested-gecko-morph-guide.svg" alt="QR code for the Crested Gecko Morph Guide"></div>
+      <div>
+        <p class="tagline">Morph Guide</p>
+        <h3>Crested Gecko Morph Guide</h3>
+        <p>Learn how to tell crested gecko colors, patterns and genetics apart, so you know what you're looking at when you pick one out.</p>
+        <p class="topics"><b>Covers:</b> base colors &middot; patterns like flame, harlequin &amp; pinstripe &middot; genetic morphs like lilly white &amp; axanthic &middot; choosing a healthy gecko</p>
+      </div>
+    </article>
+    <article class="guide">
+      <div class="qr"><img src="qr/viper-gecko-care-guide.svg" alt="QR code for the Viper Gecko Care Guide"></div>
+      <div>
+        <p class="tagline">Care Guide</p>
+        <h3>Viper Gecko Care Guide</h3>
+        <p>Everything you need to set up and care for a viper gecko, written by the breeder who raises them.</p>
+        <p class="topics"><b>Covers:</b> enclosure &amp; bioactive setup &middot; lighting &middot; diet &middot; temperature &middot; humidity &middot; common health issues</p>
+      </div>
+    </article>
+  </section>
+
+  <footer>
+    <p class="tag">Questions? Just ask us at the table!</p>
+    <p class="pay"><b>@calvary_exotics</b> &nbsp;|&nbsp; <b>calvaryexotics.com</b></p>
+  </footer>
+</main>
+</body>
+</html>
