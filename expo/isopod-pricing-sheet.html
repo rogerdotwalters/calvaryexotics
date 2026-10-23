@@ -14,11 +14,11 @@
 
   @page { size: 8.5in 11in; margin: 0; }
   :root {
-    --cream:#fae6cd; --card:#fff1de; --green:#1F4F2A; --accent:#1F6B34;
+    --cream:#fff; --card:#fff; --green:#1F4F2A; --accent:#1F6B34;
     --gold:#A07C2E; --text:#1B2A1E; --muted:#5E6F61; --border:rgba(31,79,42,.22);
   }
   * { box-sizing:border-box; margin:0; padding:0; }
-  html, body { background:#ddd; }
+  html, body { background:#fff; }
   body { font-family:'Inter',system-ui,sans-serif; color:var(--text);
          -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .sheet { width:8.5in; height:11in; margin:0 auto; background:var(--cream);
@@ -35,11 +35,11 @@
   .head { grid-column:1/-1; display:none; }
   .item { background:var(--card); border:1px solid var(--border); border-radius:.1in;
           display:grid; grid-template-columns:.98in 1fr; gap:.12in; padding:.07in; align-items:center; }
-  .ph { width:.98in; height:.98in; border-radius:.07in; overflow:hidden; background:#e9d3b3; }
+  .ph { width:.98in; height:.98in; border-radius:.07in; overflow:hidden; background:#eee; }
   .ph img { width:100%; height:100%; object-fit:cover; display:block; }
   .ph.none { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.04in;
              color:var(--muted); font-size:6.5pt; letter-spacing:.08em; text-transform:uppercase; text-align:center;
-             border:1px dashed var(--border); background:#f1dfc3; }
+             border:1px dashed var(--border); background:#f5f5f5; }
   .ph.none svg { width:.42in; height:.42in; opacity:.55; }
   .name { font-family:'Cinzel',serif; font-weight:700; font-size:13.5pt; line-height:1.1; color:var(--green); }
   .sci { font-size:7.5pt; font-style:italic; color:var(--muted); margin-top:.02in; min-height:1em; }
@@ -49,7 +49,7 @@
            padding:.035in .1in; border-radius:99px; white-space:nowrap; }
 
   .item.wide { grid-column:1/-1; grid-template-columns:.98in 1fr auto; background:var(--green); border-color:var(--green); }
-  .item.wide .name { color:var(--cream); font-size:15pt; }
+  .item.wide .name { color:#fff; font-size:15pt; }
   .item.wide .sci { color:#d9c9a8; }
   .item.wide .price { color:#e6c76a; }
   .item.wide .count { background:rgba(250,230,205,.16); color:var(--cream); }
