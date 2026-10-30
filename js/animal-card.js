@@ -147,3 +147,34 @@ function getRandomArbitrary(min, max) {
 return Math.random() * (max - min) + min;
 }
 
+
+
+// Keeps every card title on one line: starts from the CSS size and shrinks the
+// text in 0.5px steps until it fits (never below MIN_TITLE_PX). Each title is
+// also watched, so it refits when its card is resized, shown or restyled.
+const MIN_TITLE_PX = 8;
+function fitCardTitle(el) {
+    if (!el.clientWidth) return;           // hidden for now; the observer refits it when shown
+    el.style.fontSize = '';
+    let size = parseFloat(getComputedStyle(el).fontSize);
+    while (el.scrollWidth > el.clientWidth && size > MIN_TITLE_PX) {
+        size -= 0.5;
+        el.style.fontSize = size + 'px';
+    }
+}
+const titleObserver = typeof ResizeObserver !== 'undefined'
+    ? new ResizeObserver(entries => entries.forEach(e => fitCardTitle(e.target)))
+    : null;
+function fitCardTitles(root = document) {
+    root.querySelectorAll('.card-id').forEach(el => {
+        fitCardTitle(el);
+        if (titleObserver) titleObserver.observe(el);
+    });
+}
+// The card font can finish loading after the cards exist, which changes the text
+// width without resizing the title box, so refit when fonts or the page finish loading.
+if (document.fonts) {
+    document.fonts.ready.then(() => fitCardTitles());
+    document.fonts.addEventListener('loadingdone', () => fitCardTitles());
+}
+window.addEventListener('load', () => fitCardTitles());

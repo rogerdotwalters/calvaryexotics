@@ -1006,6 +1006,10 @@ input, select, textarea { font-family: inherit; }
 }
 .card-id {
   margin-left: 5px;
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
   font-family: var(--font-card);
   font-size: 14px;
 }

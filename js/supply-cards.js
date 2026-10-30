@@ -19,4 +19,5 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (animal) container.appendChild(buildAnimalCard(animal));
         });
     });
+    fitCardTitles();
 });

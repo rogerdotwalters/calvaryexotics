@@ -47,6 +47,7 @@ async function loadAnimals() {
         }
     });
     addEmptyCards();
+    fitCardTitles();
 }
 
 // Adds a "None available" card to any listing section that ended up empty.
