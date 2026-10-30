@@ -946,7 +946,7 @@ input, select, textarea { font-family: inherit; }
 
 /* ================================================================
    16. LISTINGS — TRADING CARD COMPONENT  (JS-rendered)
-   Populated at runtime by js/listing.js + data/data.js into the
+   Populated at runtime by js/listing.js + data/animals.js into the
    #crested_listings / #viper_listings / #ball_listings /
    #isopod_listings containers. Class names below are the contract
    the JS relies on — do not rename.
