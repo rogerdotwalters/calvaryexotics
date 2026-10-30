@@ -407,7 +407,7 @@ input, select, textarea { font-family: inherit; }
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image: url("../images/rainforest-dark.jpeg");
+  background-image: url("../images/rainforest-dark.webp");
   background-size: cover;
   background-position-x: center;
   background-blend-mode: overlay;
@@ -605,33 +605,38 @@ input, select, textarea { font-family: inherit; }
   text-align: center;
   margin-bottom: 32px;
 }
-.guides {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background-color: var(--bg-elevated);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
+.careguides-sub {
+  text-align: center;
+  color: var(--text-secondary);
+  margin: -16px auto 36px;
+  max-width: 560px;
 }
-.guide {
+.guide-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 340px));
+  justify-content: center;
+  gap: 24px;
+}
+.guide-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 3px 8px;
-  border-radius: 3px;
-  height: 200px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  transition: transform var(--transition), box-shadow var(--transition);
 }
-.guide-link {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--accent);
-  transition: color var(--transition);
-}
-.guide-link:hover { color: var(--accent-dim); }
+.guide-card:hover, .guide-card:focus-visible { transform: translateY(-3px); box-shadow: var(--shadow-elevated); }
+.guide-card-img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.guide-card-body { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px 20px; flex: 1; }
+.guide-card-label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.guide-card-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: bold; color: var(--text-primary); margin: 0; }
+.guide-card-desc { color: var(--text-secondary); line-height: 1.6; margin: 0 0 8px; }
+.guide-card-cta { margin-top: auto; font-weight: 600; color: var(--accent); }
+.guide-card:hover .guide-card-cta { color: var(--accent-dim); }
+.guide-cards--inline { justify-content: start; padding: 24px 0; border-top: 2px solid var(--border-subtle); border-bottom: 2px solid var(--border-subtle); }
 
 
 /* ================================================================
@@ -1315,7 +1320,7 @@ input, select, textarea { font-family: inherit; }
 .cg-hero-overlay {
   position: absolute;
   inset: 0;
-  background-image: url("images/viper_main.JPG");
+  background-image: url("../images/viper_main.JPG");
   background-size: cover;
   background-position: center 70%;
   background-repeat: no-repeat;
@@ -2280,3 +2285,48 @@ button.card-gem:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
   .game-promo-grid { grid-template-columns: 1fr; gap: 32px; }
   .game-promo-visual { order: -1; }
 }
+
+/* Static listings written by tools/prerender_listings.py; replaced by cards once JS loads. */
+.prerendered-listings { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.prerender-card img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 8px; }
+.prerender-card h3 { font-size: 1rem; margin: .5rem 0 .25rem; }
+.prerender-card p { margin: .15rem 0; font-size: .9rem; }
+.prerender-price { font-weight: 600; }
+
+/* Crested gecko care guide (crested-gecko-care-guide.html) */
+.care-meta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin: 0 0 24px; }
+.care-toc { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px 22px; margin: 0 0 8px; }
+.care-toc strong { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); }
+.care-toc ol { columns: 2; column-gap: 28px; margin: 10px 0 0; padding-left: 20px; }
+.care-toc li { margin-bottom: 4px; }
+.care-toc a { color: var(--accent); }
+.care-body { font-family: var(--font-body); text-transform: none; }
+.care-body h3 { font-family: var(--font-body); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); margin: 24px 0 6px; }
+.care-body > p:not(.page-intro):not(.care-meta), .care-body > ul, .care-body > ol { color: var(--text-secondary); line-height: 1.75; margin: 0 0 16px; }
+.care-body > ul, .care-body > ol { padding-left: 22px; }
+.care-body > ul:not(.care-checklist) { list-style: disc; }
+.care-body > ol { list-style: decimal; }
+.care-toc ol { list-style: decimal; }
+.care-body li { margin-bottom: 6px; }
+.care-body > p a, .care-body li a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.care-body .listing-header { margin-top: 48px; }
+.care-callout { border-left: 4px solid var(--gold); background: rgba(201, 168, 76, 0.12); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 14px 18px; margin: 20px 0; }
+.care-callout p { margin: 0; color: var(--text-primary); line-height: 1.65; }
+.care-callout--warn { border-left-color: #b3392f; background: rgba(179, 57, 47, 0.08); }
+.care-checklist { list-style: none; padding: 0; }
+.care-checklist li { position: relative; padding-left: 30px; color: var(--text-secondary); }
+.care-checklist li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.care-cta { margin: 56px 0 8px; padding: 30px 28px; background: var(--green-deep); border-radius: var(--radius-lg); }
+.care-cta h2 { font-family: var(--font-display); color: var(--cream); margin: 0 0 8px; }
+.care-cta p { color: #D9E6DC; margin: 0 0 16px; }
+.care-cta .btn { margin: 4px 10px 0 0; }
+.care-cta .btn-primary { background: var(--gold); color: var(--text-primary); border-color: var(--gold); }
+.care-cta .btn-ghost { background: transparent; color: var(--cream); border: 1px solid rgba(245, 240, 232, 0.6); }
+@media (max-width: 600px) { .care-toc ol { columns: 1; } }
+
+/* Crested gecko morph guide photo grid */
+.morph-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; margin: 18px 0 8px; }
+.morph-fig { margin: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+.morph-fig img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.morph-fig figcaption { padding: 10px 14px 12px; font-size: 0.9rem; line-height: 1.4; color: var(--text-secondary); }
+.morph-sold { color: var(--text-muted); font-style: italic; }

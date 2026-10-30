@@ -111,3 +111,45 @@ The JS reads the DOM dynamically — no JS changes needed.
 - Chrome, Firefox, Safari, Edge (latest 2 versions)
 - Mobile: iOS Safari 15+, Android Chrome 100+
 - Responsive breakpoints: 480px / 768px / 1024px
+
+---
+
+## Listings data
+
+All animal cards (listings pages and the supplies page) are built from
+`data/listings.json`, which ships with the site. There is no database. To change
+stock, prices or photos, edit that file (`quantity`, `in_stock`, `price`,
+`cover_url`, ...). `supplies.html` picks which listings to show with the ids in
+its `data-listing-ids` attributes. The file is public, so keep only
+customer-facing information in it.
+
+---
+
+## SEO: prerendered listings
+
+`crested-geckos.html` ships the crested gecko listings as static HTML and `Product` JSON-LD so search engines see them without running JavaScript. After editing `data/listings.json`, regenerate with:
+
+```
+python3 tools/prerender_listings.py
+```
+
+Commit the updated `crested-geckos.html`. Sold animals stay on the page but are left out of the structured data.
+
+## Images
+
+Listing cards use small WebP copies in `images/cards/`. After adding a listing with a full-size `cover_url`, run:
+
+```
+python3 tools/make_card_images.py      # writes images/cards/*.webp and updates data/listings.json
+python3 tools/prerender_listings.py    # refreshes crested-geckos.html
+```
+
+## CSS and fonts
+
+Pages link `css/styles.min.css`, a minified bundle of `css/fonts.css` (self-hosted `@font-face` rules; the woff2 files live in `fonts/`) and `css/styles.css`. **Edit the source files, then rebuild and commit the bundle:**
+
+```
+python3 tools/build_css.py
+```
+
+If you add a new font weight, add its woff2 to `fonts/`, a rule to `css/fonts.css`, and (if it appears above the fold) a `<link rel="preload" ... crossorigin>` in the page `<head>`. Preloading the above-the-fold weights is what keeps the page from shifting when fonts load.

@@ -60,17 +60,22 @@
   }
   </script>
 
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="icon" href="favicon.ico" sizes="32x32" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="preload" href="fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/cinzel-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/jetbrains-mono-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/cinzel-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/styles.min.css" />
 </head>
 <body>
 
@@ -167,7 +172,7 @@
               <span class="species-category">Gecko</span>
               <h3 class="species-name"><a href="crested-geckos.html">Crested Gecko</a></h3>
             <p class="species-sci">Correlophus ciliatus</p>
-              <p class="species-desc">One of the most popular and beginner-friendly geckos. Our crested geckos are captive bred, well handled, and come in a range of stunning morphs.</p>
+              <p class="species-desc">One of the most popular and beginner-friendly geckos. Our crested geckos are captive bred, well handled, and come in a range of stunning <a href="crested-gecko-morph-guide.html" class="text-accent">morphs</a>.</p>
               <div class="species-tags"><span class="tag">Beginner Friendly</span><span class="tag">Captive Bred</span></div>
               <div class="species-actions">
                 <a href="crested-geckos.html" class="btn btn-primary species-btn" aria-label="See Crested Geckos">See Crested Geckos</a>
@@ -286,12 +291,26 @@
     <section class="careguides" id="careguides">
       <div class="container">
         <h2 class="careguides-title">Care Guides</h2>
-        <div class="guides">
-          <div class="guide">
-          <span class="label-line"></span>
-          <span class="label-line"></span>
-          <a href="viper-gecko-care-guide.html" class="guide-link">Viper Gecko Care Guide</a>
-          </div>
+        <p class="careguides-sub">Practical setup and care advice from the breeders who raise them.</p>
+        <div class="guide-cards">
+          <a class="guide-card" href="crested-gecko-care-guide.html">
+            <img class="guide-card-img" src="images/thumbs/crestie.jpg" alt="Captive-bred crested gecko resting on a cork bark branch with ivy" width="400" height="300" loading="lazy" decoding="async" />
+            <div class="guide-card-body">
+              <span class="guide-card-label">Care Guide</span>
+              <h3 class="guide-card-title">Crested Gecko Care Guide</h3>
+              <p class="guide-card-desc">Enclosure, temperature, humidity, feeding, handling, and what to watch for.</p>
+              <span class="guide-card-cta">Read the guide &rarr;</span>
+            </div>
+          </a>
+          <a class="guide-card" href="viper-gecko-care-guide.html">
+            <img class="guide-card-img" src="images/thumbs/hand_viper_geckos.jpg" alt="Two baby viper geckos held in an open hand" width="400" height="300" loading="lazy" decoding="async" />
+            <div class="guide-card-body">
+              <span class="guide-card-label">Care Guide</span>
+              <h3 class="guide-card-title">Viper Gecko Care Guide</h3>
+              <p class="guide-card-desc">Enclosure and bioactive setup, lighting, diet, temperature, humidity, and common health issues.</p>
+              <span class="guide-card-cta">Read the guide &rarr;</span>
+            </div>
+          </a>
         </div>
       </div>
     </section>
@@ -423,7 +442,7 @@
           </div>
           <div class="about-visual">
             <div class="about-img-placeholder">
-              <img src="images/Cover.png" alt="Planted bioactive terrarium built by Calvary Exotics" />
+              <img src="images/Cover.webp" alt="Planted bioactive terrarium built by Calvary Exotics" loading="lazy" decoding="async" />
               <!-- Replace with: <img src="images/about.jpg" alt="Calvary Exotics breeder with a crested gecko" /> -->
             </div>
           </div>

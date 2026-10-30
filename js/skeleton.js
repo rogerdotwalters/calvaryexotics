@@ -32,7 +32,7 @@ function buildSkeletonCard() {
 function showSkeletons() {
     Object.entries(SKELETON_COUNTS).forEach(([id, count]) => {
         const container = document.getElementById(id);
-        if (!container) return;
+        if (!container || container.querySelector('[data-prerendered]')) return;
         container.setAttribute('aria-busy', 'true');
         for (let i = 0; i < count; i++) container.appendChild(buildSkeletonCard());
     });
