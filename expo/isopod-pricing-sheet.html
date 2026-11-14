@@ -48,12 +48,11 @@
   .count { font-size:9.5pt; font-weight:600; color:var(--text); background:rgba(31,79,42,.1);
            padding:.035in .1in; border-radius:99px; white-space:nowrap; }
 
-  .item.wide { grid-column:1/-1; grid-template-columns:1.15in 1fr auto; background:var(--green); border-color:var(--green); }
-  .item.wide .name { color:#fff; font-size:15pt; }
-  .item.wide .sci { color:#d9c9a8; }
-  .item.wide .price { color:#e6c76a; }
-  .item.wide .count { background:rgba(250,230,205,.16); color:var(--cream); }
-  .item.wide .meta { margin:0; gap:.2in; align-items:center; }
+  .item.dark { grid-template-columns:1.15in 1fr; background:var(--green); border-color:var(--green); }
+  .item.dark .name { color:#fff; }
+  .item.dark .sci { color:#d9c9a8; }
+  .item.dark .price { color:#e6c76a; }
+  .item.dark .count { background:rgba(250,230,205,.16); color:var(--cream); }
 
   footer { text-align:center; padding-top:.14in; }
   .tag { font-family:'Cinzel',serif; font-weight:700; font-size:11pt; color:var(--green); letter-spacing:.08em; }
@@ -112,10 +111,15 @@
       <div><div class="name">Red Koi</div><div class="sci">Porcellionides pruinosus</div>
       <div class="meta"><span class="price">$10</span><span class="count">15 ct</span></div></div>
     </article>
-    <article class="item wide">
+    <article class="item">
+      <div class="ph"><img src="../images/cards/isopods-rubberducky_1.webp" alt="Rubber Ducky"></div>
+      <div><div class="name">Rubber Ducky</div><div class="sci">Cubaris sp.</div>
+      <div class="meta"><span class="price">$45</span><span class="count">15 ct</span></div></div>
+    </article>
+    <article class="item dark">
       <div class="ph"><img src="../images/cards/springtails.webp" alt="Tropical Springtails"></div>
-      <div><div class="name">Tropical Springtails</div><div class="sci">Live culture &middot; the perfect partner for any isopod colony</div></div>
-      <div class="meta"><span class="price">$15</span><span class="count">Culture</span></div>
+      <div><div class="name">Tropical Springtails</div><div class="sci">Live culture</div>
+      <div class="meta"><span class="price">$15</span><span class="count">Culture</span></div></div>
     </article>
   </section>
 
