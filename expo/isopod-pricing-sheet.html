@@ -34,21 +34,21 @@
           grid-auto-rows:1fr; }
   .head { grid-column:1/-1; display:none; }
   .item { background:var(--card); border:1px solid var(--border); border-radius:.1in; min-height:0;
-          display:grid; grid-template-columns:.9in 1fr; gap:.11in; padding:.06in; align-items:center; }
-  .ph { width:.9in; height:.9in; border-radius:.07in; overflow:hidden; background:#eee; }
+          display:grid; grid-template-columns:1.15in 1fr; gap:.16in; padding:.08in; align-items:center; }
+  .ph { width:1.15in; height:1.15in; border-radius:.07in; overflow:hidden; background:#eee; }
   .ph img { width:100%; height:100%; object-fit:cover; display:block; }
   .ph.none { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.04in;
              color:var(--muted); font-size:6.5pt; letter-spacing:.08em; text-transform:uppercase; text-align:center;
              border:1px dashed var(--border); background:#f5f5f5; }
   .ph.none svg { width:.42in; height:.42in; opacity:.55; }
-  .name { font-family:'Cinzel',serif; font-weight:700; font-size:13.5pt; line-height:1.1; color:var(--green); }
+  .name { font-family:'Cinzel',serif; font-weight:700; font-size:14.5pt; line-height:1.1; color:var(--green); }
   .sci { font-size:7.5pt; font-style:italic; color:var(--muted); margin-top:.02in; min-height:1em; }
   .meta { display:flex; align-items:baseline; justify-content:space-between; margin-top:.07in; }
   .price { font-family:'Cinzel',serif; font-weight:900; font-size:24pt; color:var(--accent); line-height:1; }
   .count { font-size:9.5pt; font-weight:600; color:var(--text); background:rgba(31,79,42,.1);
            padding:.035in .1in; border-radius:99px; white-space:nowrap; }
 
-  .item.wide { grid-column:1/-1; grid-template-columns:.9in 1fr auto; background:var(--green); border-color:var(--green); }
+  .item.wide { grid-column:1/-1; grid-template-columns:1.15in 1fr auto; background:var(--green); border-color:var(--green); }
   .item.wide .name { color:#fff; font-size:15pt; }
   .item.wide .sci { color:#d9c9a8; }
   .item.wide .price { color:#e6c76a; }
@@ -79,23 +79,18 @@
     </article>
     <article class="item">
       <div class="ph"><img src="../images/cards/isopods-giantcanyon_1.webp" alt="Giant Canyon"></div>
-      <div><div class="name">Giant Canyon</div><div class="sci"></div>
-      <div class="meta"><span class="price">$25</span><span class="count">10 ct</span></div></div>
+      <div><div class="name">Giant Canyon</div><div class="sci">Porcellio dilatatus</div>
+      <div class="meta"><span class="price">$20</span><span class="count">10 ct</span></div></div>
     </article>
     <article class="item">
       <div class="ph"><img src="../images/cards/isopods-glacier_1.webp" alt="Glacier"></div>
-      <div><div class="name">Glacier</div><div class="sci"></div>
+      <div><div class="name">Glacier</div><div class="sci">Cubaris sp.</div>
       <div class="meta"><span class="price">$25</span><span class="count">10 ct</span></div></div>
     </article>
     <article class="item">
       <div class="ph"><img src="../images/cards/isopods-crystalpineapple_1.webp" alt="Crystal Pineapple"></div>
-      <div><div class="name">Crystal Pineapple</div><div class="sci"></div>
-      <div class="meta"><span class="price">$45</span><span class="count">10 ct</span></div></div>
-    </article>
-    <article class="item">
-      <div class="ph"><img src="../images/cards/isopods-powdermix_1.webp" alt="Powder Mix"></div>
-      <div><div class="name">Powder Mix</div><div class="sci"></div>
-      <div class="meta"><span class="price">$10</span><span class="count">10 ct</span></div></div>
+      <div><div class="name">Crystal Pineapple</div><div class="sci">Cubaris sp.</div>
+      <div class="meta"><span class="price">$40</span><span class="count">10 ct</span></div></div>
     </article>
     <article class="item">
       <div class="ph"><img src="../images/cards/isopods-white_1.webp" alt="White"></div>
@@ -103,34 +98,19 @@
       <div class="meta"><span class="price">$15</span><span class="count">10 ct</span></div></div>
     </article>
     <article class="item">
-      <div class="ph"><img src="../images/cards/isopods-dairycow_1.webp" alt="Dairy Cow"></div>
-      <div><div class="name">Dairy Cow</div><div class="sci">Porcellio laevis</div>
-      <div class="meta"><span class="price">$20</span><span class="count">10 ct</span></div></div>
-    </article>
-    <article class="item">
-      <div class="ph"><img src="../images/cards/isopods-whiteshark_1.webp" alt="White Shark"></div>
-      <div><div class="name">White Shark</div><div class="sci"></div>
-      <div class="meta"><span class="price">$25</span><span class="count">10 ct</span></div></div>
-    </article>
-    <article class="item">
       <div class="ph"><img src="../images/cards/isopods-pandaking_1.webp" alt="Panda King"></div>
-      <div><div class="name">Panda King</div><div class="sci"></div>
+      <div><div class="name">Panda King</div><div class="sci">Cubaris sp.</div>
       <div class="meta"><span class="price">$25</span><span class="count">10 ct</span></div></div>
     </article>
     <article class="item">
       <div class="ph"><img src="../images/cards/isopods-lemonades_1.webp" alt="Lemonade"></div>
       <div><div class="name">Lemonade</div><div class="sci">Porcellio scaber</div>
-      <div class="meta"><span class="price">$20</span><span class="count">10 ct</span></div></div>
-    </article>
-    <article class="item">
-      <div class="ph"><img src="../images/cards/isopods-orangekoi_1.webp" alt="Orange Koi"></div>
-      <div><div class="name">Orange Koi</div><div class="sci">Porcellio scaber</div>
-      <div class="meta"><span class="price">$20</span><span class="count">10 ct</span></div></div>
+      <div class="meta"><span class="price">$15</span><span class="count">20 ct</span></div></div>
     </article>
     <article class="item">
       <div class="ph"><img src="../images/cards/isopods-redkoi_1.webp" alt="Red Koi"></div>
-      <div><div class="name">Red Koi</div><div class="sci">Porcellio pruinosus</div>
-      <div class="meta"><span class="price">$10</span><span class="count">10 ct</span></div></div>
+      <div><div class="name">Red Koi</div><div class="sci">Porcellionides pruinosus</div>
+      <div class="meta"><span class="price">$10</span><span class="count">15 ct</span></div></div>
     </article>
     <article class="item wide">
       <div class="ph"><img src="../images/cards/springtails.webp" alt="Tropical Springtails"></div>
