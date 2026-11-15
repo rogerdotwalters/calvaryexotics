@@ -153,3 +153,7 @@ python3 tools/build_css.py
 ```
 
 If you add a new font weight, add its woff2 to `fonts/`, a rule to `css/fonts.css`, and (if it appears above the fold) a `<link rel="preload" ... crossorigin>` in the page `<head>`. Preloading the above-the-fold weights is what keeps the page from shifting when fonts load.
+
+## Card maker
+
+`card-maker.html` (linked from the nav and footer) lets visitors build their own trading card: they pick a photo from their device, drag and zoom it into place, fill in the card text, then print it or save it as a PNG. Photos never leave the browser. The logic is in `js/card-maker.js`; printing reuses `js/print-card.js`, and the page styles are in the "Card maker" section of `css/styles.css`.

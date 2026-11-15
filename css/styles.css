@@ -2065,6 +2065,12 @@ input, select, textarea { font-family: inherit; }
   .nav-link { padding: 8px 8px; font-size: 0.75rem; }
   .nav-cta { margin-left: 6px; padding: 10px 14px; font-size: 0.75rem; }
 }
+@media (min-width: 769px) and (max-width: 900px) {
+  .nav-logo { flex-shrink: 0; }
+  .nav-logo img { width: 150px; height: auto; }
+  .nav-link { padding: 8px 5px; font-size: 0.7rem; }
+  .nav-cta { margin-left: 2px; padding: 9px 10px; font-size: 0.7rem; }
+}
 
 
 /* ================================================================
@@ -2334,3 +2340,87 @@ button.card-gem:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 .morph-fig img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
 .morph-fig figcaption { padding: 10px 14px 12px; font-size: 0.9rem; line-height: 1.4; color: var(--text-secondary); }
 .morph-sold { color: var(--text-muted); font-style: italic; }
+
+/* ================================================================
+   Card maker (card-maker.html)
+   The preview uses the same 250 x 350 size and 150px photo as the
+   printable card (js/print-card.js), so what you see is what prints.
+   ================================================================ */
+.cm-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+  margin-top: 32px;
+}
+.cm-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  position: sticky;
+  top: 90px;
+}
+.cm-stage {
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  border: 2px dashed transparent;
+  transition: border-color var(--transition), background var(--transition);
+}
+.cm-stage.drop-ready { border-color: var(--accent); background: var(--accent-glow); }
+.cm-stage .card-listing { height: 350px; margin: 0 auto; }
+.cm-stage .card-img { height: 150px; touch-action: none; user-select: none; -webkit-user-drag: none; }
+.cm-stage.has-photo .card-img { cursor: grab; }
+.cm-stage .card-img.dragging { cursor: grabbing; }
+.cm-stage .card-img:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+.cm-stage .card-gem { cursor: pointer; }
+.cm-hint { font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.5; max-width: 300px; }
+.cm-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+.cm-form { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.cm-fieldset {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.35);
+  min-width: 0;
+}
+.cm-fieldset legend {
+  font-family: var(--font-display);
+  font-weight: bold;
+  color: var(--text-primary);
+  padding: 0 8px;
+}
+.cm-photo-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.cm-file-btn { cursor: pointer; }
+.cm-file-btn:has(+ input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cm-photo-controls { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+.cm-photo-controls[hidden] { display: none; }
+.cm-photo-controls label, .cm-grid label { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); }
+.cm-zoom-row { display: flex; align-items: center; gap: 10px; }
+.cm-zoom-row input[type="range"] { flex: 1; min-width: 0; accent-color: var(--accent); }
+.cm-zoom-btn {
+  width: 36px; height: 36px; flex: none;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--accent);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.cm-zoom-btn:hover { background: var(--accent-glow); }
+.cm-status { min-height: 1.4em; margin-top: 12px; font-size: 0.85rem; color: var(--text-muted); }
+.cm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cm-grid .cm-wide { grid-column: 1 / -1; }
+.cm-grid textarea.form-input { resize: vertical; min-height: 80px; }
+.cm-fieldset .cm-actions { margin-top: 20px; justify-content: flex-start; }
+
+@media (max-width: 800px) {
+  .cm-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .cm-preview { position: static; }
+}
+@media (max-width: 480px) {
+  .cm-grid { grid-template-columns: minmax(0, 1fr); }
+  .cm-stage { padding: 8px; }
+}
